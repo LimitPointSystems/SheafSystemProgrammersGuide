@@ -5,7 +5,7 @@
 // Copyright (c) 2008 Limit Point Systems, Inc. 
 //
 
-/// @example hello-sheaf.cc
+/// @example Example1: Hello, sheaf!
 /// SheafSystem Programmer's Guide Example 1. Creates a sheaf namespace. 
 
 #include "assert_contract.h"
@@ -13,7 +13,7 @@
 #include "sheaves_namespace.h"
 #include "std_iostream.h"
 
-using namespace nnn;
+using namespace sheaf;
 
 int main( int argc, char* argv[])
 {
