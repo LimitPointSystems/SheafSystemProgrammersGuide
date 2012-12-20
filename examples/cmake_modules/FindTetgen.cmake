@@ -1,4 +1,6 @@
 #
+# $RCSfile: FindTetgen.cmake,v $ $Revision: 1.6 $ $Date: 2012/07/05 19:18:14 $
+#
 #
 # Copyright (c) 2012 Limit Point Systems, Inc.
 #
@@ -21,7 +23,7 @@ set(TETGEN_FOUND 0)
 #
 # Find the tetgen lib
 #
-if(WIN64)
+if(WIN64MSVC OR WIN64INTEL)
 	find_library(TETGEN_LIB NAMES tetgen HINTS $ENV{USERPROFILE}/LPS/prerequisites/tetgen/lib)
 	find_path(TETGEN_LIB_DIR tetgen.lib
           HINTS $ENV{USERPROFILE}/LPS/prerequisites/tetgen/lib)

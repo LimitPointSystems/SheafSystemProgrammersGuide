@@ -4,8 +4,17 @@
 # Copyright (c) 2012 Limit Point Systems, Inc. 
 #
 
-# Set the preferred build directory name.
+# NOTE: The assumption is that this script is executed from the top of the SheafSystemTest source tree.
+
+# User can provide command line args to cmake
+user_args=$@
+
+# Set preferred build directory.
+# You may change this to any location that suits.
 builddir=build
+
+# The directory cmboot is run from; ostensibly the top of the source tree.
+sourcedir=$PWD
 
 # Create the build directory
 if ! test -d $builddir; then
@@ -22,11 +31,11 @@ do
     	echo  "   CMake variable/value pair. See $builddir/CMakeCache.txt for a list of "
     	echo  "   variables that cmake understands."
     	echo  ""
-        echo  "   Example: $0 -DCMAKE_BUILD_TYPE=Debug-conracts"
+        echo  "   Example: $0 -DCMAKE_BUILD_TYPE=Debug-contracts"
     	echo  ""
-        echo  "   Example: $0 -DCMAKE_BUILD_TYPE=Debug-conracts -DLPS_DOC_STATE=User"
+        echo  "   Example: $0 -DCMAKE_BUILD_TYPE=Debug-contracts -DLPS_DOC_STATE=User"
     	echo  ""
-        echo  "   Example: $0 -DCMAKE_BUILD_TYPE=Debug-conracts -DLPS_DOC_STATE=User -DCMAKE_INSTALL_PREFIX=/tmp/test"
+        echo  "   Example: $0 -DCMAKE_BUILD_TYPE=Debug-contracts -DLPS_DOC_STATE=User -DCMAKE_INSTALL_PREFIX=/tmp/test"
     	echo  "";;
      *) break;;
   esac
@@ -38,18 +47,18 @@ cd $builddir;
 # give a little space
 echo ""
 
-# Get the sheaf source dir
-echo "Enter fully qualified path to top level of Sheaf System source tree: "
-echo "   Example: /home/moriartio/cvs-stuff/components-my-branch: "
+# Get the SheafSystem home dir from the user.
+echo "Enter fully qualified path to top level of SheafSystem source tree: "
+echo "   Example: /home/user/projects/SheafSystem-my-branch: "
 echo ""
-echo -n "Sheaf System path: "
+echo -n "SheafSystem path: "
 read response
 if [ ! -z $response ]; then
 	echo ""
-	echo "Roger that, configuring ..."
+	echo "Configuring against SheafSystem at $response"
 	echo ""	
 	# Redirect cmake errors to file
-	if cmake $user_args -DSHEAF_HOME=$response .. 2> cmake.error; then
+	if cmake $user_args -DSHEAFSYSTEM_HOME=$response $sourcedir 2> cmake.error; then
 		echo ""
 		echo "CMake configure complete. Now cd to $builddir and source the set_env_vars script"
 		echo "appropriate for your your shell before executing make."

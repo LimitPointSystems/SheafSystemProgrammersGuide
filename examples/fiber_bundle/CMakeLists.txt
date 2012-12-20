@@ -10,13 +10,12 @@
 # Programmer Filename Entry Section
 #------------------------------------------------
 
-set(CLUSTER sheaf)
+set(CLUSTER fiber_bundle)
 
 #
 # Library sources.
 #
 set(SRCS
-
 )
 
 collect_sources()
@@ -33,7 +32,6 @@ collect_includes()
 # Source for unit test executables.
 #
 set(UNIT_TEST_SRCS
-    example1.cc
 )
 
 collect_unit_test_sources()

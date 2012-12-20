@@ -1,24 +1,22 @@
 #
-# $RCSfile: LPSCommon.cmake,v $ $Revision: 1.18.6.1 $ $Date: 2012/04/25 18:11:32 $
+# $RCSfile: LPSCommon.cmake,v $ $Revision: 1.23 $ $Date: 2012/07/18 04:18:23 $
 #
-# Copyright (c) 2011 Limit Point Systems, Inc.
+# Copyright (c) 2012 Limit Point Systems, Inc.
 #
 # Contains all that is LPS specific; all flags, all macros, etc.
 #
+
 
 #------------------------------------------------------------------------------ 
 # Variable Definition Section
 #------------------------------------------------------------------------------
 
 #
-# Set the location of the python compile script
-#
-set(PYTHON_COMPILE_BIN ${CMAKE_HOME_DIRECTORY}/bindings/python/bin/compile.py CACHE STRING "Python byte-compile script")
-#
 # Turn on project folders for Visual Studio.
 #
-if(WIN64)
+if(WIN64MSVC OR WIN64INTEL)
     set_property(GLOBAL PROPERTY USE_FOLDERS On)
+	set(FIELDS_IMPORT_LIB fieldsdll CACHE STRING "SheafSystem import library")
 endif()
 
 #
@@ -26,15 +24,29 @@ endif()
 #
 string(TOUPPER ${PROJECT_NAME} COMPONENT)
 
-#
-# Tell the compiler where to find the std_headers.
-#
-include_directories(${CMAKE_BINARY_DIR}/include)
- 
+
 #
 # Tell the linker where to look for COMPONENT libraries.
 #
-link_directories(${CMAKE_BINARY_DIR}/lib)
+link_directories(${SHEAVES_LIB_OUTPUT_DIR})
+
+#
+# Set the location and name of the Intel coverage utilities
+# Linux only for now.
+#
+if(LINUX64INTEL)
+    set(UNCOVERED_COLOR DE0829 CACHE STRING "Color for uncovered code.")
+    set(COVERED_COLOR 319A44 CACHE STRING "Color for covered code.")
+    set(PARTIAL_COLOR E1EA43 CACHE STRING "Color for partially covered code.")
+    
+    # Lop the compiler name off the end of the CXX string
+    string(REPLACE "/icpc" "" INTELPATH ${CMAKE_CXX_COMPILER})
+    # The codecov executable
+    set(CODECOV "${INTELPATH}/codecov" CACHE STRING "Intel Code coverage utility.")
+    # The profmerge executable
+    set(PROFMERGE "${INTELPATH}/profmerge" CACHE STRING "Intel dynamic profile merge utility." )
+    set(CODECOV_ARGS -spi ${SHEAFSYSTEM_HOME}/build/coverage/pgopti.spi -bcolor ${UNCOVERED_COLOR} -ccolor ${COVERED_COLOR} -pcolor ${PARTIAL_COLOR} -demang -prj CACHE STRING "Arguments for Intel codecov utility.")
+endif()
 
 #------------------------------------------------------------------------------
 # Function Definition Section.
@@ -138,37 +150,12 @@ function(check_cxx_includes)
 
 endfunction(check_cxx_includes)
 
-#
-# Check for C++ headers and configure the STD wrappers 
-# for this development environment.
-#
-function(configure_std_headers)
-
-    status_message("Configuring STD include files")
-
-    # Glob all the .h.cmake.in files in std
-    file(GLOB STD_INC_INS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/std ${CMAKE_CURRENT_SOURCE_DIR}/std/*.h.cmake.in)
-    # Configure the .h file from each .h.cmake.in
-    foreach(input_file ${STD_INC_INS})
-        # Strip .cmake.in from globbed filenames for output filenames
-        string(REGEX REPLACE ".cmake.in$" ""  std_h ${input_file})
-        message(STATUS "Creating ${CMAKE_BINARY_DIR}/include/${std_h} from std/${input_file}")
-        list(APPEND std_incs ${CMAKE_BINARY_DIR}/include/${std_h})
-        set(STD_HEADERS ${std_incs} CACHE STRING "STD Includes" FORCE)          
-        # Configure the .h files
-        configure_file(std/${input_file} ${CMAKE_BINARY_DIR}/include/${std_h})
-    endforeach()
-
-endfunction(configure_std_headers)
 
 #
 # Set the compiler flags per build configuration
 #
 function(set_compiler_flags)
-    
-    if(WIN64)
-       # Clear all cmake's intrinsic vars. If we don't, then their values will be appended to our
-       # compile and link lines.
+   
        set(CMAKE_CXX_FLAGS "" CACHE STRING "CXX Flags" FORCE)
        set(CMAKE_SHARED_LINKER_FLAGS "" CACHE STRING "Shared Linker Flags" FORCE)
        set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "" CACHE STRING "Debug Shared Linker Flags" FORCE)
@@ -179,33 +166,58 @@ function(set_compiler_flags)
        set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "" CACHE STRING "Exe Linker Flags" FORCE)
        set(CMAKE_MODULE_LINKER_FLAGS "" CACHE STRING "Module Linker Flags" FORCE)
        set(CMAKE_MODULE_LINKER_FLAGS_DEBUG "" CACHE STRING "Module Linker Flags" FORCE)
-       set(CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO "" CACHE STRING "Module Linker Flags" FORCE)
-       
+       set(CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO "" CACHE STRING "Module Linker Flags" FORCE) 
+
+    if(WIN64MSVC)
+       # Clear all cmake's intrinsic vars. If we don't, then their values will be appended to our
+       # compile and link lines.
        set(LPS_CXX_FLAGS "/D_USRDLL /MP /GR /nologo /DWIN32 /D_WINDOWS /W1 /EHsc ${OPTIMIZATION} /D_HDF5USEDLL_" CACHE STRING "C++ Compiler Flags" FORCE)
        set(LPS_SHARED_LINKER_FLAGS "/INCREMENTAL:NO /NOLOGO /DLL /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /DYNAMICBASE /NXCOMPAT /MACHINE:X64"  CACHE STRING "Linker Flags" FORCE)
 
-    elseif(LINUX64)
-       set(LPS_CXX_FLAGS "-ansi -m64 -Wno-deprecated ${OPTIMIZATION}")
+    elseif(WIN64INTEL)
+       set(LPS_CXX_FLAGS "/D_USRDLL /MP /GR /nologo /DWIN32 /D_WINDOWS /W1 /wd2651 /EHsc ${OPTIMIZATION} /Qprof-gen:srcpos /D_HDF5USEDLL_" CACHE STRING "C++ Compiler Flags" FORCE)
+       set(LPS_SHARED_LINKER_FLAGS "/INCREMENTAL:NO /NOLOGO /DLL /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /DYNAMICBASE /NXCOMPAT /MACHINE:X64"  CACHE STRING "Linker Flags" FORCE) 
+       
+    elseif(LINUX64INTEL)
+
+        if(ENABLE_COVERAGE)
+            if(INTELWARN)
+               set(LPS_CXX_FLAGS "-ansi -m64 -w1 -wd186,1125 -Wno-deprecated ${OPTIMIZATION} -prof-gen=srcpos")
+            else()
+               set(LPS_CXX_FLAGS "-ansi -m64 -w0 -Wno-deprecated ${OPTIMIZATION} -prof-gen=srcpos")
+            endif()
+        else()
+            if(INTELWARN)
+               set(LPS_CXX_FLAGS "-ansi -m64 -w1 -wd186,1125 -Wno-deprecated ${OPTIMIZATION}")
+            else()
+               set(LPS_CXX_FLAGS "-ansi -m64 -w0 -Wno-deprecated ${OPTIMIZATION}")
+            endif()
+        endif() # ENABLE_COVERAGE          
+
+     elseif(LINUX64GNU)
+         set(LPS_CXX_FLAGS "-ansi -m64 -Wno-deprecated ${OPTIMIZATION}")
+             
+    #$$TODO: A 32 bit option is not needed. Do away with this case.
     else() # Assume 32-bit i686 linux for the present
        set(LPS_CXX_FLAGS "-ansi -m32 -Wno-deprecated ${OPTIMIZATION}")
     endif()
-    
+
     #                 
     # DEBUG_CONTRACTS section
     #
         
     # Configuration specific flags 
-    if(WIN64)
+    if(WIN64MSVC OR WIN64INTEL)
         if(${USE_VTK})     
-            set(CMAKE_CXX_FLAGS_DEBUG-CONTRACTS "${LPS_CXX_FLAGS} /Zi /D\"_SECURE_SCL 1\" /D\"_HAS_ITERATOR_DEBUG 1\" /MDd /DUSE_VTK" CACHE
+            set(CMAKE_CXX_FLAGS_DEBUG-CONTRACTS "${LPS_CXX_FLAGS} /Zi /D\"_SECURE_SCL=1\" /D\"_HAS_ITERATOR_DEBUG=1\" /MDd /DUSE_VTK" CACHE
                 STRING "Flags used by the C++ compiler for Debug-contracts builds" FORCE)
         else()
-             set(CMAKE_CXX_FLAGS_DEBUG-CONTRACTS "${LPS_CXX_FLAGS} /Zi /D\"_SECURE_SCL 1\" /D\"_HAS_ITERATOR_DEBUG 1\" /MDd" CACHE
+             set(CMAKE_CXX_FLAGS_DEBUG-CONTRACTS "${LPS_CXX_FLAGS} /Zi /D\"_SECURE_SCL=1\" /D\"_HAS_ITERATOR_DEBUG=1\" /MDd" CACHE
                 STRING "Flags used by the C++ compiler for Debug-contracts builds" FORCE)       
         endif()
     else()
         if(${USE_VTK})
-            set(CMAKE_CXX_FLAGS_DEBUG-CONTRACTS "${LPS_CXX_FLAGS} -g -DUSE_VTK" CACHE
+            set(CMAKE_CXX_FLAGS_DEBUG-CONTRACTS "${LPS_CXX_FLAGS} -g -DUSE_VTK " CACHE
                 STRING "Flags used by the C++ compiler for Debug-contracts builds" FORCE)
         else()         
             set(CMAKE_CXX_FLAGS_DEBUG-CONTRACTS "${LPS_CXX_FLAGS} -g" CACHE
@@ -214,7 +226,7 @@ function(set_compiler_flags)
     endif()
     
     # True for all currently supported platforms    
-    set(CMAKE_EXE_LINKER_FLAGS_DEBUG-CONTRACTS ${CMAKE_EXE_LINKER_FLAGS} CACHE
+    set(CMAKE_EXE_LINKER_FLAGS_DEBUG-CONTRACTS ${CMAKE_EXE_LINKER_FLAGS}  CACHE
         STRING "Flags used by the linker for executables for Debug-contracts builds" FORCE)
     set(CMAKE_SHARED_LINKER_FLAGS_DEBUG-CONTRACTS ${LPS_SHARED_LINKER_FLAGS} CACHE
         STRING "Flags used by the linker for shared libraries for Debug-contracts builds" FORCE)
@@ -226,12 +238,12 @@ function(set_compiler_flags)
     #      
 
     # Configuration specific flags 
-    if(WIN64)
+    if(WIN64MSVC OR WIN64INTEL)
         if(${USE_VTK}) 
-            set(CMAKE_CXX_FLAGS_DEBUG-NO-CONTRACTS "${LPS_CXX_FLAGS} /Zi /D\"_SECURE_SCL 1\" /D\"_HAS_ITERATOR_DEBUG 1\" /MDd /DUSE_VTK /DNDEBUG" CACHE
+            set(CMAKE_CXX_FLAGS_DEBUG-NO-CONTRACTS "${LPS_CXX_FLAGS} /Zi /D\"_SECURE_SCL=1\" /D\"_HAS_ITERATOR_DEBUG=1\" /MDd /DUSE_VTK /DNDEBUG" CACHE
                 STRING "Flags used by the C++ compiler for Debug-no-contracts builds" FORCE)
          else()   
-            set(CMAKE_CXX_FLAGS_DEBUG-NO-CONTRACTS "${LPS_CXX_FLAGS} /Zi /D\"_SECURE_SCL 1\" /D\"_HAS_ITERATOR_DEBUG 1\" /MDd /DNDEBUG" CACHE
+            set(CMAKE_CXX_FLAGS_DEBUG-NO-CONTRACTS "${LPS_CXX_FLAGS} /Zi /D\"_SECURE_SCL=1\" /D\"_HAS_ITERATOR_DEBUG=1\" /MDd /DNDEBUG" CACHE
                 STRING "Flags used by the C++ compiler for Debug-no-contracts builds" FORCE)
          endif()
     else()
@@ -256,12 +268,12 @@ function(set_compiler_flags)
     #
 
     # Configuration specific flags 
-    if(WIN64)
+    if(WIN64MSVC OR WIN64INTEL)
      if(${USE_VTK})
-        set(CMAKE_CXX_FLAGS_RELEASE-CONTRACTS "${LPS_CXX_FLAGS} /D\"_SECURE_SCL 1\" /D\"_HAS_ITERATOR_DEBUG 0\" /DUSE_VTK /MD" CACHE
+        set(CMAKE_CXX_FLAGS_RELEASE-CONTRACTS "${LPS_CXX_FLAGS} /D\"_SECURE_SCL=1\" /D\"_HAS_ITERATOR_DEBUG=0\" /DUSE_VTK /MD" CACHE
             STRING "Flags used by the C++ compiler for Release-contracts builds" FORCE)
       else()   
-        set(CMAKE_CXX_FLAGS_RELEASE-CONTRACTS "${LPS_CXX_FLAGS} /D\"_SECURE_SCL 1\" /D\"_HAS_ITERATOR_DEBUG 0\" /MD" CACHE
+        set(CMAKE_CXX_FLAGS_RELEASE-CONTRACTS "${LPS_CXX_FLAGS} /D\"_SECURE_SCL=1\" /D\"_HAS_ITERATOR_DEBUG=0\" /MD" CACHE
             STRING "Flags used by the C++ compiler for Release-contracts builds" FORCE)
      endif()
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE-CONTRACTS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:MSVCRTD"  CACHE
@@ -286,12 +298,12 @@ function(set_compiler_flags)
     #
 
     # Configuration specific flags         
-    if(WIN64)
+    if(WIN64MSVC OR WIN64INTEL)
         if(${USE_VTK})
-            set(CMAKE_CXX_FLAGS_RELEASE-NO-CONTRACTS "${LPS_CXX_FLAGS} /D\"_SECURE_SCL 1\" /D\"_HAS_ITERATOR_DEBUG 0\" /MD /DUSE_VTK /DNDEBUG" CACHE
+            set(CMAKE_CXX_FLAGS_RELEASE-NO-CONTRACTS "${LPS_CXX_FLAGS} /D\"_SECURE_SCL=1\" /D\"_HAS_ITERATOR_DEBUG=0\" /MD /DUSE_VTK /DNDEBUG" CACHE
                 STRING "Flags used by the C++ compiler for Release-no-contracts builds" FORCE)
        else()        
-            set(CMAKE_CXX_FLAGS_RELEASE-NO-CONTRACTS "${LPS_CXX_FLAGS} /D\"_SECURE_SCL 1\" /D\"_HAS_ITERATOR_DEBUG 0\" /MD /DNDEBUG" CACHE
+            set(CMAKE_CXX_FLAGS_RELEASE-NO-CONTRACTS "${LPS_CXX_FLAGS} /D\"_SECURE_SCL=1\" /D\"_HAS_ITERATOR_DEBUG=0\" /MD /DNDEBUG" CACHE
                 STRING "Flags used by the C++ compiler for Release-no-contracts builds" FORCE)
       endif()               
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE-NO-CONTRACTS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:MSVCRTD" CACHE
@@ -315,7 +327,7 @@ function(set_compiler_flags)
 endfunction(set_compiler_flags)
 
 #
-# Create the  build output directories.
+# Create the build output directories.
 #
 function(create_output_dirs)
 
@@ -335,54 +347,6 @@ function(create_output_dirs)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin PARENT_SCOPE)
 
 endfunction()
-
-#
-# Create per-configuration snapshot target for VS.
-#
-# # $$TODO: Add install target for win64
-function(create_vswin64_snapshot_target)
-
-    if(WIN64)
-       # Set this for your system. Finding dumpbin is very tedious as there are 3 versions in a VS install. 
-       set(DUMPBIN "C:/Program Files (x86)/Microsoft Visual Studio 9.0/VC/bin/amd64/dumpbin.exe")
-       file(TO_NATIVE_PATH "$ENV{RELEASE_DIR}/Components-Win64/lib/$(ConfigurationName)" RELEASE_DIR)
-       file(TO_NATIVE_PATH "${CMAKE_BINARY_DIR}/lib/$(ConfigurationName)" VS_LIBRARY_OUTPUT_DIR)
-       file(TO_NATIVE_PATH "${CMAKE_BINARY_DIR}/bin/$(ConfigurationName)" VS_RUNTIME_OUTPUT_DIR)
-        # Add the target
-       set(SNAPSHOT_TARGET_NAME system_snapshot)        
-       add_custom_target(${SNAPSHOT_TARGET_NAME} DEPENDS ${FIELDS_DYNAMIC_LIB})
-    
-       add_custom_command(TARGET ${SNAPSHOT_TARGET_NAME} PRE_BUILD
-                          COMMAND ${CMAKE_COMMAND} -E make_directory ${RELEASE_DIR}
-                          )
-       set_target_properties(${SNAPSHOT_TARGET_NAME} PROPERTIES FOLDER "Release Targets")   
-        # Create a post-build action associated with the VS snapshot target.
-        # Copy the files to the release dir.
-        # Create the release text file and populate it with pertinent info regarding the release.
-
-       add_custom_command(TARGET ${SNAPSHOT_TARGET_NAME} POST_BUILD
-            COMMAND copy "${VS_LIBRARY_OUTPUT_DIR}\\*.*" "${RELEASE_DIR}"
-            COMMAND copy "${VS_RUNTIME_OUTPUT_DIR}\\*.*" "${RELEASE_DIR}"
-            COMMAND ${DUMPBIN} "/OUT:${RELEASE_DIR}\\$(ConfigurationName).txt" "/DEPENDENTS" "${RELEASE_DIR}\\fieldsdll.dll"
-            COMMAND echo: >>  "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND echo Configuration: >> "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND echo $(ConfigurationName) >> "${RELEASE_DIR}" "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND echo: >>  "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND echo Platform: >> "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND echo $(PlatformName) >> "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND echo: >>  "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND echo Date: >>  "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND date /T >>  "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND echo: >>  "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND echo Time: >>  "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND time /T >>  "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND echo: >>  "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND echo .NET Version: >>  "${RELEASE_DIR}\\$(ConfigurationName).txt"
-            COMMAND echo $(FrameworkVersion) >>  "${RELEASE_DIR}\\$(ConfigurationName).txt"
-           )
-    endif(WIN64)
-
-endfunction(create_vswin64_snapshot_target)
 
 #
 # Add the documentation targets.
@@ -413,27 +377,65 @@ endfunction(add_doc_targets)
 #
 function(add_clean_files)
 
+    #Define the file types to be included in the clean operation.
     file(GLOB HDF_FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*.hdf)
+    file(GLOB LOG_FILES ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/*.log)
     file(GLOB JAR_FILES ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/*.jar)
+    # Clean up the mess left by the Intel coverage tool
+    file(GLOB DYN_FILES ${COVERAGE_DIR}/*.dyn)
+    file(GLOB DPI_FILES ${COVERAGE_DIR}/*.dpi)
+    file(GLOB SPI_FILES ${COVERAGE_DIR}/*.spi)
+ 
+
+    # Append them to the list
     list(APPEND CLEAN_FILES ${HDF_FILES})
+    list(APPEND CLEAN_FILES ${LOG_FILES})    
     list(APPEND CLEAN_FILES ${JAR_FILES})
-    list(APPEND CLEAN_FILES TAGS)
+    list(APPEND CLEAN_FILES ${DYN_FILES})
+    list(APPEND CLEAN_FILES ${DPI_FILES})
+    list(APPEND CLEAN_FILES ${SPI_FILES})
+    list(APPEND CLEAN_FILES "TAGS")
+    
     set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CLEAN_FILES}")
 
 endfunction(add_clean_files) 
 
 # 
-# Establish a system "check" target
+# Establish a system level "bin" target
+#
+function(add_bin_target)
+
+    add_custom_target(bin DEPENDS ${ALL_BIN_TARGETS})
+    set_target_properties(bin PROPERTIES FOLDER "Bin Targets")
+        
+endfunction(add_bin_target)
+
+#
+# Add component specific bin targets. e.g., "sheaves-bin", "tools-bin", etc.
+#
+function(add_component_bin_target)
+    add_custom_target(${PROJECT_NAME}-bin DEPENDS ${${COMPONENT}_SHARED_LIB} ${${COMPONENT}_UNIT_TESTS} ${${COMPONENT}_EXAMPLES})
+    # Add a bin target for this component to the system list. "make bin" will invoke this list.
+    set(ALL_BIN_TARGETS ${ALL_BIN_TARGETS} ${PROJECT_NAME}-bin CACHE STRING "Aggregate list of component bin targets" FORCE)
+        set_target_properties(${PROJECT_NAME}-bin PROPERTIES FOLDER "Bin Targets")
+    mark_as_advanced(ALL_BIN_TARGETS) 
+
+endfunction(add_component_bin_target)
+
+# 
+# Establish a system level "check" target
 #
 function(add_check_target)
 
-    if(WIN64)
-        add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -C ${CMAKE_CFG_INTDIR} DEPENDS ${ALL_CHECK_TARGETS})
+    if(WIN64MSVC OR WIN64INTEL)
+        # $$TODO: Spend a little time finding out what's going on here.
+        add_custom_target(check ALL COMMAND ${CMAKE_CTEST_COMMAND} -C ${CMAKE_CFG_INTDIR} DEPENDS ${${COMPONENT}_EXAMPLES} ${ALL_CHECK_TARGETS})
+        set_target_properties(check PROPERTIES FOLDER "Check Targets")
+
     else()
-        add_custom_target(check DEPENDS ${ALL_CHECK_TARGETS})
+        add_custom_target(check COMMAND  DEPENDS ${ALL_CHECK_TARGETS})
     endif()
-    set_target_properties(check PROPERTIES FOLDER "Check Targets")
-        
+
 endfunction(add_check_target)
 
 #
@@ -441,13 +443,77 @@ endfunction(add_check_target)
 #
 function(add_component_check_target)
 
-    add_custom_target(${PROJECT_NAME}-check COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS ${${COMPONENT}_SHARED_LIB} ${${COMPONENT}_CHECK_EXECS})
+    add_custom_target(${PROJECT_NAME}-check ALL COMMAND ${CMAKE_CTEST_COMMAND} -C ${CMAKE_CFG_INTDIR} DEPENDS ${${COMPONENT}_SHARED_LIB} ${${COMPONENT}_UNIT_TESTS})
     # Add a check target for this component to the system list. "make check" will invoke this list.
+    set(ALL_UNIT_TEST_TARGETS ${ALL_UNIT_TEST_TARGETS} ${${COMPONENT}_UNIT_TESTS} CACHE STRING "Aggregate list of unit test targets" FORCE)
     set(ALL_CHECK_TARGETS ${ALL_CHECK_TARGETS} ${PROJECT_NAME}-check CACHE STRING "Aggregate list of component check targets" FORCE)
-        set_target_properties(${PROJECT_NAME}-check PROPERTIES FOLDER "Check Targets")
-    mark_as_advanced(ALL_CHECK_TARGETS) 
+    set_target_properties(${PROJECT_NAME}-check PROPERTIES FOLDER "Check Targets")
+    mark_as_advanced(ALL_CHECK_TARGETS)
 
 endfunction(add_component_check_target)
+
+#
+# Add component specific coverage targets. e.g., "sheaves-coverage", "tools-coverage", etc.
+#
+function(add_component_coverage_target)
+    if(LINUX64INTEL)
+        # if the component unit test list is not empty, generate coverage data.   
+        if(NOT ${COMPONENT}_UNIT_TEST_SRCS STREQUAL "")
+            add_custom_target(${PROJECT_NAME}-coverage DEPENDS ${PROJECT_NAME}-check
+                COMMAND ${CMAKE_COMMAND} -E chdir ${COVERAGE_DIR} ${PROFMERGE}
+                COMMAND ${CMAKE_COMMAND} -E chdir ${COVERAGE_DIR} ${CODECOV} -comp ${CMAKE_BINARY_DIR}/coverage_files.lst ${CODECOV_ARGS} ${PROJECT_NAME}
+                 )
+        else()
+            # Component has no unit tests associated with it, make target an "informational no-op"
+            add_custom_target(${PROJECT_NAME}-coverage
+                COMMAND ${CMAKE_COMMAND} -E echo " " 
+                COMMAND ${CMAKE_COMMAND} -E echo "   There are currently no unit tests for the ${PROJECT_NAME} component. Coverage results will not be generated." 
+                COMMAND ${CMAKE_COMMAND} -E echo " "                      
+                )
+        endif()
+            # Append the coverage target to the system wide list
+            set(ALL_COVERAGE_TARGETS ${ALL_COVERAGE_TARGETS} ${PROJECT_NAME}-coverage CACHE STRING "Aggregate list of component coverage targets" FORCE)
+            mark_as_advanced(ALL_COVERAGE_TARGETS)
+    endif()
+endfunction()
+
+# 
+# Establish a system level "coverage" target
+#
+function(add_coverage_target)
+
+    add_custom_target(coverage ALL DEPENDS checklog    
+        COMMAND ${CMAKE_COMMAND} -E chdir ${COVERAGE_DIR} ${PROFMERGE}
+        COMMAND ${CMAKE_COMMAND} -E chdir ${COVERAGE_DIR} ${CODECOV} -comp ${CMAKE_BINARY_DIR}/coverage_files.lst ${CODECOV_ARGS} ${PROJECT_NAME}   
+    )
+    
+endfunction()
+
+#
+# Add component specific checklog targets. e.g., "sheaves-checklog", "tools-checklog", etc.
+#
+function(add_component_checklog_target)
+
+    add_custom_target(${PROJECT_NAME}-checklog DEPENDS ${${COMPONENT}_SHARED_LIB} ${${COMPONENT}_LOGS})
+    set_target_properties(${PROJECT_NAME}-checklog PROPERTIES FOLDER "Checklog Targets")
+    set(ALL_CHECKLOG_TARGETS ${ALL_CHECKLOG_TARGETS} ${${COMPONENT}_LOGS} CACHE STRING "Aggregate list of component checklog targets" FORCE)
+    mark_as_advanced(ALL_CHECKLOG_TARGETS) 
+
+endfunction(add_component_checklog_target)
+
+# 
+# Establish a system level "checklog" target
+#
+function(add_checklog_target)
+
+    if(WIN64MSVC OR WIN64INTEL)
+        add_custom_target(checklog ALL COMMAND ${CMAKE_CTEST_COMMAND} -C ${CMAKE_CFG_INTDIR} DEPENDS ${ALL_CHECKLOG_TARGETS})
+        set_target_properties(checklog PROPERTIES FOLDER "Checklog Targets")
+    else()
+        add_custom_target(checklog ALL COMMAND DEPENDS ${ALL_CHECKLOG_TARGETS})
+    endif()
+
+endfunction(add_checklog_target)
 
 # 
 # Create a cmake test for each unit test executable.
@@ -457,60 +523,165 @@ function(add_test_targets)
     if(${USE_VTK})
         link_directories(${VTK_LIB_DIR})
     endif()
+    
     # link_directories only applies to targets created after it is called.
-    if(LINUX64)
+    if(LINUX64GNU OR LINUX64INTEL)
         link_directories(${${COMPONENT}_OUTPUT_DIR} ${HDF5_LIBRARY_DIRS} ${TETGEN_DIR})
     else()
         link_directories(${${COMPONENT}_OUTPUT_DIR}/${CMAKE_BUILD_TYPE} ${HDF5_LIBRARY_DIRS} ${TETGEN_DIR})
     endif()    
+    
     # Let the user know what's being configured
     status_message("Configuring Unit Tests for ${PROJECT_NAME}")   
-    foreach(t_cc_file ${${COMPONENT}_CHECK_EXEC_SRCS})
-
+    
+    foreach(t_cc_file ${${COMPONENT}_UNIT_TEST_SRCS})
         # Extract name of executable from source filename
         string(REPLACE .t.cc .t t_file_with_path ${t_cc_file})
         # Remove path information  
         get_filename_component(t_file ${t_file_with_path} NAME)
-
-        set(${COMPONENT}_CHECK_EXECS ${${COMPONENT}_CHECK_EXECS} ${t_file} CACHE STRING "List of unit test routines" FORCE)
-        mark_as_advanced(${COMPONENT}_CHECK_EXECS)
+        set(${COMPONENT}_UNIT_TESTS ${${COMPONENT}_UNIT_TESTS} ${t_file} CACHE STRING "List of unit test binaries" FORCE)
+        mark_as_advanced(${COMPONENT}_UNIT_TESTS)
         # If the target already exists, don't try to create it.
         if(NOT TARGET ${t_file})
-
              message(STATUS "Creating ${t_file} from ${t_cc_file}")
-             add_executable(${t_file} EXCLUDE_FROM_ALL ${t_cc_file})
-     
+             add_executable(${t_file} ${t_cc_file})
+
             # Make sure the library is up to date
-            if(WIN64)
+            if(WIN64MSVC OR WIN64INTEL)
                 # Supply the *_DLL_IMPORTS directive to preprocessor
                 set_target_properties(${t_file} PROPERTIES COMPILE_DEFINITIONS "SHEAF_DLL_IMPORTS")
-                add_dependencies(${t_file} ${FIELDS_IMPORT_LIB})
+                add_dependencies(${t_file} fieldsdll.dll)
             else()
-                add_dependencies(${t_file} ${${COMPONENT}_SHARED_LIB})
+                add_dependencies(${t_file} ${${COMPONENT}_SHARED_LIBS})
             endif()
 
-            if(LINUX64)
-                target_link_libraries(${t_file} ${${COMPONENT}_SHARED_LIB} ${HDF5_LIBRARIES})
-            elseif(WIN64)
+            if(LINUX64GNU OR LINUX64INTEL)
+            
+                target_link_libraries(${t_file} ${${COMPONENT}_SHARED_LIBS} ${HDF5_LIBRARIES})
+
+                # Add a test target for ${t_file}
+                add_test(NAME ${t_file} WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} COMMAND $<TARGET_FILE:${t_file}>)
+
+                # Tag the test with the name of the current component.
+                set_property(TEST ${t_file} PROPERTY LABELS "${PROJECT_NAME}") 
+
+                # Set the PATH variable for CTest               
+                set_tests_properties(${t_file} PROPERTIES ENVIRONMENT "PATH=%PATH%;${CMAKE_CFG_INTDIR};${HDF5_LIBRARY_DIRS};${FIELDS_BIN_DIR}")
+                
+                # Generate a log file for each .t. "make <test>.log will build and run a given executable.
+                add_custom_target(${t_file}.log WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} COMMAND ${t_file} > ${t_file}.log DEPENDS ${t_file} )
+
+                # Insert the unit tests into the VS folder "unit test targets"
+                set_target_properties(${t_file}.log PROPERTIES FOLDER "Unit Test Log Targets")
+                
+                # Note that this var should be named component_test_logs, but the components are named x_test. Not pretty.
+                set(${COMPONENT}_LOGS ${${COMPONENT}_LOGS} ${t_file}.log CACHE STRING "List of unit test log targets" FORCE)
+                mark_as_advanced(${COMPONENT}_LOGS)                                
+                
+                # Generate a log file for each .t.hdf "make <test>.hdf will build and run a given executable.
+                add_custom_target(${t_file}.hdf DEPENDS ${t_file}.log )
+ 
+                # Insert the unit tests into the VS folder "Unit Test HDF Targets"
+                set_target_properties(${t_file}.hdf PROPERTIES FOLDER "Unit Test HDF Targets")
+                
+                # Find out what component $t_file belongs to, and create the appropriate hdf log target type
+                get_property(PROJ_MEMBER TEST ${t_file} PROPERTY LABELS)
+                                                
+                if(${PROJ_MEMBER} MATCHES "sheaves_test")
+                    # Generate a log file for each .t.hdf "make <test>.hdf will build and run a given executable.
+                    add_custom_target(${t_file}.hdf.log ALL DEPENDS sheaves_read ${t_file}.hdf WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+                    # Insert the target into the VS folder "Unit Test HDF Log Targets"
+                    set_target_properties(${t_file}.hdf.log PROPERTIES FOLDER "Unit Test HDF Log Targets")
+                    add_custom_command(TARGET ${t_file}.hdf.log WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+                    POST_BUILD
+                       COMMAND ${CMAKE_COMMAND} -E echo "Reading ${t_file}.hdf ... "
+                       COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/sheaves_read ${t_file}.hdf > ${t_file}.hdf.log
+                    )
+                elseif(${PROJ_MEMBER} MATCHES "fiber_bundles_test")
+                    # Generate a log file for each .t.hdf "make <test>.hdf will build and run a given executable.
+                    add_custom_target(${t_file}.hdf.log ALL DEPENDS fiber_bundles_read ${t_file}.hdf WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+                    # Insert the target into the VS folder "Unit Test HDF Log Targets"
+                    set_target_properties(${t_file}.hdf.log PROPERTIES FOLDER "Unit Test HDF Log Targets")
+                    add_custom_command(TARGET ${t_file}.hdf.log WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+                    POST_BUILD
+                       COMMAND ${CMAKE_COMMAND} -E echo "Reading ${t_file}.hdf ... "
+                       COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/fiber_bundles_read ${t_file}.hdf > ${t_file}.hdf.log
+                    )                                             
+                endif()
+                
+                if(${ENABLE_COVERAGE})
+                    # Create file-scope coverage target.
+                    add_custom_target(${t_file}.cov DEPENDS ${t_file}.log
+                        COMMAND ${CMAKE_COMMAND} -E chdir ${COVERAGE_DIR} ${PROFMERGE}
+                        COMMAND ${CMAKE_COMMAND} -E chdir ${COVERAGE_DIR} ${CODECOV} -comp ${CMAKE_BINARY_DIR}/coverage_files.lst ${CODECOV_ARGS} ${t_file} 
+                        )               
+                endif()
+                
+            elseif(WIN64MSVC OR WIN64INTEL)
+                #
+                # unit_test.hdf.log -> unit_test.hdf -> unit_test.log -> unit_test
+                #
                 if(${USE_VTK})
                     target_link_libraries(${t_file} ${FIELDS_IMPORT_LIB} ${HDF5_LIBRARIES} ${VTK_LIBS}) 
                 else()
                     target_link_libraries(${t_file} ${FIELDS_IMPORT_LIB} ${HDF5_LIBRARIES})                                         
                 endif()
+
+                add_test(NAME ${t_file} WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE} COMMAND $<TARGET_FILE:${t_file}>)                
+
                 # Insert the unit tests into the VS folder "unit test targets"
                 set_target_properties(${t_file} PROPERTIES FOLDER "Unit Test Targets")
-            endif()
+                
+                # Tag the test with the name of the current component.
+                set_property(TEST ${t_file} PROPERTY LABELS "${PROJECT_NAME}")
 
-            # Add a test target for ${t_file}
-         
-            add_test(${t_file} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${t_file})
-            # Tag the test with the name of the current component.
-            set_property(TEST ${t_file} PROPERTY LABELS "${PROJECT_NAME}")
+                # Set the PATH variable for CTest               
+                set_tests_properties(${t_file} PROPERTIES ENVIRONMENT "PATH=%PATH%;${CMAKE_CFG_INTDIR};${HDF5_LIBRARY_DIRS};${FIELDS_BIN_DIR}")
+                
+                # Generate a log file for each .t. "make <test>.log will build and run a given executable.
+                add_custom_target(${t_file}.exe.log WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE} COMMAND ${t_file} > ${t_file}.exe.log DEPENDS ${t_file} )
 
-            if(WIN64)
-                # Set the PATH environment variable for CTest so the HDF5 and Fields dlls lie in it.
-                set_tests_properties(${t_file} PROPERTIES ENVIRONMENT
-                                     "PATH=${HDF5_LIBRARY_DIRS};${${COMPONENT}_OUTPUT_DIR}:${CMAKE_CFG_INTDIR}")
+                # Insert the unit tests into the VS folder "unit test targets"
+                set_target_properties(${t_file}.exe.log PROPERTIES FOLDER "Unit Test Log Targets")
+                                
+                # Generate a log file for each .t.hdf "make <test>.hdf will build and run a given executable.
+                add_custom_target(${t_file}.exe.hdf DEPENDS ${t_file}.exe.log WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE})
+
+                # Insert the unit tests into the VS folder "Unit Test HDF Targets"
+                set_target_properties(${t_file}.exe.hdf PROPERTIES FOLDER "Unit Test HDF Targets")
+                
+                # Find out what component $t_file belongs to, and create the appropriate hdf log target type
+                get_property(PROJ_MEMBER TEST ${t_file} PROPERTY LABELS)
+                                                
+                if(${PROJ_MEMBER} MATCHES "sheaves_test")
+                    # Generate a log file for each .t.hdf "make <test>.hdf will build and run a given executable.
+                    add_custom_target(${t_file}.exe.hdf.log ALL DEPENDS sheaves_read ${t_file}.exe.hdf WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE})
+                    # Insert the target into the VS folder "Unit Test HDF Log Targets"
+                    set_target_properties(${t_file}.exe.hdf.log PROPERTIES FOLDER "Unit Test HDF Log Targets")
+                    add_custom_command(TARGET ${t_file}.exe.hdf.log WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}
+                    POST_BUILD
+                       COMMAND ${CMAKE_COMMAND} -E echo "Reading ${t_file}.exe.hdf ... "
+                       COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}/sheaves_read.exe ${t_file}.exe.hdf > ${t_file}.exe.hdf.log
+                    )
+                elseif(${PROJ_MEMBER} MATCHES "fiber_bundles_test")
+                    # Generate a log file for each .t.hdf "make <test>.hdf will build and run a given executable.
+                    add_custom_target(${t_file}.exe.hdf.log ALL DEPENDS fiber_bundles_read ${t_file}.exe.hdf WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE})
+                    # Insert the target into the VS folder "Unit Test HDF Log Targets"
+                    set_target_properties(${t_file}.exe.hdf.log PROPERTIES FOLDER "Unit Test HDF Log Targets")
+                    add_custom_command(TARGET ${t_file}.exe.hdf.log WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}
+                    POST_BUILD
+                       COMMAND ${CMAKE_COMMAND} -E echo "Reading ${t_file}.exe.hdf ... "
+                       COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}/fiber_bundles_read.exe ${t_file}.exe.hdf > ${t_file}.exe.hdf.log
+                    )                                             
+                endif()                
+                                                           
+                # Hack to get prerequisite libs into the bin directory.
+                add_custom_command(TARGET ${t_file}
+                   PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_if_different ${FIELDS_BIN_OUTPUT_DIR}/${CMAKE_BUILD_TYPE}/fieldsdll.dll ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE} 
+                   COMMAND ${CMAKE_COMMAND} -E copy_if_different ${HDF5_LIBRARY_DIRS}/hdf5dll.dll ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}
+                )
+                  
             endif()
         endif()
     endforeach()
@@ -518,7 +689,7 @@ function(add_test_targets)
 endfunction(add_test_targets)
 
 # 
-# Add any executable targets that are NOT unit tests.
+# Create a target for each example.
 #
 function(add_example_targets)
 
@@ -526,12 +697,12 @@ function(add_example_targets)
         link_directories(${VTK_LIB_DIR})
     endif()
 
-    foreach(t_cc_file ${${COMPONENT}_EXEC_SRCS})
+    foreach(t_cc_file ${${COMPONENT}_EXAMPLE_SRCS})
         # link_directories only applies to targets created after it is called.
-        if(LINUX64)
-            link_directories(${${COMPONENT}_OUTPUT_DIR} ${HDF5_LIBRARY_DIRS} ${TETGEN_DIR})
+        if(LINUX64GNU OR LINUX64INTEL)
+            link_directories(${${COMPONENT}_OUTPUT_DIR} ${SHEAVES_LIB_OUTPUT_DIR} ${HDF5_LIBRARY_DIRS} ${TETGEN_DIR})
         else()
-            link_directories(${${COMPONENT}_OUTPUT_DIR}/${CMAKE_BUILD_TYPE} ${HDF5_LIBRARY_DIRS} ${TETGEN_DIR})
+            link_directories(${${COMPONENT}_OUTPUT_DIR}/${CMAKE_BUILD_TYPE} ${SHEAVES_LIB_OUTPUT_DIR} ${HDF5_LIBRARY_DIRS} ${TETGEN_DIR})
         endif()    
         # Let the user know what's being configured
         status_message("Configuring example executables for ${PROJECT_NAME}")   
@@ -540,13 +711,14 @@ function(add_example_targets)
         # Remove path information so the executable goes into build/bin (or build/VisualStudio)
         # and not into build/bin/examples (or build/VisualStudio/examples)
         get_filename_component(t_file ${t_file_with_path} NAME)
-    
+        set(${COMPONENT}_EXAMPLES ${${COMPONENT}_EXAMPLES} ${t_file} CACHE STRING "List of example binaries" FORCE)
+        mark_as_advanced(${COMPONENT}_EXAMPLES)    
         # Add building of executable and link with shared library
         message(STATUS "Creating ${t_file} from ${t_cc_file}")
         add_executable(${t_file}  EXCLUDE_FROM_ALL ${t_cc_file})
     
         # Make sure the library is up to date
-        if(WIN64)
+        if(WIN64MSVC OR WIN64INTEL)
             add_dependencies(${t_file} ${FIELDS_IMPORT_LIB})
             if(${USE_VTK})
                 target_link_libraries(${t_file} ${FIELDS_IMPORT_LIB} ${HDF5_LIBRARIES} ${VTK_LIBS})
@@ -554,15 +726,15 @@ function(add_example_targets)
                 target_link_libraries(${t_file} ${FIELDS_IMPORT_LIB} ${HDF5_LIBRARIES})
             endif()
             # Insert the unit tests into the VS folder "unit_tests"
-            set_target_properties(${t_file} PROPERTIES FOLDER "Standalone Exec Targets")
+            set_target_properties(${t_file} PROPERTIES FOLDER "Example Targets")
         else()
-            add_dependencies(${t_file} ${${COMPONENT}_SHARED_LIB})
-            target_link_libraries(${t_file} ${${COMPONENT}_SHARED_LIB} ${HDF5_LIBRARIES})
+           add_dependencies(${t_file} ${FIELDS_TEST_SHARED_LIBS} ${FIELDS_SHARED_LIBS})
+           target_link_libraries(${t_file} ${${COMPONENT}_SHARED_LIB} ${FIELDS_SHARED_LIBS} ${HDF5_LIBRARIES})
         endif()
     
         # Supply the *_DLL_IMPORTS directive to preprocessor
         set_target_properties(${t_file} PROPERTIES COMPILE_DEFINITIONS "SHEAF_DLL_IMPORTS")
-  
+    
     endforeach()
 
 endfunction(add_example_targets)
@@ -575,8 +747,6 @@ function(add_clusters clusters)
     foreach(cluster ${clusters})
         #Add each cluster subdir to the project. 
         add_subdirectory(${cluster})
-        #Add each cluster to the compiler search path.
-        include_directories(${cluster})
         # Add the fully-qualified cluster names to this component's ipath var
         set(${COMPONENT}_IPATH ${${COMPONENT}_IPATH} ${CMAKE_CURRENT_SOURCE_DIR}/${cluster} CACHE STRING "test" FORCE)
     endforeach()
@@ -588,7 +758,7 @@ endfunction(add_clusters)
 #
 function(set_component_vars)
 
-    if(WIN64)
+    if(WIN64MSVC OR WIN64INTEL)
         # Fields import lib won't exist when it's antecedents are configured. Force it.
         set(FIELDS_IMPORT_LIB fieldsdll CACHE STRING "${PROJECT_NAME} import library")
         set(${COMPONENT}_DYNAMIC_LIB ${PROJECT_NAME}dll CACHE STRING "${PROJECT_NAME} dynamic link library")
@@ -599,7 +769,9 @@ function(set_component_vars)
     endif()
 
     set(${COMPONENT}_COMMON_BINDING_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bindings/common/src CACHE STRING "${PROJECT_NAME} common binding source directory")
-
+    set(${COMPONENT}_SWIG_COMMON_INTERFACE ${PROJECT_NAME}_common_binding.i CACHE STRING "${PROJECT_NAME} common interface filename")
+    set(${COMPONENT}_SWIG_COMMON_INCLUDES_INTERFACE ${PROJECT_NAME}_common_binding_includes.i CACHE STRING "${PROJECT_NAME} common includes interface filename" )
+      
     set(${COMPONENT}_JAVA_BINDING_LIB ${PROJECT_NAME}_java_binding CACHE STRING "${PROJECT_NAME} java binding library basename")
     set(${COMPONENT}_JAVA_BINDING_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bindings/java/src CACHE STRING "${PROJECT_NAME} java binding source directory")
     set(${COMPONENT}_SWIG_JAVA_INTERFACE ${PROJECT_NAME}_java_binding.i CACHE STRING "${PROJECT_NAME} java binding interface file")
@@ -618,6 +790,8 @@ function(set_component_vars)
     mark_as_advanced(FORCE ${COMPONENT}_SHARED_LIB)
     mark_as_advanced(FORCE ${COMPONENT}_STATIC_LIB)
     mark_as_advanced(FORCE ${COMPONENT}_COMMON_BINDING_SRC_DIR)
+    mark_as_advanced(FORCE ${COMPONENT}_SWIG_COMMON_INTERFACE)
+    mark_as_advanced(FORCE ${COMPONENT}_SWIG_COMMON_INCLUDES_INTERFACE)
     mark_as_advanced(FORCE ${COMPONENT}_JAVA_BINDING_LIB)
     mark_as_advanced(FORCE ${COMPONENT}_JAVA_BINDING_SRC_DIR)
     mark_as_advanced(FORCE ${COMPONENT}_SWIG_JAVA_INTERFACE)
@@ -629,61 +803,31 @@ function(set_component_vars)
 endfunction(set_component_vars)
 
 #
-# Export this component's library targets
+# Export this component's library targets and list of includes
 #
 function(export_targets)
 
     status_message("Writing ${PROJECT_NAME} detail to ${CMAKE_BINARY_DIR}/${EXPORTS_FILE}")
-    if(WIN64)
+    if(WIN64MSVC OR WIN64INTEL)
         export(TARGETS ${${COMPONENT}_DYNAMIC_LIB} APPEND FILE ${CMAKE_BINARY_DIR}/${EXPORTS_FILE})
     else()
         export(TARGETS ${${COMPONENT}_SHARED_LIB} ${${COMPONENT}_STATIC_LIB} APPEND FILE ${CMAKE_BINARY_DIR}/${EXPORTS_FILE})
     endif()
-
-endfunction(export_targets)
-
-#
-# Export this component's variables
-#
-function(export_variables)
-
-    status_message("Writing ${PROJECT_NAME} variable detail to ${CMAKE_BINARY_DIR}/${EXPORTS_FILE}")
     file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
     
     file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_INCS ${${COMPONENT}_INCS} CACHE STRING \"${PROJECT_NAME} includes\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
+    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
     file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_IPATH ${${COMPONENT}_IPATH} CACHE STRING \"${PROJECT_NAME} include path\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
+    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
     file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_CLASSPATH ${${COMPONENT}_CLASSPATH} CACHE STRING \"${PROJECT_NAME} Java classpath\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
+    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
     file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_BIN_OUTPUT_DIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} CACHE STRING \"${PROJECT_NAME} binary output directory\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
+    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
     file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_LIB_OUTPUT_DIR ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} CACHE STRING \"${PROJECT_NAME} library output directory\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
+    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
 
-    # Swig java interface vars
-    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_JAVA_BINDING_LIB ${${COMPONENT}_JAVA_BINDING_LIB} CACHE STRING \"${PROJECT_NAME} java binding library\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
-    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_JAVA_BINDING_SRC_DIR ${${COMPONENT}_JAVA_BINDING_SRC_DIR} CACHE STRING \"${PROJECT_NAME} java binding source directory\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
-    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_SWIG_JAVA_INTERFACE ${${COMPONENT}_SWIG_JAVA_INTERFACE} CACHE STRING \"${PROJECT_NAME} java-swig interface\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
-    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_JAVA_BINDING_JAR ${${COMPONENT}_JAVA_BINDING_JAR} CACHE STRING \"${PROJECT_NAME} java binding jar file\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
+endfunction(export_targets)
 
-    # Swig python interface vars
-    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_PYTHON_BINDING_LIB ${${COMPONENT}_PYTHON_BINDING_LIB} CACHE STRING \"${PROJECT_NAME} python binding library\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
-    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_PYTHON_BINDING_SRC_DIR ${${COMPONENT}_PYTHON_BINDING_SRC_DIR} CACHE STRING \"${PROJECT_NAME} python binding source directory\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
-    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_SWIG_PYTHON_INTERFACE ${${COMPONENT}_SWIG_PYTHON_INTERFACE} CACHE STRING \"${PROJECT_NAME} python-swig interface\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
-
-    # Swig common interface vars
-    file(APPEND ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "set(${COMPONENT}_COMMON_BINDING_SRC_DIR ${${COMPONENT}_COMMON_BINDING_SRC_DIR} CACHE STRING \"${PROJECT_NAME} common binding source directory\")\n")
-    file(APPEND  ${CMAKE_BINARY_DIR}/${EXPORTS_FILE} "\n")
-
-endfunction(export_variables)
 
 #
 # Append sources to their respective component variables
@@ -734,8 +878,8 @@ function(collect_unit_test_sources)
         list(APPEND chksrcs ${CMAKE_CURRENT_SOURCE_DIR}/${src})
     endforeach()
     
-    set(${COMPONENT}_CHECK_EXEC_SRCS ${${COMPONENT}_CHECK_EXEC_SRCS} ${chksrcs} CACHE STRING "Unit test sources." FORCE)
-    mark_as_advanced(FORCE ${COMPONENT}_CHECK_EXEC_SRCS)
+    set(${COMPONENT}_UNIT_TEST_SRCS ${${COMPONENT}_UNIT_TEST_SRCS} ${chksrcs} CACHE STRING "Unit test sources." FORCE)
+    mark_as_advanced(FORCE ${COMPONENT}_UNIT_TEST_SRCS)
     
 endfunction(collect_unit_test_sources)
 
@@ -750,13 +894,13 @@ function(collect_example_sources)
         list(APPEND execsrcs ${CMAKE_CURRENT_SOURCE_DIR}/${src})
     endforeach()
 
-    set(${COMPONENT}_EXEC_SRCS ${${COMPONENT}_EXEC_SRCS} ${execsrcs} CACHE STRING "EXEC sources." FORCE)
-    mark_as_advanced(FORCE ${COMPONENT}_EXEC_SRCS)
+    set(${COMPONENT}_EXAMPLE_SRCS ${${COMPONENT}_EXAMPLE_SRCS} ${execsrcs} CACHE STRING "EXEC sources." FORCE)
+    mark_as_advanced(FORCE ${COMPONENT}_EXAMPLE_SRCS)
 
 endfunction(collect_example_sources)
 
 # 
-# Convenience routine for text output during configure phase.
+# Convenience routine for diagnostic output during configure phase.
 #
 function(status_message txt)
 
@@ -767,5 +911,5 @@ function(status_message txt)
 
 endfunction()
 
-
+  
 
