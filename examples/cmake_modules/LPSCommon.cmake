@@ -552,7 +552,7 @@ function(add_test_targets)
                 set_target_properties(${t_file} PROPERTIES COMPILE_DEFINITIONS "SHEAF_DLL_IMPORTS")
                 add_dependencies(${t_file} fieldsdll.dll)
             else()
-                add_dependencies(${t_file} ${${COMPONENT}_SHARED_LIBS})
+                add_dependencies(${t_file} ${FIELDS_SHARED_LIBS})
             endif()
 
             if(LINUX64GNU OR LINUX64INTEL)

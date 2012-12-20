@@ -20,6 +20,12 @@ message(STATUS "Processing ${PROJECT_NAME}")
 cmake_minimum_required(VERSION 2.8.8)
 
 #
+# Include variable definitions and functions
+# unique to and/or required at the system level.
+#
+include(system_definitions.cmake)
+
+#
 # Set the cmake module path.
 #
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules)
