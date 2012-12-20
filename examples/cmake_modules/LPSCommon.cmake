@@ -557,7 +557,7 @@ function(add_test_targets)
 
             if(LINUX64GNU OR LINUX64INTEL)
             
-                target_link_libraries(${t_file} ${${COMPONENT}_SHARED_LIBS} ${HDF5_LIBRARIES})
+                target_link_libraries(${t_file} ${FIELDS_SHARED_LIBS} ${HDF5_LIBRARIES})
 
                 # Add a test target for ${t_file}
                 add_test(NAME ${t_file} WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} COMMAND $<TARGET_FILE:${t_file}>)
@@ -586,28 +586,6 @@ function(add_test_targets)
                 
                 # Find out what component $t_file belongs to, and create the appropriate hdf log target type
                 get_property(PROJ_MEMBER TEST ${t_file} PROPERTY LABELS)
-                                                
-                if(${PROJ_MEMBER} MATCHES "sheaves_test")
-                    # Generate a log file for each .t.hdf "make <test>.hdf will build and run a given executable.
-                    add_custom_target(${t_file}.hdf.log ALL DEPENDS sheaves_read ${t_file}.hdf WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-                    # Insert the target into the VS folder "Unit Test HDF Log Targets"
-                    set_target_properties(${t_file}.hdf.log PROPERTIES FOLDER "Unit Test HDF Log Targets")
-                    add_custom_command(TARGET ${t_file}.hdf.log WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-                    POST_BUILD
-                       COMMAND ${CMAKE_COMMAND} -E echo "Reading ${t_file}.hdf ... "
-                       COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/sheaves_read ${t_file}.hdf > ${t_file}.hdf.log
-                    )
-                elseif(${PROJ_MEMBER} MATCHES "fiber_bundles_test")
-                    # Generate a log file for each .t.hdf "make <test>.hdf will build and run a given executable.
-                    add_custom_target(${t_file}.hdf.log ALL DEPENDS fiber_bundles_read ${t_file}.hdf WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-                    # Insert the target into the VS folder "Unit Test HDF Log Targets"
-                    set_target_properties(${t_file}.hdf.log PROPERTIES FOLDER "Unit Test HDF Log Targets")
-                    add_custom_command(TARGET ${t_file}.hdf.log WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-                    POST_BUILD
-                       COMMAND ${CMAKE_COMMAND} -E echo "Reading ${t_file}.hdf ... "
-                       COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/fiber_bundles_read ${t_file}.hdf > ${t_file}.hdf.log
-                    )                                             
-                endif()
                 
                 if(${ENABLE_COVERAGE})
                     # Create file-scope coverage target.
