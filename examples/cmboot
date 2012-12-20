@@ -1,0 +1,74 @@
+#!/bin/bash
+
+#
+# Copyright (c) 2012 Limit Point Systems, Inc. 
+#
+
+# Set the preferred build directory name.
+builddir=build
+
+# Create the build directory
+if ! test -d $builddir; then
+   mkdir $builddir
+fi
+
+while [ ! -z "$1" ]
+do
+  case "$1" in
+    --help)
+		echo  ""
+    	echo  "Usage: $0 -D<cmake variable=value>"
+    	echo  "   Automates configure phase of cmake run. Arg(s) can be any legitimate"
+    	echo  "   CMake variable/value pair. See $builddir/CMakeCache.txt for a list of "
+    	echo  "   variables that cmake understands."
+    	echo  ""
+        echo  "   Example: $0 -DCMAKE_BUILD_TYPE=Debug-conracts"
+    	echo  ""
+        echo  "   Example: $0 -DCMAKE_BUILD_TYPE=Debug-conracts -DLPS_DOC_STATE=User"
+    	echo  ""
+        echo  "   Example: $0 -DCMAKE_BUILD_TYPE=Debug-conracts -DLPS_DOC_STATE=User -DCMAKE_INSTALL_PREFIX=/tmp/test"
+    	echo  "";;
+     *) break;;
+  esac
+  exit 0
+done
+
+cd $builddir;
+
+# give a little space
+echo ""
+
+# Get the sheaf source dir
+echo "Enter fully qualified path to top level of Sheaf System source tree: "
+echo "   Example: /home/moriartio/cvs-stuff/components-my-branch: "
+echo ""
+echo -n "Sheaf System path: "
+read response
+if [ ! -z $response ]; then
+	echo ""
+	echo "Roger that, configuring ..."
+	echo ""	
+	# Redirect cmake errors to file
+	if cmake $user_args -DSHEAF_HOME=$response .. 2> cmake.error; then
+		echo ""
+		echo "CMake configure complete. Now cd to $builddir and source the set_env_vars script"
+		echo "appropriate for your your shell before executing make."
+		echo""
+		echo "Example:"
+		echo""
+		echo "	cd $builddir"
+		echo "	source set_env_vars.csh"
+		echo "	make -j6 lib"
+		echo""
+	# Cat the file to stdout. This really cleans up the cmake error trace.	
+	else
+		echo ""
+		echo ""
+		cat cmake.error
+		echo ""
+		echo ""
+	fi
+else
+	echo "An empty path won't work. Try again."
+fi
+	

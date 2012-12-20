@@ -1,0 +1,85 @@
+#
+#
+# Copyright (c) 2012 Limit Point Systems, Inc.
+#
+#
+
+# This file can be used to correctly set needed environment variables
+# in order to run the executables and java applications
+# in this package.
+
+set revert_file = @CMAKE_BINARY_DIR@/revert_env_vars.csh
+
+# Are we building bindings? Query the user. Default is no.
+
+   echo -n "Configure environment for bindings? [y/N]: "
+   set response = $<
+
+   switch ($response)
+      case [yY]:
+         set bindings = yes
+         breaksw
+      case [nN]:
+         set bindings = no
+         breaksw
+      default:
+         set bindings = no
+         breaksw
+   endsw
+
+if (! -e $revert_file) then
+   if ($?LD_LIBRARY_PATH) then
+      echo copying contents of existing LD_LIBRARY_PATH to $revert_file
+      echo setenv LD_LIBRARY_PATH $LD_LIBRARY_PATH > $revert_file
+      echo clearing LD_LIBRARY_PATH
+      unsetenv LD_LIBRARY_PATH
+   else
+      echo LD_LIBRARY_PATH is not set in your environment. No backup will be created.
+   endif
+
+   if ($?CLASSPATH) then
+      echo copying contents of existing CLASSPATH to $revert_file
+      echo setenv CLASSPATH $CLASSPATH >>! $revert_file
+      echo clearing CLASSPATH
+      unsetenv CLASSPATH
+   else
+      echo CLASSPATH is not set in your environment. No backup will be created.
+   endif
+
+   if ($?PATH) then
+      echo copying contents of existing PATH to $revert_file
+      echo setenv PATH $PATH >>! $revert_file
+   else
+      echo PATH is not set in your environment. No backup will be created.
+   endif
+
+   if ($?PYTHONPATH) then
+      echo copying contents of existing PYTHONPATH to $revert_file
+      echo setenv PYTHONPATH $PYTHONPATH >>! $revert_file
+      echo clearing PYTHONPATH
+      unsetenv PYTHONPATH
+   else
+      echo PYTHONPATH is not set in your environment. No backup will be created.
+   endif
+
+endif
+
+   if ($bindings == "yes") then
+	echo setting LD_LIBRARY_PATH in this terminal.
+	setenv LD_LIBRARY_PATH .:$home/LPS/prerequisites/gcc/lib64:@SHEAVES_LIB_OUTPUT_DIR@:@VTK_LIB_DIR@:@JMF_LIB_DIR@:@JDK_LIB_DIR@:@JVM_LIB_DIR@:@XAWT_LIB_DIR@:@TETGEN_LIB_DIR@:
+
+	echo setting CLASSPATH in this terminal.
+	setenv CLASSPATH .:@SHEAVES_LIB_OUTPUT_DIR@/SheafScope.jar:@SHEAVES_LIB_OUTPUT_DIR@/solvers_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/tools_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/fields_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/geometry_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/fiber_bundles_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/sheaves_java_binding.jar:@VTK_LIB_DIR@/java/vtk.jar:@JMF_LIB_DIR@/jmf.jar
+
+	echo setting PATH in this terminal.
+	setenv PATH @JDK_BIN_DIR@:$PATH
+
+	echo setting PYTHONPATH in this terminal.
+	setenv PYTHONPATH .:@SHEAVES_LIB_OUTPUT_DIR@:@CMAKE_BINARY_DIR@/lib
+
+   else
+
+	echo setting LD_LIBRARY_PATH in this terminal
+	setenv LD_LIBRARY_PATH .:$home/LPS/prerequisites/gcc/lib64:@CMAKE_BINARY_DIR@/lib:@TETGEN_LIB_DIR@:
+ 
+   endif
