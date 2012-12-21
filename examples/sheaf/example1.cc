@@ -21,9 +21,9 @@ int main( int argc, char* argv[])
   
   // Body:
 
-  sheaves_namespace lns("hello-sheaf!");
+  sheaves_namespace lns("Hello, sheaf");
   
-  cout << lns.name(true);
+  cout << lns.name(true) << endl;
   
   // Namespace will be deleted when lns goes out of scope,
   // but destructor requires write access:
