@@ -2,13 +2,14 @@
 # $RCSfile: CMakeLists.txt,v $ $Revision: 1.6 $ $Date: 2012/01/26 18:55:32 $
 #
 #
-# Copyright (c) 2011 Limit Point Systems, Inc.
+# Copyright (c) 2012 Limit Point Systems, Inc.
 #
 #
 
 # Windows has a notion of Debug and Release builds. For practical purposes, "Release" is
 # equivalent to "!Debug". We'll carry that notion through to linux/gcc as well for now, with
 # "Release" equivalent to "!-g"
+#
 set(CMAKE_CONFIGURATION_TYPES Debug-contracts Debug-no-contracts Release-contracts Release-no-contracts CACHE
     STRING "Supported configuration types"
     FORCE)
@@ -56,22 +57,6 @@ set_compiler_flags()
 #
 create_output_dirs()
 
-#
-# Add the library targets
-#
-#add_library_targets()
-
-#
-# Add a clean target
-#
-# $$TODO: find out why this exact code does not work in comp_defs
-#add_custom_target(check)
-
-# $$TODO: this target is superfluous in a single component system.
-#add_custom_target(${PROJECT_NAME}-check COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS  ${SHEAF_SHARED_LIBS} ${${COMPONENT}_SHARED_LIB} ${${COMPONENT}_CHECK_EXECS} )
-#add_dependencies(check ${PROJECT_NAME}-check)
-#set_target_properties(check PROPERTIES FOLDER "Check Targets")
-#set_target_properties(${PROJECT_NAME}-check PROPERTIES FOLDER "Check Targets")
 #
 # Add the unit test targets
 #

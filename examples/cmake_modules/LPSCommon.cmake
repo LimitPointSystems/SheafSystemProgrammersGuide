@@ -428,7 +428,6 @@ endfunction(add_component_bin_target)
 function(add_check_target)
 
     if(WIN64MSVC OR WIN64INTEL)
-        # $$TODO: Spend a little time finding out what's going on here.
         add_custom_target(check ALL COMMAND ${CMAKE_CTEST_COMMAND} -C ${CMAKE_CFG_INTDIR} DEPENDS ${${COMPONENT}_EXAMPLES} ${ALL_CHECK_TARGETS})
         set_target_properties(check PROPERTIES FOLDER "Check Targets")
 
@@ -533,20 +532,17 @@ function(add_test_targets)
     
     # Let the user know what's being configured
     status_message("Configuring Unit Tests for ${PROJECT_NAME}")   
-#     status_message("${${COMPONENT}_UNIT_TEST_SRCS}")    
     foreach(t_cc_file ${${COMPONENT}_UNIT_TEST_SRCS})
         # Extract name of executable from source filename
         string(REPLACE .t.cc .t t_file_with_path ${t_cc_file})
         # Remove path information  
         get_filename_component(t_file ${t_file_with_path} NAME)
-#             status_message("${t_file}")  
         set(${COMPONENT}_UNIT_TESTS ${${COMPONENT}_UNIT_TESTS} ${t_file} CACHE STRING "List of unit test binaries" FORCE)
         mark_as_advanced(${COMPONENT}_UNIT_TESTS)
         # If the target already exists, don't try to create it.
         if(NOT TARGET ${t_file})
              message(STATUS "Creating ${t_file} from ${t_cc_file}")
              add_executable(${t_file} ${t_cc_file})
- #            status_message("${t_file} ${t_cc_file}") 
             # Make sure the library is up to date
             if(WIN64MSVC OR WIN64INTEL)
                 # Supply the *_DLL_IMPORTS directive to preprocessor
