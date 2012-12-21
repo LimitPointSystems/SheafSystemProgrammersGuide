@@ -25,6 +25,7 @@ cmake_minimum_required(VERSION 2.8.8)
 #
 include(system_definitions.cmake)
 
+clear_component_variables(${PROJECT_NAME})
 #
 # Set the cmake module path.
 #
@@ -64,16 +65,17 @@ create_output_dirs()
 # Add a clean target
 #
 # $$TODO: find out why this exact code does not work in comp_defs
-add_custom_target(check)
+#add_custom_target(check)
+
 # $$TODO: this target is superfluous in a single component system.
-add_custom_target(${PROJECT_NAME}-check COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS  ${SHEAF_SHARED_LIBS} ${${COMPONENT}_SHARED_LIB} ${${COMPONENT}_CHECK_EXECS} )
-add_dependencies(check ${PROJECT_NAME}-check)
-set_target_properties(check PROPERTIES FOLDER "Check Targets")
-set_target_properties(${PROJECT_NAME}-check PROPERTIES FOLDER "Check Targets")
+#add_custom_target(${PROJECT_NAME}-check COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS  ${SHEAF_SHARED_LIBS} ${${COMPONENT}_SHARED_LIB} ${${COMPONENT}_CHECK_EXECS} )
+#add_dependencies(check ${PROJECT_NAME}-check)
+#set_target_properties(check PROPERTIES FOLDER "Check Targets")
+#set_target_properties(${PROJECT_NAME}-check PROPERTIES FOLDER "Check Targets")
 #
 # Add the unit test targets
 #
-add_test_targets()
+add_example_targets()
 
 #
 # Add the documentation targets (doc, docclean)

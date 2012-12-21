@@ -533,19 +533,20 @@ function(add_test_targets)
     
     # Let the user know what's being configured
     status_message("Configuring Unit Tests for ${PROJECT_NAME}")   
-    
+#     status_message("${${COMPONENT}_UNIT_TEST_SRCS}")    
     foreach(t_cc_file ${${COMPONENT}_UNIT_TEST_SRCS})
         # Extract name of executable from source filename
         string(REPLACE .t.cc .t t_file_with_path ${t_cc_file})
         # Remove path information  
         get_filename_component(t_file ${t_file_with_path} NAME)
+#             status_message("${t_file}")  
         set(${COMPONENT}_UNIT_TESTS ${${COMPONENT}_UNIT_TESTS} ${t_file} CACHE STRING "List of unit test binaries" FORCE)
         mark_as_advanced(${COMPONENT}_UNIT_TESTS)
         # If the target already exists, don't try to create it.
         if(NOT TARGET ${t_file})
              message(STATUS "Creating ${t_file} from ${t_cc_file}")
              add_executable(${t_file} ${t_cc_file})
-
+ #            status_message("${t_file} ${t_cc_file}") 
             # Make sure the library is up to date
             if(WIN64MSVC OR WIN64INTEL)
                 # Supply the *_DLL_IMPORTS directive to preprocessor
@@ -682,6 +683,7 @@ function(add_example_targets)
         else()
             link_directories(${${COMPONENT}_OUTPUT_DIR}/${CMAKE_BUILD_TYPE} ${SHEAVES_LIB_OUTPUT_DIR} ${HDF5_LIBRARY_DIRS} ${TETGEN_DIR})
         endif()    
+
         # Let the user know what's being configured
         status_message("Configuring example executables for ${PROJECT_NAME}")   
         # Deduce name of executable from source filename
@@ -689,30 +691,33 @@ function(add_example_targets)
         # Remove path information so the executable goes into build/bin (or build/VisualStudio)
         # and not into build/bin/examples (or build/VisualStudio/examples)
         get_filename_component(t_file ${t_file_with_path} NAME)
-        set(${COMPONENT}_EXAMPLES ${${COMPONENT}_EXAMPLES} ${t_file} CACHE STRING "List of example binaries" FORCE)
-        mark_as_advanced(${COMPONENT}_EXAMPLES)    
-        # Add building of executable and link with shared library
-        message(STATUS "Creating ${t_file} from ${t_cc_file}")
-        add_executable(${t_file}  EXCLUDE_FROM_ALL ${t_cc_file})
-    
-        # Make sure the library is up to date
-        if(WIN64MSVC OR WIN64INTEL)
-            add_dependencies(${t_file} ${FIELDS_IMPORT_LIB})
-            if(${USE_VTK})
-                target_link_libraries(${t_file} ${FIELDS_IMPORT_LIB} ${HDF5_LIBRARIES} ${VTK_LIBS})
+        
+        if(NOT TARGET ${t_file})
+            set(${COMPONENT}_EXAMPLES ${${COMPONENT}_EXAMPLES} ${t_file} CACHE STRING "List of example binaries" FORCE)
+            mark_as_advanced(${COMPONENT}_EXAMPLES)    
+
+            # Add building of executable and link with shared library
+            message(STATUS "Creating ${t_file} from ${t_cc_file}")
+            add_executable(${t_file}  EXCLUDE_FROM_ALL ${t_cc_file})
+        
+            # Make sure the library is up to date
+            if(WIN64MSVC OR WIN64INTEL)
+                add_dependencies(${t_file} ${FIELDS_IMPORT_LIB})
+                if(${USE_VTK})
+                    target_link_libraries(${t_file} ${FIELDS_IMPORT_LIB} ${HDF5_LIBRARIES} ${VTK_LIBS})
+                else()
+                    target_link_libraries(${t_file} ${FIELDS_IMPORT_LIB} ${HDF5_LIBRARIES})
+                endif()
+                # Insert the unit tests into the VS folder "unit_tests"
+                set_target_properties(${t_file} PROPERTIES FOLDER "Example Targets")
             else()
-                target_link_libraries(${t_file} ${FIELDS_IMPORT_LIB} ${HDF5_LIBRARIES})
+               add_dependencies(${t_file} ${FIELDS_SHARED_LIBS})
+               target_link_libraries(${t_file}  ${FIELDS_SHARED_LIBS} ${HDF5_LIBRARIES})
             endif()
-            # Insert the unit tests into the VS folder "unit_tests"
-            set_target_properties(${t_file} PROPERTIES FOLDER "Example Targets")
-        else()
-           add_dependencies(${t_file} ${FIELDS_TEST_SHARED_LIBS} ${FIELDS_SHARED_LIBS})
-           target_link_libraries(${t_file} ${${COMPONENT}_SHARED_LIB} ${FIELDS_SHARED_LIBS} ${HDF5_LIBRARIES})
+        
+            # Supply the *_DLL_IMPORTS directive to preprocessor
+            set_target_properties(${t_file} PROPERTIES COMPILE_DEFINITIONS "SHEAF_DLL_IMPORTS")
         endif()
-    
-        # Supply the *_DLL_IMPORTS directive to preprocessor
-        set_target_properties(${t_file} PROPERTIES COMPILE_DEFINITIONS "SHEAF_DLL_IMPORTS")
-    
     endforeach()
 
 endfunction(add_example_targets)
