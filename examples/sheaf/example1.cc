@@ -21,16 +21,22 @@ int main( int argc, char* argv[])
   
   // Body:
 
-  sheaves_namespace lns("hello-sheaf!");
-  
-  cout << lns.name(true);
-  
-  // Namespace will be deleted when lns goes out of scope,
-  // but destructor requires write access:
+  // Disable the concurrency access control mechanism;
+  // will explain this shortly!
 
-  lns.get_read_write_access();
+  read_write_monitor::disable_access_control();
   
-  // Done.
+  // Create a standard sheaves namespace.
+
+  sheaves_namespace lns("Hello-sheaf!");
+
+  // Write its name to cout.
+  
+  cout << lns.name();
+  
+  // Postconditions:
+  
+  // Exit:
 
   return 0;
 }
