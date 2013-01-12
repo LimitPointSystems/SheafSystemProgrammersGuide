@@ -9,15 +9,13 @@
 #------------------------------------------------
 # Programmer Filename Entry Section
 #------------------------------------------------
-#/home/jebutler/cvs-modules/components-head
 
-set(CLUSTER sheaf)
+set(CLUSTER fiber_bundle)
 
 #
 # Library sources.
 #
 set(SRCS
-
 )
 
 collect_sources()
@@ -34,7 +32,6 @@ collect_includes()
 # Source for unit test executables.
 #
 set(UNIT_TEST_SRCS
-
 )
 
 collect_unit_test_sources()
@@ -43,7 +40,7 @@ collect_unit_test_sources()
 # Source for example executables.
 #
 set(EXAMPLE_SRCS
-    example1.cc
+
  )
 
 collect_example_sources()

@@ -1,4 +1,6 @@
 #
+# $RCSfile: FindHDF5.cmake,v $ $Revision: 1.6 $ $Date: 2012/07/05 19:18:14 $
+#
 #
 # Some portions Copyright (c) 2012 Limit Point Systems, Inc.
 #
@@ -71,7 +73,7 @@
 include(SelectLibraryConfigurations)
 include(FindPackageHandleStandardArgs)
 
-if(LINUX64)
+if(LINUX64GNU OR LINUX64INTEL)
     set(HDF5_ROOT "$ENV{HOME}/LPS/prerequisites/hdf")
 else()
     set(HDF5_ROOT "$ENV{USERPROFILE}/LPS/prerequisites/hdf")

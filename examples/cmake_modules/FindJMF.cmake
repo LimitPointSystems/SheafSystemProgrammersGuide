@@ -1,4 +1,6 @@
 #
+# $RCSfile: FindJMF.cmake,v $ $Revision: 1.4 $ $Date: 2012/07/05 19:18:14 $
+#
 #
 # Copyright (c) 2012 Limit Point Systems, Inc.
 #

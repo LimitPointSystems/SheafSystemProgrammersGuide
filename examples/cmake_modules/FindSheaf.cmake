@@ -9,23 +9,25 @@
 #
 set(SHEAF_FOUND 0)
 
-#set(SHEAF_HOME $ENV{SHEAF_HOME} CACHE STRING "Sheaf Home Directory" FORCE)
-
 #
-# Find the exports file
+# Find the SheafSystem exports file
 #
-message(STATUS "Looking for sheafSystem exports file ...")
-find_file(SHEAFEXPORTSFILE sheafSystem-exports.cmake
-    HINTS ${SHEAF_HOME} ${SHEAF_HOME}/build)
-# Not good. The exports file wasn't where SHEAF_HOME claimed it was.    
-if(${SHEAFEXPORTSFILE} MATCHES "SHEAFEXPORTSFILE-NOTFOUND")
-    message(FATAL_ERROR "The sheafSystem exports file was not found in ${SHEAF_HOME}; Is the SHEAF_HOME variable set correctly?")
-else()
-    message(STATUS "Found ${SHEAFEXPORTSFILE}")
+message(STATUS "Looking for SheafSystem exports file ...")
+# Look for a binary installation of SheafSystem first
+if(EXISTS ${SHEAFSYSTEM_HOME}/${CMAKE_BUILD_TYPE}/config/SheafSystem-exports.cmake.in)
+    set(SHEAFEXPORTSFILE ${SHEAFSYSTEM_HOME}/${CMAKE_BUILD_TYPE}/config/SheafSystem-exports.cmake.in)
+    configure_file(${SHEAFEXPORTSFILE} ${CMAKE_BINARY_DIR}/SheafSystem-exports.cmake)
+    include(${CMAKE_BINARY_DIR}/SheafSystem-exports.cmake)
+    set(SHEAF_FOUND 1)
+# Didn't find install. Assume we are dealing with a build tree.    
+elseif(EXISTS ${SHEAFSYSTEM_HOME}/build/SheafSystem-exports.cmake)
+    set(SHEAFEXPORTSFILE ${SHEAFSYSTEM_HOME}/build/SheafSystem-exports.cmake CACHE STRING "Location of SheafSystem Exports file" FORCE)
     include(${SHEAFEXPORTSFILE})
     set(SHEAF_FOUND 1)
-endif()
-
+# Didn't find either. Puke and exit.
+else()
+    message(FATAL_ERROR "SheafSystem exports file not found; Check the value of SHEAFSYSTEM_HOME.")
+endif()    
 
    
 

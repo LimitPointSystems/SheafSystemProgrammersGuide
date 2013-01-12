@@ -2,7 +2,7 @@
 # $RCSfile: system_definitions.cmake,v $ $Revision $ $Date $
 #
 #
-# Copyright (c) 2011 Limit Point Systems, Inc.
+# Copyright (c) 2012 Limit Point Systems, Inc.
 #
 #
 # This file is the system level counterpart to the component_definitions file
@@ -10,19 +10,28 @@
 # that need to have system scope should be declared and/or defined here.
 #
 
-# Set backward compatibility so we can link to modules. If not, we can't link to the bindings libs.
-set(CMAKE_BACKWARDS_COMPATIBILITY 2.2 CACHE STRING "backward compat so we can link to bindings libs")
+#
+# Establish the list of components in this system
+#
+set(COMPONENTS sheaf fiber_bundle field CACHE STRING "List of components in this system" FORCE)
 
 #
 # Platform definitions
 #
 
-# OS is 64 bit Windows, compiler is MSVC
+# OS is 64 bit Windows, compiler is cl 
 if(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows" AND MSVC AND CMAKE_SIZEOF_VOID_P MATCHES "8")
-    set(WIN64 1)
+    set(WIN64MSVC ON CACHE BOOL "MS compiler in use.")
+# OS is 64 bit Windows, compiler is icl
+elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows" AND CMAKE_CXX_COMPILER_ID MATCHES "Intel" AND CMAKE_SIZEOF_VOID_P MATCHES "8")
+    set(WIN64INTEL ON CACHE BOOL "Intel compiler in use.")
 # OS is 64 bit linux, compiler is g++
 elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Linux" AND CMAKE_COMPILER_IS_GNUCXX AND CMAKE_SIZEOF_VOID_P MATCHES "8")
-    set(LINUX64 1)
+    set(LINUX64GNU ON CACHE BOOL "GNU compiler in use.")
+# OS is 64 bit linux, compiler is icpc
+elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Linux" AND CMAKE_CXX_COMPILER_ID MATCHES "Intel" AND CMAKE_SIZEOF_VOID_P MATCHES "8")
+    set(LINUX64INTEL ON CACHE BOOL "Intel compiler in use.")
+    message(STATUS "Using Intel compiler")    
 else()
     message(FATAL_ERROR "A 64 bit Windows or Linux environment was not detected; exiting")
 endif()
@@ -51,9 +60,14 @@ if(NOT CMAKE_BUILD_TYPE)
 endif(NOT CMAKE_BUILD_TYPE)
 
 #
-# True if we want this component to use VTK
+# True if we want geometry to link against VTK
 #
-set(USE_VTK ON CACHE BOOL "Set to link geometry against VTK libs.")
+set(USE_VTK CACHE BOOL "Set to link geometry against VTK libs.")
+
+#
+# $$HACK Toggle intel compiler warnings.
+#
+set(INTELWARN CACHE BOOL "Toggle Intel compiler warnings")
 
 #   
 #  Type of system documentation to build: Dev or User
@@ -64,41 +78,58 @@ endif()
 
 #
 # Set compiler optimization level.
+# Default is zero.
 #
+#$$TODO: add Windows clause.
+# We still need provision for user set opt levels. Can't always force "2" on the user.
 
-set(OPTIMIZATION_LEVEL "0" CACHE STRING "Compiler optimization level. Valid values for are 0,1,2,3, and \"s\(Linux only\)\". Default is 0. \n Linux values translate to -On. \n\n Windows values are: \n\n 0 = /0d \(no optimization\) \n 1 = /O1 \(Minimize Size\) \n 2 = /O2 \(Maximize Speed\) \n 3 = /GL \(Whole Program Optimization\) \n ")
+if(LINUX64GNU OR LINUX64INTEL)
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug-contracts" OR CMAKE_BUILD_TYPE STREQUAL "Debug-no-contracts")
+        set(OPTIMIZATION_LEVEL "0" CACHE STRING "Compiler optimization level. Valid values for are 0,1,2,3, and \"s\(Linux only\)\". Default is 0. \n Linux values translate to -On. \n\n Windows values are: \n\n 0 = /0d \(no optimization\) \n 1 = /O1 \(Minimize Size\) \n 2 = /O2 \(Maximize Speed\) \n 3 = /GL \(Whole Program Optimization\) \n " FORCE)
+    else()
+        # Optimize for execution speed.
+        set(OPTIMIZATION_LEVEL "2" CACHE STRING "Compiler optimization level. Valid values for are 0,1,2,3, and \"s\(Linux only\)\". Default is 0. \n Linux values translate to -On. \n\n Windows values are: \n\n 0 = /0d \(no optimization\) \n 1 = /O1 \(Minimize Size\) \n 2 = /O2 \(Maximize Speed\) \n 3 = /GL \(Whole Program Optimization\) \n " FORCE)
+    endif()
+endif()
+mark_as_advanced(CLEAR OPTIMIZATION_LEVEL)
+
+
+#
+# Enable coverage results
+#
+set(ENABLE_COVERAGE OFF CACHE BOOL "Set to ON to compile with Intel coverage support. Default is OFF.")
+
+# Set the Coverage dir variable (used by compiler) and create the coverage dir.
+if(ENABLE_COVERAGE)
+    set(COVERAGE_DIR ${CMAKE_BINARY_DIR}/coverage CACHE STRING "Directory for coverage files")
+    execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${COVERAGE_DIR})
+endif()
 
 #
 # Default linux installation location is /usr/local
 # Set a default where the user has write permission ; in this
 # case, the top of the components source tree.
 # "lib", "include", and "bin" will be appended to this location.
-# See "add_install_target" in LPSCommon for source.
+# See "add_install_target" in cmake_modules/LPSCommon.cmake for source.
 #
-if(LINUX64)
+if(LINUX64GNU OR LINUX64INTEL)
     set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR} CACHE STRING "System install location")
-elseif(WIN64)
+elseif(WIN64MSVC OR WIN64INTEL)
     set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR} CACHE STRING "System install location")
 endif()
 
 #
 # Establish the version number for this build.
-# This is only relevant for releases. 1.36.18 is chosen here
-# simply because that is our current release number.
-# $$TODO: Finish this mechanism. The goal is to eventually have our
-# release script call "cmake -D:LIB_VERSION=xx.xx.xx ..". In this way,
-# The libraries all get the release version in their file system names and 
-# their sonames.
+# This is only relevant for releases. 1.1.1 is chosen here
+# simply as a stub.
 #
-
 set(LIB_VERSION 1.1.1 CACHE STRING "Library version number for release purposes")
-
 mark_as_advanced(LIB_VERSION)
 
 #
 # Set the cmake module path.
 #
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules)
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules CACHE STRING "Location of Cmake modules")
 
 #
 # Targets with global scope are declared and optionally defined in 
@@ -110,6 +141,26 @@ include(${CMAKE_MODULE_PATH}/target_declarations.cmake)
 # Prerequisite discovery
 #
 include(${CMAKE_MODULE_PATH}/find_prerequisites.cmake)
+
+# Set the Coverage dir variable (used by compiler) and create the coverage dir.
+#set(COVERAGE_DIR ${CMAKE_BINARY_DIR}/coverage CACHE STRING "Directory for coverage files")
+#execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${COVERAGE_DIR})
+
+# Configure the list of files for which we generate coverage data. Use only the SheafSystem
+# and ignore sheaves/std.
+#configure_file(${CMAKE_MODULE_PATH}/coverage_files.lst.in ${CMAKE_BINARY_DIR}/coverage_files.lst)
+
+#
+# Utility function to add a component to a system.
+#
+function(add_components)
+
+    foreach(comp ${COMPONENTS})
+        clear_component_variables(${comp})
+        add_subdirectory(${comp})
+    endforeach()
+
+endfunction(add_components)
 
 #
 # Clear cached variables at the start of each cmake run.
@@ -124,15 +175,15 @@ function(clear_component_variables comp)
     
     # clear the unit tests var so consecutive cmake runs don't
     # list the same sources n times.
-    unset(${COMP}_CHECK_EXEC_SRCS CACHE)
+    unset(${COMP}_UNIT_TEST_SRCS CACHE)
 
     # clear the example binaries var so consecutive cmake runs don't
     # list the same sources n times.
-    unset(${COMP}_EXEC_SRCS CACHE)
+    unset(${COMP}_EXAMPLE_SRCS CACHE)
     
     # clear the unit tests var so consecutive cmake runs don't
     # list the same unit tests n times.
-    unset(${COMP}_CHECK_EXECS CACHE)
+    unset(${COMP}_UNIT_TESTS CACHE)
     
     # clear the unit tests var so consecutive cmake runs don't
     # list the same includes n times.
@@ -148,9 +199,10 @@ endfunction(clear_component_variables)
 # Set compiler optimization level.
 #
 function(set_optimization_level)
-    if(LINUX64)
+
+    if(LINUX64GNU OR LINUX64INTEL)
         if(${OPTIMIZATION_LEVEL} STREQUAL 0)
-            set(OPTIMIZATION "-O" PARENT_SCOPE)
+            set(OPTIMIZATION "-O0" PARENT_SCOPE)
         elseif(${OPTIMIZATION_LEVEL} STREQUAL 1)
             set(OPTIMIZATION "-O1" PARENT_SCOPE)
         elseif(${OPTIMIZATION_LEVEL} EQUAL 2)
@@ -162,7 +214,7 @@ function(set_optimization_level)
         else()
             break()
         endif()   # anything else, exit.
-    elseif(WIN64)
+    elseif(WIN64MSVC OR WIN64INTEL)
         if(${OPTIMIZATION_LEVEL} STREQUAL 0)
             set(OPTIMIZATION "/Od" PARENT_SCOPE)    
         elseif(${OPTIMIZATION_LEVEL} STREQUAL 1)
@@ -173,6 +225,7 @@ function(set_optimization_level)
             set(OPTIMIZATION "/GL" PARENT_SCOPE)    
         endif()
     endif()    
+
 endfunction(set_optimization_level)
 
 # 
@@ -180,7 +233,7 @@ endfunction(set_optimization_level)
 #
 function(add_tags_target)
 
-    if(LINUX64)
+    if(LINUX64GNU OR LINUX64INTEL)
         add_custom_target(tags
             COMMAND find ${CMAKE_CURRENT_SOURCE_DIR} -name build -prune -o -name "*.cc" -print -o -name "*.h" -print -o -name "*.t.cc" -print | etags --c++ --members -
         )

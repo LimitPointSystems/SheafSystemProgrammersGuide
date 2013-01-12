@@ -5,7 +5,7 @@
 #
 
 # Include the sheaf exports file
-include(@SHEAF_HOME@/sheaf_system-exports.cmake)
+include(@SHEAF_HOME@/SheafSystem-exports.cmake)
 
 set(SHEAF_LIB_DIR @SHEAF_HOME@/lib CACHE STRING "Sheaf_system lib directory.")
 set(SHEAF_IPATH ${STD_IPATH} ${SHEAVES_IPATH} ${FIBER_BUNDLES_IPATH} ${GEOMETRY_IPATH} ${FIELDS_IPATH})
