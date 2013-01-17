@@ -21,10 +21,7 @@ int main( int argc, char* argv[])
   
   // Body:
 
-  // Concurrency access control mechanism enabled by default;
-  // disable it for convenience, will explain shortly.
-
-  read_write_monitor::disable_access_control();
+  // Concurrency access control mechanism enabled by default.
   
   // Attempt to create a standard sheaves namespace
   // with an empty name. This violates the preconditions

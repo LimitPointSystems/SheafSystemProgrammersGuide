@@ -30,8 +30,16 @@ int main( int argc, char* argv[])
   // Write its name to cout.
   // Requires read access to the namespace.
   
+  // Be polite, request access.
+
   lns.get_read_access();
+
+  // Invoke the operation.
+
   cout << lns.name();
+
+  // Be proper, release access.
+ 
   lns.release_access();
   
   // Alternately can use version with auto access.

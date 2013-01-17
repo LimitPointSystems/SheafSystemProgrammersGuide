@@ -8,8 +8,6 @@
 /// @example Example1: Hello, sheaf!
 /// SheafSystem Programmer's Guide Example 1. Creates a sheaf namespace. 
 
-#include "assert_contract.h"
-#include "error_message.h"
 #include "sheaves_namespace.h"
 #include "std_iostream.h"
 
@@ -17,12 +15,8 @@ using namespace sheaf;
 
 int main( int argc, char* argv[])
 {
-  // Preconditions:
-  
-  // Body:
-
   // Disable the concurrency access control mechanism;
-  // will explain this shortly!
+  // will explain access control in example 3.
 
   read_write_monitor::disable_access_control();
   
@@ -33,8 +27,6 @@ int main( int argc, char* argv[])
   // Write its name to cout.
   
   cout << lns.name();
-  
-  // Postconditions:
   
   // Exit:
 
