@@ -22,11 +22,11 @@ int main( int argc, char* argv[])
   
   // Create a standard sheaves namespace.
 
-  sheaves_namespace lns("Hello-sheaf!");
+  sheaves_namespace lns("Hello-sheaf");
 
   // Write its name to cout.
   
-  cout << lns.name();
+  cout << lns.name() << endl;
   
   // Exit:
 
