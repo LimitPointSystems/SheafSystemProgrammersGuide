@@ -2,10 +2,10 @@
 
 // $Name:  $
 //
-// Copyright (c) 2008 Limit Point Systems, Inc. 
+// Copyright (c) 2013 Limit Point Systems, Inc. 
 //
 
-/// @example Example1: Hello, sheaf!
+/// @example Example1: Hello, sheaf
 /// SheafSystem Programmer's Guide Example 1. Creates a sheaf namespace. 
 
 #include "sheaves_namespace.h"
