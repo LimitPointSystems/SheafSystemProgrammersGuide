@@ -1,0 +1,4 @@
+terminate called after throwing an instance of 'std::logic_error'
+  what():  'poset_path::is_valid_name(xname)' in file namespace_poset.cc at line 1941
+Abort
+

@@ -16,4 +16,4 @@ example1: example1.cc
 
 
 example2: example2.cc
-	$(CXX) -o example2 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example2.o -lsheaves	
+	$(CXX) -o example2 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example2.cc -lsheaves	
