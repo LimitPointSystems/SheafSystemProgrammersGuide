@@ -15,6 +15,8 @@ using namespace sheaf;
 
 int main( int argc, char* argv[])
 {
+  cout << "SheafSystemProgrammersGuide Example3:" << endl;
+
   // Concurrency control enabled by default.
 
   // Create a standard sheaves namespace.
@@ -30,11 +32,11 @@ int main( int argc, char* argv[])
   // releases access. Otherwise, the request will succeed 
   // immediately.
 
-  lns->get_read_access();
-
   // Can nest requests as deep as you want, or at least 
   // until the integer depth counter overflows.
 
+  cout << "access request depth " << lns->access_request_depth() << endl;
+  lns->get_read_access();
   cout << "access request depth " << lns->access_request_depth() << endl;
   lns->get_read_access();
   cout << "access request depth " << lns->access_request_depth() << endl;
@@ -47,8 +49,11 @@ int main( int argc, char* argv[])
   // or another can get write access.
   // Have to match every request with a release.
  
+  cout << "access request depth " << lns->access_request_depth() << endl;
   lns->release_access();
+  cout << "access request depth " << lns->access_request_depth() << endl;
   lns->release_access();
+  cout << "access request depth " << lns->access_request_depth() << endl;
 
   // Delete the namespace, requires read-write access.
   // Be polite, request access. If threads are enabled

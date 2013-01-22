@@ -14,6 +14,8 @@ using namespace sheaf;
 
 int main( int argc, char* argv[])
 {
+  cout << "SheafSystemProgrammersGuide Example2:" << endl;
+
   // Attempt to create a standard sheaves namespace
   // with an empty name. This violates the preconditions
   // of the constructor and will throw an exception and abort.
