@@ -14,12 +14,7 @@
 using namespace sheaf;
 
 int main( int argc, char* argv[])
-{
-  // Disable the concurrency access control mechanism;
-  // will explain access control in example 3.
-
-  read_write_monitor::disable_access_control();
-  
+{  
   // Create a standard sheaves namespace.
 
   sheaves_namespace lns("Hello-sheaf");
