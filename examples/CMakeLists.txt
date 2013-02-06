@@ -14,7 +14,7 @@ set(CMAKE_CONFIGURATION_TYPES Debug-contracts Debug-no-contracts Release-contrac
     STRING "Supported configuration types"
     FORCE)
  
- project(examples)
+project(examples)
 
 message(STATUS "Processing ${PROJECT_NAME}")
 
@@ -27,6 +27,7 @@ cmake_minimum_required(VERSION 2.8.8)
 include(system_definitions.cmake)
 
 clear_component_variables(${PROJECT_NAME})
+
 #
 # Set the cmake module path.
 #
@@ -38,19 +39,14 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules)
 include(${CMAKE_CURRENT_SOURCE_DIR}/component_definitions.cmake)
 
 #
-# Initialize all variables for this component.
+# Set the compiler optimization level
 #
-set_component_vars()
+set_optimization_level()
 
 #
-# Add the clusters to the project
+# Add components to the system
 #
-add_clusters("${clusters}")
-
-#
-# Set compiler flags for all build configurations
-#
-set_compiler_flags()
+#add_components()
 
 #
 # Set up output directories
@@ -58,14 +54,12 @@ set_compiler_flags()
 create_output_dirs()
 
 #
-# Add the unit test targets
+# Add the system check target.
+# Only needs to be called at the system level.
+# use "<component>-check" for component level
+# tests.
 #
 add_example_targets()
-
-#
-# Add the documentation targets (doc, docclean)
-#
-add_doc_targets()
 
 #
 # Add files to the clean target
@@ -73,10 +67,21 @@ add_doc_targets()
 add_clean_files()
 
 #
-# Configure the environment scripts. Output is in "build".
+# Add the system bin target.
+# All unit tests and examples are built, but not run.
+# Only needs to be called at the system level.
+# use "<component>-bin" for component level
+# binaries.
 #
-configure_file(${CMAKE_MODULE_PATH}/set_env_vars.csh.cmake.in ${CMAKE_BINARY_DIR}/set_env_vars.csh)
-configure_file(${CMAKE_MODULE_PATH}/set_env_vars.sh.cmake.in ${CMAKE_BINARY_DIR}/set_env_vars.sh)
+add_bin_target()
+
+#
+# Configure the environment scripts. 
+#
+if(LINUX64GNU OR LINUX64INTEL)
+    configure_file(${CMAKE_MODULE_PATH}/set_env_vars.csh.cmake.in ${CMAKE_BINARY_DIR}/set_env_vars.csh)
+    configure_file(${CMAKE_MODULE_PATH}/set_env_vars.sh.cmake.in ${CMAKE_BINARY_DIR}/set_env_vars.sh)
+endif()
 
 
 

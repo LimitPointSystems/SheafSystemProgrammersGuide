@@ -1,8 +1,7 @@
 #
-# $RCSfile: FindJMF.cmake,v $ $Revision: 1.4 $ $Date: 2012/07/05 19:18:14 $
 #
 #
-# Copyright (c) 2012 Limit Point Systems, Inc.
+# Copyright (c) 2013 Limit Point Systems, Inc.
 #
 #  Look for JMF.
 #  This module finds an installed JMF.  It sets the following variables:

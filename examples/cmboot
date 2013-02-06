@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright (c) 2012 Limit Point Systems, Inc. 
+# Copyright (c) 2013 Limit Point Systems, Inc. 
 #
 
 # NOTE: The assumption is that this script is executed from the top of the SheafSystemTest source tree.
@@ -21,21 +21,35 @@ if ! test -d $builddir; then
    mkdir $builddir
 fi
 
+if [ ! $CXX ]; then
+	echo "CXX is not set in your environment. Set it, and then rerun $0"
+	exit
+fi
+
+if [ ! $CC ]; then
+	echo "CC is not set in your environment. Set it, and then rerun $0"
+	exit
+fi
+
 while [ ! -z "$1" ]
 do
   case "$1" in
     --help)
-		echo  ""
-    	echo  "Usage: $0 -D<cmake variable=value>"
-    	echo  "   Automates configure phase of cmake run. Arg(s) can be any legitimate"
-    	echo  "   CMake variable/value pair. See $builddir/CMakeCache.txt for a list of "
-    	echo  "   variables that cmake understands."
-    	echo  ""
-        echo  "   Example: $0 -DCMAKE_BUILD_TYPE=Debug-contracts"
-    	echo  ""
-        echo  "   Example: $0 -DCMAKE_BUILD_TYPE=Debug-contracts -DLPS_DOC_STATE=User"
-    	echo  ""
-        echo  "   Example: $0 -DCMAKE_BUILD_TYPE=Debug-contracts -DLPS_DOC_STATE=User -DCMAKE_INSTALL_PREFIX=/tmp/test"
+		echo  "   "
+    	echo  "Usage: $0 -D<cmake variable=value>                                                                                     "
+    	echo  "   "
+    	echo  "   Automates configure phase of cmake run. Arg(s) can be any legitimate                                                "
+    	echo  "   CMake variable/value pair. See $builddir/CMakeCache.txt (after run) for a complete list of                          "
+    	echo  "   variables that this build system understands.                                                                       "
+    	echo  "   "
+        echo  "      Example: $0                                                                                                      "
+    	echo  "   "
+        echo  "      Example: $0 -DLPS_DOC_STATE=User                                                                                 "
+    	echo  "   "
+        echo  "      Example: $0 -DLPS_DOC_STATE=User -DCMAKE_INSTALL_PREFIX=/tmp/test                                                "
+        echo  "   "
+
+        echo  "   " 
     	echo  "";;
      *) break;;
   esac
@@ -48,14 +62,14 @@ cd $builddir;
 echo ""
 
 # Get the SheafSystem home dir from the user.
-echo "Enter fully qualified path to top level of SheafSystem source tree: "
+echo "Enter fully qualified path to top level of SheafSystem installation or source tree: "
 echo "   Example: /home/user/projects/SheafSystem-my-branch: "
 echo ""
 echo -n "SheafSystem path: "
 read response
 if [ ! -z $response ]; then
 	echo ""
-	echo "Configuring against SheafSystem at $response"
+	echo "Configuring with SheafSystem location as: $response ..."
 	echo ""	
 	# Redirect cmake errors to file
 	if cmake $user_args -DSHEAFSYSTEM_HOME=$response $sourcedir 2> cmake.error; then
@@ -67,7 +81,7 @@ if [ ! -z $response ]; then
 		echo""
 		echo "	cd $builddir"
 		echo "	source set_env_vars.csh"
-		echo "	make -j6 lib"
+		echo "	make check"
 		echo""
 	# Cat the file to stdout. This really cleans up the cmake error trace.	
 	else
@@ -80,4 +94,3 @@ if [ ! -z $response ]; then
 else
 	echo "An empty path won't work. Try again."
 fi
-	

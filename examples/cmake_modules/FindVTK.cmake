@@ -1,8 +1,7 @@
 #
-# $RCSfile: FindVTK.cmake,v $ $Revision: 1.5 $ $Date: 2012/07/05 19:18:14 $
 #
 #
-# Some portions Copyright (c) 2012 Limit Point Systems, Inc.
+# Some portions Copyright (c) 2013 Limit Point Systems, Inc.
 #
 #
 
@@ -128,6 +127,10 @@ IF(_VTK_40_ALLOW AND NOT VTK_DIR)
     # Help the user find it if we cannot.
     DOC "The ${VTK_DIR_DESCRIPTION}"
     )
+    get_filename_component(__TMP_DIR "${VTK_DIR}" PATH)
+    get_filename_component(__TMP_DIR "${__TMP_DIR}" PATH)
+#    get_filename_component(__TMP_DIR "${__TMP_DIR}" PATH)
+    set(VTK_BIN_DIR "${__TMP_DIR}" CACHE PATH "VTK Runtime libraries location.")
 
   IF(VTK_DIR)
     IF(EXISTS ${VTK_DIR}/UseVTK.cmake AND NOT EXISTS ${VTK_DIR}/VTKConfig.cmake)

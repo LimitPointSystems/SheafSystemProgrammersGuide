@@ -1,8 +1,7 @@
 #
-# $RCSfile: FindHDF5.cmake,v $ $Revision: 1.6 $ $Date: 2012/07/05 19:18:14 $
 #
 #
-# Some portions Copyright (c) 2012 Limit Point Systems, Inc.
+# Some portions Copyright (c) 2013 Limit Point Systems, Inc.
 #
 #
 # - Find HDF5, a library for reading and writing self describing array data.
@@ -69,14 +68,15 @@
 # - The version is checked against what is passed in from CMakeLists.txt.
 #=============================================================================
 
-
 include(SelectLibraryConfigurations)
 include(FindPackageHandleStandardArgs)
 
 if(LINUX64GNU OR LINUX64INTEL)
-    set(HDF5_ROOT "$ENV{HOME}/LPS/prerequisites/hdf")
+    file(TO_CMAKE_PATH $ENV{HOME} HOME_DIR)
+    set(HDF5_ROOT "${HOME_DIR}/LPS/prerequisites/hdf")
 else()
-    set(HDF5_ROOT "$ENV{USERPROFILE}/LPS/prerequisites/hdf")
+    file(TO_CMAKE_PATH $ENV{USERPROFILE} HOME_DIR)
+    set(HDF5_ROOT "${HOME_DIR}/LPS/prerequisites/hdf-static")
 endif()
 
 # List of the valid HDF5 components
@@ -195,7 +195,7 @@ else()
     endif()
     
     # seed the initial lists of libraries to find with items we know we need
-    set( HDF5_C_LIBRARY_NAMES_INIT hdf5_hl hdf5 )
+    set( HDF5_C_LIBRARY_NAMES_INIT hdf5 )
     set( HDF5_CXX_LIBRARY_NAMES_INIT hdf5_cpp ${HDF5_C_LIBRARY_NAMES_INIT} )
     
     foreach( LANGUAGE ${HDF5_LANGUAGE_BINDINGS} )
@@ -351,8 +351,9 @@ else()
 endif()
 
 execute_process(COMMAND ${HDF5_DIFF_EXECUTABLE} "--version"
-                WORKING_DIRECTORY ${HDF5_WORKING_DIRECTORY}
-                OUTPUT_VARIABLE HDF5_VERSION )
+                    WORKING_DIRECTORY  ${HDF5_ROOT}/bin
+                    OUTPUT_VARIABLE HDF5_VERSION )
+                
 # Remove trailing newline
 if(HDF5_VERSION)
     string(REPLACE "\n" "" HDF5_VERSION ${HDF5_VERSION})
@@ -376,6 +377,7 @@ if(VSWIN64)
 else()
     set(HDF5_ERROR_MESSAGE "Could not find HDF5. Try running cmake with the -DWITH_HDF=/path/to/hdf option.")
 endif()
+
 find_package_handle_standard_args( HDF5 HDF5_ERROR_MESSAGE
     HDF5_LIBRARIES 
     HDF5_INCLUDE_DIRS

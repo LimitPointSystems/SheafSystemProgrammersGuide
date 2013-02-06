@@ -2,6 +2,7 @@
 # Source this script to set needed environment variables
 # for SheafSystem development.
 
+# Establish a name for our backup file.
 set revert_file = @CMAKE_BINARY_DIR@/revert_env_vars.csh
 
 # Backup the current terminal state
@@ -38,9 +39,9 @@ endif # revert_file
 
 	echo setting LD_LIBRARY_PATH in this terminal.
     if ($?LD_LIBRARY_PATH) then
-		setenv LD_LIBRARY_PATH $LD_LIBRARY_PATH\:@GNU_LIBPATH@:@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SHEAVES_LIB_OUTPUT_DIR@:@HDF5_LIBRARY_DIRS@:@VTK_LIB_DIR@:@TETGEN_LIB_DIR@:
+		setenv LD_LIBRARY_PATH $LD_LIBRARY_PATH\:@GNU_LIBPATH@:@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SHEAVES_LIB_OUTPUT_DIR@:@VTK_LIB_DIR@:
 	else
-		setenv LD_LIBRARY_PATH @GNU_LIBPATH@:@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SHEAVES_LIB_OUTPUT_DIR@:@HDF5_LIBRARY_DIRS@:@VTK_LIB_DIR@:@TETGEN_LIB_DIR@:
+		setenv LD_LIBRARY_PATH @GNU_LIBPATH@:@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SHEAVES_LIB_OUTPUT_DIR@:@VTK_LIB_DIR@:
 	endif
 	
 	echo setting CLASSPATH in this terminal.
