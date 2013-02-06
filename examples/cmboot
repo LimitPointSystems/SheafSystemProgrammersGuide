@@ -81,7 +81,7 @@ if [ ! -z $response ]; then
 		echo""
 		echo "	cd $builddir"
 		echo "	source set_env_vars.csh"
-		echo "	make check"
+		echo "	make examples"
 		echo""
 	# Cat the file to stdout. This really cleans up the cmake error trace.	
 	else

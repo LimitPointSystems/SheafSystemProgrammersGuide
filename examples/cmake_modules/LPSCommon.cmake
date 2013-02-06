@@ -800,7 +800,7 @@ function(add_example_targets)
     if(${USE_VTK})
         link_directories(${VTK_LIB_DIR})
     endif()
-
+include_directories(${FIELDS_IPATHS})
     foreach(t_cc_file ${${COMPONENT}_EXAMPLE_SRCS})
         # link_directories only applies to targets created after it is called.
         if(LINUX64GNU OR LINUX64INTEL)
@@ -823,7 +823,6 @@ function(add_example_targets)
     
         # Make sure the library is up to date
         if(WIN64MSVC OR WIN64INTEL)
-         #   add_dependencies(${t_file} ${${COMPONENT}_IMPORT_LIBS})
             if(${USE_VTK})
                 target_link_libraries(${t_file} ${${COMPONENT}_IMPORT_LIBS} ${VTK_LIBS})
             else()
@@ -833,7 +832,7 @@ function(add_example_targets)
             set_target_properties(${t_file} PROPERTIES FOLDER "Example Targets")
         else()
           # add_dependencies(${t_file})
-           target_link_libraries(${t_file} ${${COMPONENT}_SHARED_LIBS})
+           target_link_libraries(${t_file} ${FIELDS_SHARED_LIBS})
         endif()
     
         # Supply the *_DLL_IMPORTS directive to preprocessor
@@ -863,8 +862,6 @@ endfunction(add_clusters)
 function(set_component_vars)
 
     if(WIN64MSVC OR WIN64INTEL)
-        # Fields import lib won't exist when it's antecedents are configured. Force it.
-        set(FIELDS_IMPORT_LIB fieldsdll CACHE STRING "${PROJECT_NAME} import library")
         set(${COMPONENT}_DYNAMIC_LIB ${PROJECT_NAME}dll CACHE STRING "${PROJECT_NAME} dynamic link library")
         set(${COMPONENT}_IMPORT_LIB ${PROJECT_NAME}dll CACHE STRING "${PROJECT_NAME} import library")
     else()

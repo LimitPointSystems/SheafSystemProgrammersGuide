@@ -13,6 +13,8 @@
 
 set(CLUSTER sheaf)
 
+#include_directories(${SHEAVES_IPATHS})
+
 #
 # Library sources.
 #

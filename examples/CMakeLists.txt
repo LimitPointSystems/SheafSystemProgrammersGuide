@@ -61,6 +61,9 @@ create_output_dirs()
 #
 add_example_targets()
 
+add_custom_target(examples)
+add_dependencies(examples ${${COMPONENT}_EXAMPLES}})
+    
 #
 # Add files to the clean target
 #
