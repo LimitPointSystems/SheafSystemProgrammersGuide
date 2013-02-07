@@ -1,8 +1,5 @@
 #
-# $RCSfile: CMakeLists.txt,v $ $Revision: 1.6 $ $Date: 2012/01/26 18:55:32 $
-#
-#
-# Copyright (c) 2012 Limit Point Systems, Inc.
+# Copyright (c) 2013 Limit Point Systems, Inc.
 #
 #
 
@@ -18,7 +15,7 @@ project(examples)
 
 message(STATUS "Processing ${PROJECT_NAME}")
 
-cmake_minimum_required(VERSION 2.8.8)
+cmake_minimum_required(VERSION 2.8.6)
 
 #
 # Include variable definitions and functions
@@ -44,23 +41,18 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/component_definitions.cmake)
 set_optimization_level()
 
 #
-# Add components to the system
-#
-#add_components()
-
-#
 # Set up output directories
 #
 create_output_dirs()
 
 #
-# Add the system check target.
-# Only needs to be called at the system level.
-# use "<component>-check" for component level
-# tests.
+# Add the individual example targets.
 #
 add_example_targets()
 
+#
+# Add the cumulative examples target.
+#
 add_custom_target(examples)
 add_dependencies(examples ${${COMPONENT}_EXAMPLES}})
     
@@ -68,15 +60,6 @@ add_dependencies(examples ${${COMPONENT}_EXAMPLES}})
 # Add files to the clean target
 #
 add_clean_files()
-
-#
-# Add the system bin target.
-# All unit tests and examples are built, but not run.
-# Only needs to be called at the system level.
-# use "<component>-bin" for component level
-# binaries.
-#
-add_bin_target()
 
 #
 # Configure the environment scripts. 

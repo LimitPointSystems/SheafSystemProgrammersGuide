@@ -1,8 +1,5 @@
 #
-# $RCSfile: system_definitions.cmake,v $ $Revision $ $Date $
-#
-#
-# Copyright (c) 2012 Limit Point Systems, Inc.
+# Copyright (c) 2013 Limit Point Systems, Inc.
 #
 #
 # This file is the system level counterpart to the component_definitions file
@@ -19,34 +16,6 @@ set(COMPONENTS sheaf fiber_bundle field CACHE STRING "List of components in this
 # Set the cmake module path.
 #
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules CACHE STRING "Location of Cmake modules")
-
-#
-# Platform definitions
-#
-
-# OS is 64 bit Windows, compiler is cl 
-if(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows" AND MSVC AND CMAKE_SIZEOF_VOID_P MATCHES "8")
-    set(WIN64MSVC ON CACHE BOOL "MS compiler in use.")
-# OS is 64 bit Windows, compiler is icl
-elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows" AND CMAKE_CXX_COMPILER_ID MATCHES "Intel" AND CMAKE_SIZEOF_VOID_P MATCHES "8")
-    set(WIN64INTEL ON CACHE BOOL "Intel compiler in use.")
-# OS is 64 bit linux, compiler is g++
-elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Linux" AND CMAKE_COMPILER_IS_GNUCXX AND CMAKE_SIZEOF_VOID_P MATCHES "8")
-    set(LINUX64GNU ON CACHE BOOL "GNU compiler in use.")
-# OS is 64 bit linux, compiler is icpc
-elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Linux" AND CMAKE_CXX_COMPILER_ID MATCHES "Intel" AND CMAKE_SIZEOF_VOID_P MATCHES "8")
-    set(LINUX64INTEL ON CACHE BOOL "Intel compiler in use.")
-    message(STATUS "Using Intel compiler")    
-else()
-    message(FATAL_ERROR "A 64 bit Windows or Linux environment was not detected; exiting")
-endif()
-
-set(EXPORTS_FILE ${PROJECT_NAME}-exports.cmake CACHE STRING "System exports file name")
-
-#
-# Delete the exports file at the start of each cmake run
-#
-execute_process(COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/${EXPORTS_FILE})
 
 #
 # Set the default build type.
@@ -139,32 +108,6 @@ if(NOT EXISTS ${SHEAFSYSTEM_HOME}/RELEASE)
     include_directories(${HDF_INCLUDE_DIR})
     include_directories(${TETGEN_INCLUDE_DIR})
 endif()
-
-#
-# Enable coverage results
-#
-set(ENABLE_COVERAGE OFF CACHE BOOL "Set to ON to compile with Intel coverage support. Default is OFF.")
-
-# Set the Coverage dir variable (used by compiler) and create the coverage dir.
-if(ENABLE_COVERAGE)
-    set(COVERAGE_DIR ${CMAKE_BINARY_DIR}/coverage CACHE STRING "Directory for coverage files")
-    execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${COVERAGE_DIR})
-    # Configure the list of files for which we generate coverage data. Use only the SheafSystem
-    # and ignore sheaves/std.
-    configure_file(${CMAKE_MODULE_PATH}/coverage_files.lst.in ${CMAKE_BINARY_DIR}/coverage_files.lst)
-endif()
-
-#
-# Utility function to add a component to a system.
-#
-#function(add_components)
-
-#    foreach(comp ${COMPONENTS})
-#        clear_component_variables(${comp})
-#        add_subdirectory(${comp})
-#    endforeach()
-
-#endfunction(add_components)
 
 #
 # Clear cached variables at the start of each cmake run.

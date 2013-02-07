@@ -75,7 +75,7 @@ if [ ! -z $response ]; then
 	if cmake $user_args -DSHEAFSYSTEM_HOME=$response $sourcedir 2> cmake.error; then
 		echo ""
 		echo "CMake configure complete. Now cd to $builddir and source the set_env_vars script"
-		echo "appropriate for your your shell before executing make."
+		echo "appropriate for your shell before executing make."
 		echo""
 		echo "Example:"
 		echo""
