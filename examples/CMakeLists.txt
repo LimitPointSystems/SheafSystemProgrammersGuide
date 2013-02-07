@@ -36,6 +36,11 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules)
 include(${CMAKE_CURRENT_SOURCE_DIR}/component_definitions.cmake)
 
 #
+# Set compiler flags for all build configurations
+#
+set_compiler_flags()
+
+#
 # Set the compiler optimization level
 #
 set_optimization_level()

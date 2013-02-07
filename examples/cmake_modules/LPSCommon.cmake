@@ -10,8 +10,6 @@
 # Variable Definition Section
 #------------------------------------------------------------------------------
 
-include(CTest)
-
 #
 # Turn on project folders for Visual Studio.
 #
@@ -177,7 +175,7 @@ function(set_compiler_flags)
         endif()
 
     if(WIN64MSVC)
-       
+       message(STATUS "Weve got WINDOWS")
        # Clear all cmake's intrinsic vars. If we don't, then their values will be appended to our
        # compile and link lines.
        set(LPS_CXX_FLAGS "/D_USRDLL ${MP} /GR /nologo /DWIN32 /D_WINDOWS /W1 /EHsc ${OPTIMIZATION} /D_HDF5USEDLL_" CACHE STRING "C++ Compiler Flags" FORCE)
