@@ -68,9 +68,6 @@ endif()
 # Set compiler optimization level.
 # Default is zero.
 #
-#$$TODO: Make certain optimization values for win32 compilers are valid. Adding win32 clause was "down and dirty".
-#$$TODO: We still need provision for user set opt levels. Can't always force "2" on the user.
-
 if(LINUX64GNU OR LINUX64INTEL)
     if(CMAKE_BUILD_TYPE STREQUAL "Debug-contracts" OR CMAKE_BUILD_TYPE STREQUAL "Debug-no-contracts")
         set(OPTIMIZATION_LEVEL "0" CACHE STRING "Compiler optimization level. Valid values for are 0,1,2,3, and \"s\(Linux only\)\". Default is 0. \n Linux values translate to -On. \n\n Windows values are: \n\n 0 = /0d \(no optimization\) \n 1 = /O1 \(Minimize Size\) \n 2 = /O2 \(Maximize Speed\) \n 3 = /GL \(Whole Program Optimization\) \n " FORCE)
@@ -117,7 +114,6 @@ include(${CMAKE_MODULE_PATH}/target_declarations.cmake)
 include(${CMAKE_MODULE_PATH}/find_prerequisites.cmake)
 
 # If SHEAFSYSTEM_HOME contains white space, escape it.
-#string(REGEX REPLACE " " "\\\\ "  SHEAFSYSTEM_HOME "${SHEAFSYSTEM_HOME}")
 file(TO_NATIVE_PATH "${SHEAFSYSTEM_HOME}" SHEAFSYSTEM_HOME)
 
 # When we are dealing with an install, the hdf and tetgen include files are
