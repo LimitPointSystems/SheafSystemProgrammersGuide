@@ -24,7 +24,7 @@ int main( int argc, char* argv[])
 
   // Create a standard sheaves namespace.
 
-  sheaves_namespace* lns = new sheaves_namespace("Example3A");
+  sheaves_namespace* lns = new sheaves_namespace("ExampleA1A");
 
   // Write its name to cout.
   // Requires read access to the namespace.
@@ -77,7 +77,7 @@ int main( int argc, char* argv[])
   
   // Create another namespace.
 
-  lns = new sheaves_namespace("Example3B");
+  lns = new sheaves_namespace("ExampleA1B");
 
   // Invoking a function that requires access
   // without first getting access violates the

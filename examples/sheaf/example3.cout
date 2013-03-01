@@ -1,0 +1,9 @@
+SheafSystemProgrammersGuide Example3:
+Hub id space has 6 ids
+ begining at 0 and ending at 6 gathered
+id: 0 hub id: 0 name: bottom
+id: 1 hub id: 1 name: top
+id: 2 hub id: 2 name: primitives_schema
+id: 3 hub id: 3 name: namespace_poset_schema
+id: 4 hub id: 4 name: primitives
+id: 5 hub id: 5 name: schema definitions
