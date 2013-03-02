@@ -29,13 +29,13 @@ int main( int argc, char* argv[])
 
   // Find out how many ids are in the id space.
   
-  cout << "Hub id space has " << lmbr_ids.ct() << " ids" << endl;
+  cout << lmbr_ids.name() << " has " << lmbr_ids.ct() << " ids." << endl;
   
   // Id spaces are defined as half open intervals, like STL iterators.
   // If the space is "gathered", begin() == 0 and end() = ct().
   // If the space is not gathered, it's "scattered". 
 
-  cout << " begining at " << lmbr_ids.begin();
+  cout << "begining at " << lmbr_ids.begin();
   cout << " and ending at " << lmbr_ids.end();
   cout << " " << (lmbr_ids.is_gathered() ? "gathered" : "scattered");
   cout << endl;
@@ -57,10 +57,13 @@ int main( int argc, char* argv[])
     index_space_iterator::pod_type lpod = lmbr_itr.pod();
     
     // Use the id to get the member name.
+    // Member name requires a hub id, but since we're using
+    // the hub id space, pod and hub pod are the same thing.
     
     cout << "id: " << lpod;
     cout << " hub id: " << lmbr_itr.hub_pod();
     cout << " name: " << lns.member_name(lpod, true);
+    cout << (lns.is_jim(lpod) ? " is a jim." : " is a jrm.");
     cout << endl;
     
     // Move on.
@@ -68,7 +71,7 @@ int main( int argc, char* argv[])
     lmbr_itr.next();
   }
   
-  // If you got an id space or iterator from the pool with get_ you have to 
+  // If you got an id space or iterator from the pool with get_ 
   // you have to return it to the pool with release_.
   // We got the iterator with get_iterator, so we have to release it.
     
