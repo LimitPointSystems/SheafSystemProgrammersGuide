@@ -1,6 +1,13 @@
 SheafSystemProgrammersGuide Example4:
 member_poset_id_space has 3 ids.
 begining at 0 and ending at 3 gathered
+
+Iterate:
 id: 0 hub id: 2 name: primitives_schema is a jim.
 id: 1 hub id: 3 name: namespace_poset_schema is a jim.
 id: 2 hub id: 4 name: primitives is a jim.
+
+Reiterate:
+scoped_id:  (2, 0) name: primitives_schema is a jim.
+scoped_id:  (2, 1) name: namespace_poset_schema is a jim.
+scoped_id:  (2, 2) name: primitives is a jim.

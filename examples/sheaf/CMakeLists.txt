@@ -43,6 +43,7 @@ set(EXAMPLE_SRCS
     example2.cc
     example3.cc
     example4.cc
+    example5.cc
     exampleA1.cc
     exampleA2.cc
  )

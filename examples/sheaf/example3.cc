@@ -6,7 +6,7 @@
 //
 
 /// @example Example3
-/// SheafSystem Programmer's Guide Example 3. Iterates over the hub id space. 
+/// SheafSystem Programmer's Guide Example 3. Iterates over the member hub id space. 
 
 #include "hub_index_space_handle.h"
 #include "index_space_iterator.h"
@@ -44,9 +44,7 @@ int main( int argc, char* argv[])
   // Get an iterator from the iterator pool.
 
   index_space_iterator& lmbr_itr = lmbr_ids.get_iterator();
-
-  // Iterate.
-
+  cout << endl << "Iterate:" << endl;
   while(!lmbr_itr.is_done())
   {
     // The current member of the iteration is "pod()".
@@ -70,10 +68,28 @@ int main( int argc, char* argv[])
 
     lmbr_itr.next();
   }
+
+  // You can reuse an iterator by resetting it.
+
+  lmbr_itr.reset();
+  cout << endl << "Reiterate:" << endl;
+  while(!lmbr_itr.is_done())
+  {
+    index_space_iterator::pod_type lpod = lmbr_itr.pod();
+    
+    cout << "id: " << lpod;
+    cout << " hub id: " << lmbr_itr.hub_pod();
+    cout << " name: " << lns.member_name(lpod, true);
+    cout << (lns.is_jim(lpod) ? " is a jim." : " is a jrm.");
+    cout << endl;
+    
+    // Move on.
+
+    lmbr_itr.next();
+  }
   
   // If you got an id space or iterator from the pool with get_ 
   // you have to return it to the pool with release_.
-  // We got the iterator with get_iterator, so we have to release it.
     
   lmbr_ids.release_iterator(lmbr_itr);
 

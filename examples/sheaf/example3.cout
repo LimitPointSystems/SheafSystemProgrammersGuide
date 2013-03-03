@@ -1,6 +1,16 @@
 SheafSystemProgrammersGuide Example3:
 __hub has 6 ids.
 begining at 0 and ending at 6 gathered
+
+Iterate:
+id: 0 hub id: 0 name: bottom is a jrm.
+id: 1 hub id: 1 name: top is a jrm.
+id: 2 hub id: 2 name: primitives_schema is a jim.
+id: 3 hub id: 3 name: namespace_poset_schema is a jim.
+id: 4 hub id: 4 name: primitives is a jim.
+id: 5 hub id: 5 name: schema definitions is a jrm.
+
+Reiterate:
 id: 0 hub id: 0 name: bottom is a jrm.
 id: 1 hub id: 1 name: top is a jrm.
 id: 2 hub id: 2 name: primitives_schema is a jim.
