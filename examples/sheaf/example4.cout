@@ -7,6 +7,9 @@ id: 0 hub id: 2 name: primitives_schema is a jim.
 id: 1 hub id: 3 name: namespace_poset_schema is a jim.
 id: 2 hub id: 4 name: primitives is a jim.
 
+sheaf::invalid_pod_index()= 2147483647
+lscoped_id=  (2, 2147483647) is_valid() false
+
 Reiterate:
 scoped_id:  (2, 0) name: primitives_schema is a jim.
 scoped_id:  (2, 1) name: namespace_poset_schema is a jim.

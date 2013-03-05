@@ -55,8 +55,8 @@ int main( int argc, char* argv[])
     lhub_pod = lmbr_itr.hub_pod();
     
     cout << "id: " << lpod;
-    cout << " hub id: " << lmbr_itr.hub_pod();
-    cout << " name: " << lns.member_name(lmbr_itr.hub_pod(), true);
+    cout << " hub id: " << lhub_pod;
+    cout << " name: " << lns.member_name(lhub_pod, true);
     cout << (lns.is_jim(lhub_pod) ? " is a jim." : " is a jrm.");
     cout << endl;
     
@@ -70,6 +70,23 @@ int main( int argc, char* argv[])
   // If you don't want to think about what the scope for an argument
   // should be, you can use the scoped_index signature.
 
+  // Create a scoped id with scope = member poset id space.
+
+  scoped_index lscoped_id(lmbr_ids);
+
+  // The value sheaf::invalid_pod_index() is reserved as a
+  // "null" value for index types. It is currently set to
+  // numeric_limits<pod_index_type>::max(), but don't count on it.
+
+  cout << endl << "sheaf::invalid_pod_index()= " << sheaf::invalid_pod_index() << endl;
+
+  // When a scoped id is created without a specific pod value, 
+  // it is invalid by default.
+
+  cout << "lscoped_id= " << lscoped_id;
+  cout << " is_valid() " << boolalpha << lscoped_id.is_valid() << noboolalpha;
+  cout << endl;
+
   // Reset the iterator and re-iterate using 
   // the scoped_index signature for member_name.
 
@@ -77,11 +94,15 @@ int main( int argc, char* argv[])
   cout << endl << "Reiterate:" << endl;
   while(!lmbr_itr.is_done())
   {
-    // Create a scoped id for the current member of the iteration.
+    // Set the scoped id for the current member of the iteration.
 
-    scoped_index lscoped_id(lmbr_ids, lmbr_itr.pod());
+    lscoped_id.put_pod(lmbr_itr.pod());
     
-    // Use the scoped_index signature id to get the member name.
+    // Assigment is overloaded, so you can also say:
+
+    lscoped_id = lmbr_itr.pod();
+    
+    // Use the scoped_index signature to get the member name.
     
     cout << "scoped_id: " << lscoped_id;
     cout << " name: " << lns.member_name(lscoped_id, true);
