@@ -34,21 +34,17 @@ int main( int argc, char* argv[])
   poset& lposet = 
     lns.new_member_poset<poset>("simple_poset", lschema_path, largs, true);
 
-  // Print the id of the poset.
-
-  cout << "Id: " << lposet.index().hub_pod() << endl;
-  
   // Print the poset to cout.
 
   cout << lposet << endl;
 
   // Get another reference to the poset by id:
 
-  poset_state_handle* lprim1 = lns.member_poset(6, true);
+  poset_state_handle* lpsh1 = lns.member_poset(6, true);
   
   // and by path:
 
-  poset_state_handle* lprim2 = lns.member_poset("simple_poset", true);
+  poset_state_handle* lpsh2 = lns.member_poset("simple_poset", true);
 
   // Delete the poset by path. 
   // Invalidates all the above references.
