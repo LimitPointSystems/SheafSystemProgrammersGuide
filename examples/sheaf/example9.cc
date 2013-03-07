@@ -6,7 +6,7 @@
 //
 
 /// @example Example9
-/// SheafSystem Programmer's Guide Example 5. Write a namespace to a file. 
+/// SheafSystem Programmer's Guide Example 9: Creating, accessing and deleting posets. 
 
 #include "sheaves_namespace.h"
 #include "std_iostream.h"
@@ -37,6 +37,11 @@ int main( int argc, char* argv[])
   // Print the poset to cout.
 
   cout << lposet << endl;
+
+  // Write the namespace to a sheaf file.
+
+  storage_agent lsa("example9.hdf");
+  lsa.write_entire(lns);
 
   // Get another reference to the poset by id:
 

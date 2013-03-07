@@ -6,7 +6,7 @@
 //
 
 /// @example Example6
-/// SheafSystem Programmer's Guide Example 5. Write a namespace to a file. 
+/// SheafSystem Programmer's Guide Example 5. Write a namespace to a stream. 
 
 #include "sheaves_namespace.h"
 #include "std_iostream.h"

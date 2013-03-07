@@ -6,7 +6,7 @@
 //
 
 /// @example Example5
-/// SheafSystem Programmer's Guide Example 5. Write a namespace to a file. 
+/// SheafSystem Programmer's Guide Example 5. Write a namespace to a sheaf file. 
 
 #include "sheaves_namespace.h"
 #include "std_iostream.h"
@@ -22,7 +22,7 @@ int main( int argc, char* argv[])
 
   sheaves_namespace lns("Example5");
 
-  // Write the namespace to a file.
+  // Write the namespace to a sheaf file.
 
   storage_agent lsa("example5.hdf");
   lsa.write_entire(lns);
