@@ -10,6 +10,7 @@
 
 #include "sheaves_namespace.h"
 #include "std_iostream.h"
+#include "storage_agent.h"
 
 using namespace sheaf;
 
@@ -45,11 +46,11 @@ int main( int argc, char* argv[])
 
   // Get another reference to the poset by id:
 
-  poset_state_handle* lpsh1 = lns.member_poset(6, true);
+  poset_state_handle& lpsh1 = lns.member_poset(6, true);
   
   // and by path:
 
-  poset_state_handle* lpsh2 = lns.member_poset("simple_poset", true);
+  poset_state_handle& lpsh2 = lns.member_poset("simple_poset", true);
 
   // Delete the poset by path. 
   // Invalidates all the above references.
