@@ -32,8 +32,9 @@ int main( int argc, char* argv[])
   lsa.read_entire(lns);
 
   // Get a reference to the poset "simple_poset".
-  
-  poset& lposet = lns.member_poset<poset>("simple_poset", true);
+
+  poset_path lpath("simple_poset");
+  poset& lposet = lns.member_poset<poset>(lpath, true);
 
   // Allow creation of jims.
 
@@ -57,7 +58,7 @@ int main( int argc, char* argv[])
   // The vertices cover bottom.
 
   lposet.new_link(lv0_pod, BOTTOM_INDEX);
-  lposet.new_link(lv0_pod, lposet.bottom().index().pod());
+  lposet.new_link(lv1_pod, lposet.bottom().index().pod());
 
   // We're finished creating and linking jims.
 
@@ -77,7 +78,7 @@ int main( int argc, char* argv[])
 
   // Get the row attribute id space and pod and scoped ids for the only attribute.
 
-  const index_space_handle& latt_id_space = poset.schema().dof_id_space(false); 
+  const index_space_handle& latt_id_space = lposet.schema().dof_id_space(false); 
   pod_index_type latt_pod = lposet.schema().dof_id_space(false).begin();
   scoped_index latt_id(lposet.schema().dof_id_space(false), latt_pod);
 
@@ -102,25 +103,28 @@ int main( int argc, char* argv[])
   int lv1_dim = lposet.member_dof_map(lv1_pod, false).dof(latt_pod);
   int ls0_dim = lposet.member_dof_map(ls0_pod, false).dof(latt_pod);
   
-  cout << "v0 dim= " << lv0_dim << " v1 dim= " << lv1_dim << "s0 dim= " << ls0_dim << endl;
+  cout << "v0 dim= " << lv0_dim;
+  cout << " v1 dim= " << lv1_dim;
+  cout << " s0 dim= " << ls0_dim;
+  cout << endl;
 
   // Create a jrm named c0.
 
-  poset_index_type lc0_pod = lposet.new_member(false);
+  pod_index_type lc0_pod = lposet.new_member(false);
   lposet.put_member_name(lc0_pod, "c0", true);
 
   //  Link it up:
 
   lposet.new_link(ls0_pod, lc0_pod);
   lposet.new_link(lc0_pod, lv0_pod);
-  lposet_new_link(lc0_pod, lv1_pod);
+  lposet.new_link(lc0_pod, lv1_pod);
 
   // Delete the now obsolete links from s0 to the vertices.
 
   lposet.delete_link(ls0_pod, lv0_pod);
   lposet.delete_link(ls0_pod, lv1_pod);
 
-  // Create a jem; a copy of c0, call c1.
+  // Create a jem; a copy of c0, call it c1.
 
   pod_index_type lc1_pod = lposet.new_member(false);
   lposet.put_member_name(lc1_pod, "c1", true);

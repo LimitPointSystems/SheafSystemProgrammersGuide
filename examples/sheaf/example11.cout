@@ -1,0 +1,171 @@
+SheafSystemProgrammersGuide Example11:
+lmbr is_attached() = false
+lmbr attached to top
+lmbr attached to bottom
+lmbr is_attached() = false
+v0
+v1
+s0
+v0 dim= 0 v1 dim= 0 s0 dim= 1
+
+
+#### BEGIN POSET simple_poset ###################
+
+GENERAL
+-------
+
+poset: 'simple_poset' 	host: 'Example9' 	index: 6 	version: -2
+
+
+ROW GRAPH
+---------
+
+Members and Covering Relation
+-----------------------------
+
+ member_ct = 7
+
+index:     0    bottom                              dof_map:  2147483647    upper_cover: 2 3			lower_cover:
+index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 4
+index:     2    v0                                  dof_map:           0    upper_cover: 5			lower_cover: 0
+index:     3    v1                                  dof_map:           1    upper_cover: 5			lower_cover: 0
+index:     4    s0                                  dof_map:           2    upper_cover: 1			lower_cover: 6
+index:     5    c0                                  dof_map:  2147483647    upper_cover: 6			lower_cover: 2 3
+index:     6    c1                                  dof_map:  2147483647    upper_cover: 4			lower_cover: 5
+
+Member Id Space Family
+----------------------
+
+id spaces
+---------
+
+ begin = 0
+ end   = 384
+
+     index                            name        ct     begin       end  persistent
+ --------- ------------------------------- --------- --------- --------- -----------
+         0                           __hub         7         0         7
+ primary:
+         1                    __hub_term_0       128         0       128
+ secondary:
+         2                  __example9.hdf         2         2         4       false
+       128        __explicit_0_lower_cover         0
+       129        __explicit_1_lower_cover         1         0         1       false
+       130        __explicit_2_lower_cover         1         0         1       false
+       131        __explicit_3_lower_cover         1         0         1       false
+       132        __explicit_4_lower_cover         1         0         1       false
+       133        __explicit_5_lower_cover         2         0         2       false
+       134        __explicit_6_lower_cover         1         0         1       false
+       256        __explicit_0_upper_cover         2         0         2       false
+       257        __explicit_1_upper_cover         0
+       258        __explicit_2_upper_cover         1         0         1       false
+       259        __explicit_3_upper_cover         1         0         1       false
+       260        __explicit_4_upper_cover         1         0         1       false
+       261        __explicit_5_upper_cover         1         0         1       false
+       262        __explicit_6_upper_cover         1         0         1       false
+
+equivalence classes
+-------------------
+
+(   0,    0):    (   0,    0)    (   1,    0)    (   2,    2)    ( 130,    0)    ( 131,    0)
+(   0,    1):    (   0,    1)    (   1,    1)    (   2,    3)    ( 260,    0)
+(   0,    2):    (   0,    2)    (   1,    2)    ( 133,    0)    ( 256,    0)
+(   0,    3):    (   0,    3)    (   1,    3)    ( 133,    1)    ( 256,    1)
+(   0,    4):    (   0,    4)    (   1,    4)    ( 129,    0)    ( 262,    0)
+(   0,    5):    (   0,    5)    (   1,    5)    ( 134,    0)    ( 258,    0)    ( 259,    0)
+(   0,    6):    (   0,    6)    (   1,    6)    ( 132,    0)    ( 261,    0)
+
+
+
+ROW GRAPH SUBPOSETS
+-------------------
+
+Subposets
+---------
+
+index:   (0, 0)  jims                members: 0011100  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0_jims  
+index:   (0, 1)  simple_poset        members: 1111111  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0       
+index:   (0, 2)  resident            members: 0100000  is_dof_sp:  false  dof_ct: 0  offsets: 
+
+Subposet Id Space Family
+----------------------
+
+id spaces
+---------
+
+ begin = 0
+ end   = 128
+
+     index                            name        ct     begin       end  persistent
+ --------- ------------------------------- --------- --------- --------- -----------
+         0                           __hub         3         0         3
+ primary:
+         1                    __hub_term_0       128         0       128
+ secondary:
+         2                  __example9.hdf         3         0         3       false
+
+equivalence classes
+-------------------
+
+(   0,    0):    (   0,    0)    (   1,    0)    (   2,    0)
+(   0,    1):    (   0,    1)    (   1,    1)    (   2,    1)
+(   0,    2):    (   0,    2)    (   1,    2)    (   2,    2)
+
+
+
+TABLE
+-----
+
+Schema
+------
+
+member: host = 'primitives' index = 6 name = 'INT' version= -2 unaliased version= -2
+
+Table Attributes
+----------------
+
+table dof count: 0 table dof tuple size: 0
+
+Row Attributes
+--------------
+
+row dof count: 1 row dof tuple size: 4
+
+ index  type    dof   0
+                    INT
+ ----- ----- ----------
+     0                0
+     1                0
+     2                1
+
+Tuple Id Space Family
+----------------------
+
+id spaces
+---------
+
+ begin = 0
+ end   = 128
+
+     index                            name        ct     begin       end  persistent
+ --------- ------------------------------- --------- --------- --------- -----------
+         0                           __hub         3         0         3
+ primary:
+         2                    __hub_term_0       128         0       128
+ secondary:
+         1                  __example9.hdf         0
+
+equivalence classes
+-------------------
+
+(   0,    0):    (   0,    0)    (   2,    0)
+(   0,    1):    (   0,    1)    (   2,    1)
+(   0,    2):    (   0,    2)    (   2,    2)
+
+
+
+#### END POSET simple_poset ###################
+
+c1 is_attached() = false
