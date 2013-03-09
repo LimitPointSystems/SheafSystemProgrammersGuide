@@ -56,6 +56,11 @@ create_output_dirs()
 add_example_targets()
 
 #
+# Add the aerchive target. USed for release procedure.
+#
+add_archive_target()
+
+#
 # Add the cumulative examples target.
 #
 add_custom_target(examples)
