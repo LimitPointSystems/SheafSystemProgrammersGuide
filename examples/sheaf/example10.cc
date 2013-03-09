@@ -6,10 +6,14 @@
 //
 
 /// @example Example10
-/// SheafSystem Programmer's Guide Example 10: Creating, accessing, and deleting poset members. 
+/// SheafSystem Programmer's Guide Example 10: Reading a sheaf file; 
+/// manipulating poset members with the poset interface. 
 
 #include "sheaves_namespace.h"
+#include "poset.h"
+#include "poset_dof_map.h"
 #include "std_iostream.h"
+#include "storage_agent.h"
 
 using namespace sheaf;
 
@@ -37,23 +41,23 @@ int main( int argc, char* argv[])
 
   // Create jims for the two vertices and the segment.
 
-  pod_index_type lv0_id = lposet.new_member(true);
-  pod_index_type lv1_id = lposet.new_member(true);
-  pod_index_type ls0_id = lposet.new_member(true);
+  pod_index_type lv0_pod = lposet.new_member(true);
+  pod_index_type lv1_pod = lposet.new_member(true);
+  pod_index_type ls0_pod = lposet.new_member(true);
 
   // Make the segment cover the vertices.
 
-  lposet.new_link(ls0_id, lv0_id);
-  lposet.new_link(ls0_id, lv1_id);
+  lposet.new_link(ls0_pod, lv0_pod);
+  lposet.new_link(ls0_pod, lv1_pod);
 
   // Top covers the segment.
 
-  lposet.new_link(TOP_INDEX, ls0_id);
+  lposet.new_link(TOP_INDEX, ls0_pod);
 
   // The vertices cover bottom.
 
-  lposet.new_link(lv0_id, BOTTOM_INDEX);
-  lposet.new_link(lv0_id, lposet.bottom().index().pod());
+  lposet.new_link(lv0_pod, BOTTOM_INDEX);
+  lposet.new_link(lv0_pod, lposet.bottom().index().pod());
 
   // We're finished creating and linking jims.
 
@@ -61,39 +65,80 @@ int main( int argc, char* argv[])
 
   // Give each jim a name..
 
-  lposet.put_member_name(lv0_id, "v0", true);
-  lposet.put_member_name(lv1_id, "v1", true);
-  lposet.put_member_name(ls0_id, "s0", true);
+  lposet.put_member_name(lv0_pod, "v0", true);
+  lposet.put_member_name(lv1_pod, "v1", true);
+  lposet.put_member_name(ls0_pod, "s0", true);
 
-  // Pirnt the names to cout.
+  // Print the names to cout.
 
-  cout << lposet.member_name(lv0_id) << endl;
-  cout << lposet.member_name(lv1_id) << endl;
-  cout << lposet.member_name(ls0_id) << endl;
+  cout << lposet.member_name(lv0_pod) << endl;
+  cout << lposet.member_name(lv1_pod) << endl;
+  cout << lposet.member_name(ls0_pod) << endl;
 
-  
+  // Get the row attribute id space and pod and scoped ids for the only attribute.
+
+  const index_space_handle& latt_id_space = poset.schema().dof_id_space(false); 
+  pod_index_type latt_pod = lposet.schema().dof_id_space(false).begin();
+  scoped_index latt_id(lposet.schema().dof_id_space(false), latt_pod);
+
+  // Get the attribute tuple for vertex 0.
+
+  poset_dof_map& ltuple = lposet.member_dof_map(lv0_pod, true);
+
   // Set the only attribute of v0 to its dimension, 0.
   // Do the first one explicitly, without any automatic conversion.
 
-  // Create a primtive value wrapper.
-
-  primitive_value lv0_d(int(0));
-
-  // Get a reference to the attribute tuple for v0.
-
-  poset_dof_map& lv0_tuple = lposet.member_dof_map(lv0_id, true);
-
-  // Set the attribute.
-
-  lv0_tuple.put_dof("INT", lv0_d);
+  primitive_value lpv(int(0));
+  ltuple.put_dof(latt_pod, lpv);
   
   // Set attributes for v1 and s0 relying on conversions.
 
-  lposet.member_dof_tuple(lv1_id, true).put_dof("INT", int(0));
-  lposet.member_dof_tuple(ls0_id, true).put_dof("INT", int(1));
+  lposet.member_dof_map(lv1_pod, true).put_dof(latt_pod, int(0));
+  lposet.member_dof_map(ls0_pod, true).put_dof(latt_pod, int(1));
 
+  // Get attributes back and write them to cout.
 
+  int lv0_dim = lposet.member_dof_map(lv0_pod, false).dof(latt_pod);
+  int lv1_dim = lposet.member_dof_map(lv1_pod, false).dof(latt_pod);
+  int ls0_dim = lposet.member_dof_map(ls0_pod, false).dof(latt_pod);
   
+  cout << "v0 dim= " << lv0_dim << " v1 dim= " << lv1_dim << "s0 dim= " << ls0_dim << endl;
+
+  // Create a jrm named c0.
+
+  poset_index_type lc0_pod = lposet.new_member(false);
+  lposet.put_member_name(lc0_pod, "c0", true);
+
+  //  Link it up:
+
+  lposet.new_link(ls0_pod, lc0_pod);
+  lposet.new_link(lc0_pod, lv0_pod);
+  lposet_new_link(lc0_pod, lv1_pod);
+
+  // Delete the now obsolete links from s0 to the vertices.
+
+  lposet.delete_link(ls0_pod, lv0_pod);
+  lposet.delete_link(ls0_pod, lv1_pod);
+
+  // Create a jem; a copy of c0, call c1.
+
+  pod_index_type lc1_pod = lposet.new_member(false);
+  lposet.put_member_name(lc1_pod, "c1", true);
+  lposet.delete_link(ls0_pod, lc0_pod);
+  lposet.new_link(ls0_pod, lc1_pod);
+  lposet.new_link(lc1_pod, lc0_pod);  
+
+  // Output the finished poset to cout:
+
+  cout << lposet << endl;
+  
+  // Delete c1.
+
+  lposet.delete_link(lc1_pod, lc0_pod);
+  lposet.delete_link(ls0_pod, lc1_pod);
+  lposet.new_link(ls0_pod, lc0_pod);
+  lposet.delete_member(lc1_pod);
+
   // Exit:
 
   return 0;
