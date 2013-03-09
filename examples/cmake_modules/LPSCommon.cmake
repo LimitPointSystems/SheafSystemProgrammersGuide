@@ -551,4 +551,15 @@ function(showincs)
     message(STATUS "===================================================")       
 endfunction()
   
-
+#
+# Create an archive target. Only applicable when using git.
+#
+if(GIT_FOUND)
+    function(add_archive_target)
+    
+        add_custom_target(archive 
+                          COMMAND ${GIT_EXECUTABLE} archive --output ${PROJECT_NAME}.zip master
+                          WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/.. )
+    
+    endfunction()
+endif()
