@@ -28,8 +28,8 @@ int main( int argc, char* argv[])
   // Populate the namespace from the file we wrote in example9.
   // Retrieves the simple_poset example.
 
-  storage_agent lsa("example9.hdf", sheaf_file::READ_ONLY);
-  lsa.read_entire(lns);
+  storage_agent lsa_read("example9.hdf", sheaf_file::READ_ONLY);
+  lsa_read.read_entire(lns);
 
   // Get a reference to the poset "simple_poset".
 
@@ -135,6 +135,11 @@ int main( int argc, char* argv[])
   // Output the finished poset to cout:
 
   cout << lposet << endl;
+
+  // Write it to a file for later use.
+
+  storage_agent lsa_write("example10.hdf", sheaf_file::READ_WRITE);
+  lsa_write.write_entire(lns);
   
   // Delete c1.
 
