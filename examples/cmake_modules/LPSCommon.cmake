@@ -558,7 +558,8 @@ if(GIT_FOUND)
     function(add_archive_target)
     
         add_custom_target(archive 
-                          COMMAND ${GIT_EXECUTABLE} archive --output ${PROJECT_NAME}.zip master
+                          #COMMAND ${GIT_EXECUTABLE} archive --output ${PROJECT_NAME}.zip master
+                          COMMAND ${GIT_EXECUTABLE} archive --output SSPG.zip master
                           WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/.. )
     
     endfunction()
