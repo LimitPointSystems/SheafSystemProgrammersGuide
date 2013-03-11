@@ -48,7 +48,8 @@ set(EXAMPLE_SRCS
     example9.cc
     example10.cc
     example11.cc
-    example12.cc
+    example13.cc
+    example14.cc
     exampleA1.cc
     exampleA2.cc
  )

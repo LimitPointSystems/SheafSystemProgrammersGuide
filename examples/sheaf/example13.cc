@@ -5,8 +5,8 @@
 // Copyright (c) 2013 Limit Point Systems, Inc. 
 //
 
-/// @example Example12
-/// SheafSystem Programmer's Guide Example 10: Cover id spaces and iterators. 
+/// @example Example13
+/// SheafSystem Programmer's Guide Example 13: Cover id spaces and iterators. 
 
 #include "index_space_handle.h"
 #include "index_space_iterator.h"
@@ -20,11 +20,11 @@ using namespace sheaf;
 
 int main( int argc, char* argv[])
 {  
-  cout << "SheafSystemProgrammersGuide Example12:" << endl;
+  cout << "SheafSystemProgrammersGuide Example13:" << endl;
 
   // Create a namespace.
 
-  sheaves_namespace lns("Example12");
+  sheaves_namespace lns("Example13");
 
   // Populate the namespace from the file we wrote in example10.
   // Retrieves the simple_poset example.
