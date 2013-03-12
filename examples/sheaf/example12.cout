@@ -1,4 +1,4 @@
-SheafSystemProgrammersGuide Example15:
+SheafSystemProgrammersGuide Example12:
 subposet jrms is empty()= true
 contains top: true
 contains c1: true

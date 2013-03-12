@@ -1,4 +1,4 @@
-SheafSystemProgrammersGuide Example16:
+SheafSystemProgrammersGuide Example15:
 
 cell conforms to spatial_structure= true
 
@@ -11,7 +11,7 @@ name: cell_type size: 8 alignment: 8 type: C_STRING offset: 8
 GENERAL
 -------
 
-poset: 'cell_schema_poset' 	host: 'Example16' 	index: 6 	version: -2
+poset: 'cell_schema_poset' 	host: 'Example15' 	index: 6 	version: -2
 
 
 ROW GRAPH
@@ -174,7 +174,7 @@ equivalence classes
 GENERAL
 -------
 
-poset: 'test' 	host: 'Example16' 	index: 7 	version: -2
+poset: 'test' 	host: 'Example15' 	index: 7 	version: -2
 
 
 ROW GRAPH

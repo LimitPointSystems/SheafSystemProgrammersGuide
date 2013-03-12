@@ -5,8 +5,8 @@
 // Copyright (c) 2013 Limit Point Systems, Inc. 
 //
 
-/// @example Example16
-/// SheafSystem Programmer's Guide Example 16: Schema posets. 
+/// @example Example15
+/// SheafSystem Programmer's Guide Example 15: Schema posets. 
 
 #include "index_space_iterator.h"
 #include "schema_poset_member.h"
@@ -19,11 +19,11 @@ using namespace sheaf;
 
 int main( int argc, char* argv[])
 {  
-  cout << "SheafSystemProgrammersGuide Example16:" << endl;
+  cout << "SheafSystemProgrammersGuide Example15:" << endl;
 
   // Create a namespace.
 
-  sheaves_namespace lns("Example16");
+  sheaves_namespace lns("Example15");
 
   // Create the cell schema poset.
   
