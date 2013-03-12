@@ -46,11 +46,11 @@ int main( int argc, char* argv[])
   cout << "cell conforms to spatial_structure= ";
   cout << boolalpha << lcell.conforms_to(lspatial);
   cout << endl;
+  cout << endl;
 
   // Get an iterator for the row attribute id space of the cell schema.
 
   index_space_iterator& litr = lcell.dof_id_space(false).get_iterator();
-  cout << endl;
   while(!litr.is_done())
   {
     // Print attribute info.
@@ -66,6 +66,7 @@ int main( int argc, char* argv[])
 
     litr.next();
   }
+  lcell.dof_id_space(false).release_iterator(litr);
 
   // Print out the schema.
 

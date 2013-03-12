@@ -6,7 +6,7 @@
 //
 
 /// @example Example14
-/// SheafSystem Programmer's Guide Example 10: Cover id spaces and iterators. 
+/// SheafSystem Programmer's Guide Example 14: Depth first iterators. 
 
 #include "poset.h"
 #include "postorder_itr.h"
