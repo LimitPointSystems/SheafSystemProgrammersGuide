@@ -5,8 +5,8 @@
 // Copyright (c) 2013 Limit Point Systems, Inc. 
 //
 
-/// @example Example15
-/// SheafSystem Programmer's Guide Example 15: Subposets
+/// @example Example12
+/// SheafSystem Programmer's Guide Example 12: Subposets
 
 #include "sheaves_namespace.h"
 #include "poset.h"
@@ -19,11 +19,11 @@ using namespace sheaf;
 
 int main( int argc, char* argv[])
 {  
-  cout << "SheafSystemProgrammersGuide Example15:" << endl;
+  cout << "SheafSystemProgrammersGuide Example12:" << endl;
 
   // Create a namespace.
 
-  sheaves_namespace lns("Example15");
+  sheaves_namespace lns("Example12");
 
   // Populate the namespace from the file we wrote in example9.
   // Retrieves the simple_poset example.
