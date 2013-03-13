@@ -20,6 +20,42 @@ example2: example2.cc
 example3: example3.cc
 	$(CXX) -o example3 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example3.cc -lsheaves	
 
+example4: example4.cc
+	$(CXX) -o example4 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example4.cc -lsheaves	
+
+example5: example5.cc
+	$(CXX) -o example5 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example5.cc -lsheaves	
+
+example6: example6.cc
+	$(CXX) -o example6 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example6.cc -lsheaves	
+
+example7: example7.cc
+	$(CXX) -o example7 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example7.cc -lsheaves	
+
+example8: example8.cc
+	$(CXX) -o example8 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example8.cc -lsheaves	
+
+example9: example9.cc
+	$(CXX) -o example9 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example9.cc -lsheaves	
+
+example10: example10.cc
+	$(CXX) -o example10 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example10.cc -lsheaves	
+
+example11: example11.cc
+	$(CXX) -o example11 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example11.cc -lsheaves	
+
+example12: example12.cc
+	$(CXX) -o example12 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example12.cc -lsheaves	
+
+example13: example13.cc
+	$(CXX) -o example13 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example13.cc -lsheaves	
+
+example14: example14.cc
+	$(CXX) -o example14 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example14.cc -lsheaves	
+
+example15: example15.cc
+	$(CXX) -o example15 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example15.cc -lsheaves	
+
 exampleA1: exampleA1.cc
 	$(CXX) -o exampleA1 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) exampleA1.cc -lsheaves	
 

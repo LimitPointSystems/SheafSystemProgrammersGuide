@@ -30,7 +30,7 @@ int main( int argc, char* argv[])
 
   cout << lmbr_ids.name() << " has " << lmbr_ids.ct() << " ids." << endl;
   
-  cout << "begining at " << lmbr_ids.begin();
+  cout << "beginning at " << lmbr_ids.begin();
   cout << " and ending at " << lmbr_ids.end();
   cout << " " << (lmbr_ids.is_gathered() ? "gathered" : "scattered");
   cout << endl;

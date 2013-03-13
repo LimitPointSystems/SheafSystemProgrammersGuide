@@ -35,7 +35,7 @@ int main( int argc, char* argv[])
   // If the space is "gathered", begin() == 0 and end() = ct().
   // If the space is not gathered, it's "scattered". 
 
-  cout << "begining at " << lmbr_ids.begin();
+  cout << "beginning at " << lmbr_ids.begin();
   cout << " and ending at " << lmbr_ids.end();
   cout << " " << (lmbr_ids.is_gathered() ? "gathered" : "scattered");
   cout << endl;
