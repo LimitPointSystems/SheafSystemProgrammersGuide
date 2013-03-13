@@ -9,6 +9,8 @@
 /// SheafSystem Programmer's Guide Example 15: Schema posets. 
 
 #include "index_space_iterator.h"
+#include "poset_path.h"
+#include "schema_descriptor.h"
 #include "schema_poset_member.h"
 #include "sheaves_namespace.h"
 #include "std_iostream.h"
@@ -33,12 +35,12 @@ int main( int argc, char* argv[])
   // so specify bottom as the parent. It has one data member, name "d", type "INT", 
   // not a table attribute.
 
-  schema_poset_member lspatial(lns, "spatial_structure", "cell_schema_poset/bottom", "d INT false", false, true);
+  schema_poset_member lspatial(lns, "spatial_structure", "cell_schema_poset/bottom", "d INT false", true);
 
   // Cell inherits spatial_structure and adds one data member, 
   // name cell_type, type C_STRING, not a table attribute.
 
-  schema_poset_member lcell(lns, "cell", lspatial.path(), "cell_type C_STRING false", false, true);
+  schema_poset_member lcell(lns, "cell", lspatial.path(), "cell_type C_STRING false", true);
 
   // Test cell for conformance to spatial_structure.
 
@@ -96,8 +98,13 @@ int main( int argc, char* argv[])
 
   cout << ltest << endl;
 
+  // Workaround for soon to be fixed bug.
+  // Have to detach handles allocated on stack
+  // before they go out of scope.
+
   lspatial.detach_from_state();
   lcell.detach_from_state();
+  
   
   // Exit:
 
