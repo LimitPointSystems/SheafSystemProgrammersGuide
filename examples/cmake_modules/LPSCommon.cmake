@@ -418,7 +418,7 @@ function(add_example_targets)
             
         # Add building of executable and link with shared library
         message(STATUS "Creating ${t_file} from ${t_cc_file}")
-        add_executable(${t_file}  EXCLUDE_FROM_ALL ${t_cc_file})
+        add_executable(${t_file} ${t_cc_file})
     
         # Make sure the library is up to date
         if(WIN64MSVC OR WIN64INTEL)
