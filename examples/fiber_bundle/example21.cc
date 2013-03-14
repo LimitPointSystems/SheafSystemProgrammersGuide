@@ -25,9 +25,6 @@ int main( int argc, char* argv[])
 
   fiber_bundles_namespace lns("Example21");
 
-  cout << lns << endl;
-  
-
   // We use a schema with a single integer attribute.
 
   poset_path lschema_path("primitives", "INT");

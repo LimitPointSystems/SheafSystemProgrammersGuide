@@ -39,6 +39,7 @@ collect_unit_test_sources()
 set(EXAMPLE_SRCS
     example21.cc
     example22.cc
+    example23.cc
  )
 
 collect_example_sources()
