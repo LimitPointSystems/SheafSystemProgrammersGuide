@@ -1,0 +1,151 @@
+SheafSystemProgrammersGuide Example21:
+
+
+#### BEGIN POSET mesh ###################
+
+GENERAL
+-------
+
+poset: 'mesh' 	host: 'Example21' 	index: 14 	version: -2
+
+
+ROW GRAPH
+---------
+
+Members and Covering Relation
+-----------------------------
+
+ member_ct = 2
+
+index:     0    bottom                              dof_map:  2147483647    upper_cover:			lower_cover:
+index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover:
+
+Member Id Space Family
+----------------------
+
+id spaces
+---------
+
+ begin = 0
+ end   = 384
+
+     index                            name        ct     begin       end  persistent
+ --------- ------------------------------- --------- --------- --------- -----------
+         0                           __hub         2         0         2
+ primary:
+         6                    __hub_term_0       128         0       128
+ secondary:
+         1                        __blocks         0
+         2                __block_vertices         0
+         3                      __vertices         0
+         4                      __elements         0
+         5                         __cells         0
+       128        __explicit_0_lower_cover         0
+       129        __explicit_1_lower_cover         0
+       256        __explicit_0_upper_cover         0
+       257        __explicit_1_upper_cover         0
+
+equivalence classes
+-------------------
+
+(   0,    0):    (   0,    0)    (   6,    0)
+(   0,    1):    (   0,    1)    (   6,    1)
+
+
+
+ROW GRAPH SUBPOSETS
+-------------------
+
+Subposets
+---------
+
+index:   (0, 0)  jims                members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0_jims  
+index:   (0, 1)  mesh                members: 11  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0       
+index:   (0, 2)  resident            members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 3)  __blocks            members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 4)  __block_vertices    members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 5)  __vertices          members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 6)  __elements          members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 7)  __cells             members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
+
+Subposet Id Space Family
+----------------------
+
+id spaces
+---------
+
+ begin = 0
+ end   = 128
+
+     index                            name        ct     begin       end  persistent
+ --------- ------------------------------- --------- --------- --------- -----------
+         0                           __hub         8         0         8
+ primary:
+         1                    __hub_term_0       128         0       128
+ secondary:
+
+equivalence classes
+-------------------
+
+(   0,    0):    (   0,    0)    (   1,    0)
+(   0,    1):    (   0,    1)    (   1,    1)
+(   0,    2):    (   0,    2)    (   1,    2)
+(   0,    3):    (   0,    3)    (   1,    3)
+(   0,    4):    (   0,    4)    (   1,    4)
+(   0,    5):    (   0,    5)    (   1,    5)
+(   0,    6):    (   0,    6)    (   1,    6)
+(   0,    7):    (   0,    7)    (   1,    7)
+
+
+
+TABLE
+-----
+
+Schema
+------
+
+member: host = 'base_space_schema' index = 23 name = 'base_space_schema_member' version= -3 unaliased version= -2
+
+Table Attributes
+----------------
+
+table dof count: 1 table dof tuple size: 4
+table dofs:
+                                    name                                   value
+---------------------------------------- ----------------------------------------
+                                  max_db                                        1
+
+Row Attributes
+--------------
+
+row dof count: 10 row dof tuple size: 64
+
+ index  type    dof   0    dof   1                                          dof   2    dof   3    dof   4                                          dof   5    dof   6    dof   7    dof   8    dof   9
+                     db    type_id                                        type_name refinement local_cell                             local_cell_type_name       size     i_size     j_size     k_size
+ ----- ----- ---------- ---------- ------------------------------------------------ ---------- ---------- ------------------------------------------------ ---------- ---------- ---------- ----------
+
+Tuple Id Space Family
+----------------------
+
+id spaces
+---------
+
+ begin = 0
+ end   = 128
+
+     index                            name        ct     begin       end  persistent
+ --------- ------------------------------- --------- --------- --------- -----------
+         0                           __hub         0
+ primary:
+ secondary:
+
+equivalence classes
+-------------------
+
+
+
+
+#### END POSET mesh ###################
+
