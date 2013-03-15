@@ -1,0 +1,463 @@
+SheafSystemProgrammersGuide Example24:
+
+Subobject hierarchy in fiber_space_schema
+
+at0_schema
+   atp_schema
+      tp_schema
+         p: INT
+         dd: INT
+         vector_space_path: C_STRING
+         vd_schema
+            tuple_schema
+               factor_ct: INT
+            d: INT
+            scalar_space_path: C_STRING
+   value: DOUBLE
+
+e4_schema
+   ed_schema
+      at1_schema
+         atp_schema
+            tp_schema
+               p: INT
+               dd: INT
+               vector_space_path: C_STRING
+   x: DOUBLE
+   y: DOUBLE
+   z: DOUBLE
+   t: DOUBLE
+
+e3_schema
+   ed_schema
+      at1_schema
+         atp_schema
+            tp_schema
+               p: INT
+               dd: INT
+               vector_space_path: C_STRING
+   x: DOUBLE
+   y: DOUBLE
+   z: DOUBLE
+
+e2_schema
+   ed_schema
+      at1_schema
+         atp_schema
+            tp_schema
+               p: INT
+               dd: INT
+               vector_space_path: C_STRING
+   x: DOUBLE
+   y: DOUBLE
+
+e1_schema
+   ed_schema
+      at1_schema
+         atp_schema
+            tp_schema
+               p: INT
+               dd: INT
+               vector_space_path: C_STRING
+   x: DOUBLE
+
+t2_e3_schema
+   t2_schema
+      tp_schema
+         p: INT
+         dd: INT
+         vector_space_path: C_STRING
+   xx: DOUBLE
+   xy: DOUBLE
+   xz: DOUBLE
+   yx: DOUBLE
+   yy: DOUBLE
+   yz: DOUBLE
+   zx: DOUBLE
+   zy: DOUBLE
+   zz: DOUBLE
+
+t2_e2_schema
+   t2_schema
+      tp_schema
+         p: INT
+         dd: INT
+         vector_space_path: C_STRING
+   xx: DOUBLE
+   xy: DOUBLE
+   yx: DOUBLE
+   yy: DOUBLE
+
+t3_e3_schema
+   t3_schema
+      tp_schema
+         p: INT
+         dd: INT
+         vector_space_path: C_STRING
+   xxx: DOUBLE
+   xxy: DOUBLE
+   xxz: DOUBLE
+   xyx: DOUBLE
+   xyy: DOUBLE
+   xyz: DOUBLE
+   xzx: DOUBLE
+   xzy: DOUBLE
+   xzz: DOUBLE
+   yxx: DOUBLE
+   yxy: DOUBLE
+   yxz: DOUBLE
+   yyx: DOUBLE
+   yyy: DOUBLE
+   yyz: DOUBLE
+   yzx: DOUBLE
+   yzy: DOUBLE
+   yzz: DOUBLE
+   zxx: DOUBLE
+   zxy: DOUBLE
+   zxz: DOUBLE
+   zyx: DOUBLE
+   zyy: DOUBLE
+   zyz: DOUBLE
+   zzx: DOUBLE
+   zzy: DOUBLE
+   zzz: DOUBLE
+
+t4_e2_schema
+   t4_schema
+      tp_schema
+         p: INT
+         dd: INT
+         vector_space_path: C_STRING
+   xxxx: DOUBLE
+   xxxy: DOUBLE
+   xxyx: DOUBLE
+   xxyy: DOUBLE
+   xyxx: DOUBLE
+   xyxy: DOUBLE
+   xyyx: DOUBLE
+   xyyy: DOUBLE
+   yxxx: DOUBLE
+   yxxy: DOUBLE
+   yxyx: DOUBLE
+   yxyy: DOUBLE
+   yyxx: DOUBLE
+   yyxy: DOUBLE
+   yyyx: DOUBLE
+   yyyy: DOUBLE
+
+t4_e3_schema
+   t4_schema
+      tp_schema
+         p: INT
+         dd: INT
+         vector_space_path: C_STRING
+   xxxx: DOUBLE
+   xxxy: DOUBLE
+   xxxz: DOUBLE
+   xxyx: DOUBLE
+   xxyy: DOUBLE
+   xxyz: DOUBLE
+   xxzx: DOUBLE
+   xxzy: DOUBLE
+   xxzz: DOUBLE
+   xyxx: DOUBLE
+   xyxy: DOUBLE
+   xyxz: DOUBLE
+   xyyx: DOUBLE
+   xyyy: DOUBLE
+   xyyz: DOUBLE
+   xyzx: DOUBLE
+   xyzy: DOUBLE
+   xyzz: DOUBLE
+   xzxx: DOUBLE
+   xzxy: DOUBLE
+   xzxz: DOUBLE
+   xzyx: DOUBLE
+   xzyy: DOUBLE
+   xzyz: DOUBLE
+   xzzx: DOUBLE
+   xzzy: DOUBLE
+   xzzz: DOUBLE
+   yxxx: DOUBLE
+   yxxy: DOUBLE
+   yxxz: DOUBLE
+   yxyx: DOUBLE
+   yxyy: DOUBLE
+   yxyz: DOUBLE
+   yxzx: DOUBLE
+   yxzy: DOUBLE
+   yxzz: DOUBLE
+   yyxx: DOUBLE
+   yyxy: DOUBLE
+   yyxz: DOUBLE
+   yyyx: DOUBLE
+   yyyy: DOUBLE
+   yyyz: DOUBLE
+   yyzx: DOUBLE
+   yyzy: DOUBLE
+   yyzz: DOUBLE
+   yzxx: DOUBLE
+   yzxy: DOUBLE
+   yzxz: DOUBLE
+   yzyx: DOUBLE
+   yzyy: DOUBLE
+   yzyz: DOUBLE
+   yzzx: DOUBLE
+   yzzy: DOUBLE
+   yzzz: DOUBLE
+   zxxx: DOUBLE
+   zxxy: DOUBLE
+   zxxz: DOUBLE
+   zxyx: DOUBLE
+   zxyy: DOUBLE
+   zxyz: DOUBLE
+   zxzx: DOUBLE
+   zxzy: DOUBLE
+   zxzz: DOUBLE
+   zyxx: DOUBLE
+   zyxy: DOUBLE
+   zyxz: DOUBLE
+   zyyx: DOUBLE
+   zyyy: DOUBLE
+   zyyz: DOUBLE
+   zyzx: DOUBLE
+   zyzy: DOUBLE
+   zyzz: DOUBLE
+   zzxx: DOUBLE
+   zzxy: DOUBLE
+   zzxz: DOUBLE
+   zzyx: DOUBLE
+   zzyy: DOUBLE
+   zzyz: DOUBLE
+   zzzx: DOUBLE
+   zzzy: DOUBLE
+   zzzz: DOUBLE
+
+met_e3_schema
+   met_ed_schema
+      met_schema
+         st2_schema
+            stp_schema
+               tp_schema
+                  p: INT
+                  dd: INT
+                  vector_space_path: C_STRING
+   xx: DOUBLE
+   xy: DOUBLE
+   yy: DOUBLE
+   xz: DOUBLE
+   yz: DOUBLE
+   zz: DOUBLE
+
+met_e2_schema
+   met_ed_schema
+      met_schema
+         st2_schema
+            stp_schema
+               tp_schema
+                  p: INT
+                  dd: INT
+                  vector_space_path: C_STRING
+   xx: DOUBLE
+   xy: DOUBLE
+   yy: DOUBLE
+
+met_e1_schema
+   met_ed_schema
+      met_schema
+         st2_schema
+            stp_schema
+               tp_schema
+                  p: INT
+                  dd: INT
+                  vector_space_path: C_STRING
+   xx: DOUBLE
+
+st2_e2_schema
+   st2_schema
+      stp_schema
+         tp_schema
+            p: INT
+            dd: INT
+            vector_space_path: C_STRING
+   xx: DOUBLE
+   xy: DOUBLE
+   yy: DOUBLE
+
+st2_e3_schema
+   st2_schema
+      stp_schema
+         tp_schema
+            p: INT
+            dd: INT
+            vector_space_path: C_STRING
+   xx: DOUBLE
+   xy: DOUBLE
+   xz: DOUBLE
+   yy: DOUBLE
+   yz: DOUBLE
+   zz: DOUBLE
+
+st3_e3_schema
+   st3_schema
+      stp_schema
+         tp_schema
+            p: INT
+            dd: INT
+            vector_space_path: C_STRING
+   xxx: DOUBLE
+   xxy: DOUBLE
+   xxz: DOUBLE
+   xyy: DOUBLE
+   xyz: DOUBLE
+   xzz: DOUBLE
+   yyy: DOUBLE
+   yyz: DOUBLE
+   yzz: DOUBLE
+   zzz: DOUBLE
+
+st4_e2_schema
+   st4_schema
+      stp_schema
+         tp_schema
+            p: INT
+            dd: INT
+            vector_space_path: C_STRING
+   xxxx: DOUBLE
+   xxxy: DOUBLE
+   xxyy: DOUBLE
+   xyyy: DOUBLE
+   yyyy: DOUBLE
+
+st4_e3_schema
+   st4_schema
+      stp_schema
+         tp_schema
+            p: INT
+            dd: INT
+            vector_space_path: C_STRING
+   xxxx: DOUBLE
+   xxxy: DOUBLE
+   xxxz: DOUBLE
+   xxyy: DOUBLE
+   xxyz: DOUBLE
+   xxzz: DOUBLE
+   xyyy: DOUBLE
+   xyyz: DOUBLE
+   xyzz: DOUBLE
+   xzzz: DOUBLE
+   yyyy: DOUBLE
+   yyyz: DOUBLE
+   yyzz: DOUBLE
+   yzzz: DOUBLE
+   zzzz: DOUBLE
+
+at2_e2_schema
+   at2_schema
+      atp_schema
+         tp_schema
+            p: INT
+            dd: INT
+            vector_space_path: C_STRING
+   xy: DOUBLE
+
+at2_e3_schema
+   at2_schema
+      atp_schema
+         tp_schema
+            p: INT
+            dd: INT
+            vector_space_path: C_STRING
+   xy: DOUBLE
+   xz: DOUBLE
+   yz: DOUBLE
+
+at3_e3_schema
+   at3_schema
+      atp_schema
+         tp_schema
+            p: INT
+            dd: INT
+            vector_space_path: C_STRING
+   component: DOUBLE
+
+jcb_e23_schema
+   jcb_ed_schema
+      jcb_schema
+         dd: INT
+         domain_path: C_STRING
+         range_path: C_STRING
+         dr: INT
+   dxdu: DOUBLE
+   dxdv: DOUBLE
+   dydu: DOUBLE
+   dydv: DOUBLE
+   dzdu: DOUBLE
+   dzdv: DOUBLE
+
+jcb_e13_schema
+   jcb_ed_schema
+      jcb_schema
+         dd: INT
+         domain_path: C_STRING
+         range_path: C_STRING
+         dr: INT
+   dxdu: DOUBLE
+   dydu: DOUBLE
+   dzdu: DOUBLE
+
+jcb_e33_schema
+   jcb_ed_schema
+      jcb_schema
+         dd: INT
+         domain_path: C_STRING
+         range_path: C_STRING
+         dr: INT
+   dxdu: DOUBLE
+   dxdv: DOUBLE
+   dxdw: DOUBLE
+   dydu: DOUBLE
+   dydv: DOUBLE
+   dydw: DOUBLE
+   dzdu: DOUBLE
+   dzdv: DOUBLE
+   dzdw: DOUBLE
+
+gl3_schema
+   gln_schema
+      scalar_space_path: C_STRING
+      vector_space_path: C_STRING
+      n: INT
+   bxx: DOUBLE
+   bxy: DOUBLE
+   bxz: DOUBLE
+   byx: DOUBLE
+   byy: DOUBLE
+   byz: DOUBLE
+   bzx: DOUBLE
+   bzy: DOUBLE
+   bzz: DOUBLE
+   cxx: DOUBLE
+   cxy: DOUBLE
+   cxz: DOUBLE
+   cyx: DOUBLE
+   cyy: DOUBLE
+   cyz: DOUBLE
+   czx: DOUBLE
+   czy: DOUBLE
+   czz: DOUBLE
+
+gl2_schema
+   gln_schema
+      scalar_space_path: C_STRING
+      vector_space_path: C_STRING
+      n: INT
+   bxx: DOUBLE
+   bxy: DOUBLE
+   byx: DOUBLE
+   byy: DOUBLE
+   cxx: DOUBLE
+   cxy: DOUBLE
+   cyx: DOUBLE
+   cyy: DOUBLE
+
