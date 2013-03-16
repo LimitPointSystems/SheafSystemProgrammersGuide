@@ -25,10 +25,6 @@ int main( int argc, char* argv[])
 
   fiber_bundles_namespace lns("Example21");
 
-  // We use a schema with a single integer attribute.
-
-  poset_path lschema_path("primitives", "INT");
-
   // The contructor for base_space_poset needs max_db = 1 for line_segment mesh.
 
   arg_list largs = base_space_poset::make_args(1);

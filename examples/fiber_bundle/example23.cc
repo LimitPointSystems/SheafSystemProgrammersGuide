@@ -29,7 +29,7 @@ int main( int argc, char* argv[])
   fiber_bundles_namespace lns("Example23");
 
   // Populate the namespace from the file we wrote in example21.
-  // Retrieves the simple_poset example.
+  // Retrieves the "mesh" base space poset example.
 
   storage_agent lsa_read("example21.hdf", sheaf_file::READ_ONLY);
   lsa_read.read_entire(lns);
@@ -79,6 +79,11 @@ int main( int argc, char* argv[])
 
   storage_agent lsa_write("example23.hdf", sheaf_file::READ_WRITE);
   lsa_write.write_entire(lns);
+
+  // Clean up.
+  // Workaround for soon to be fixed bug.
+
+  lblock.detach_from_state();
 
   // Exit:
 
