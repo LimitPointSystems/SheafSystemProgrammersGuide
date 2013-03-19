@@ -6,22 +6,13 @@
 //
 
 /// @example Example28
-/// SheafSystem Programmer's Guide Example 28: Section space schema
+/// SheafSystem Programmer's Guide Example 28: Creating a section space.
 
-#include "at1_space.h"
-#include "base_space_poset.h"
-#include "binary_section_space_schema_member.h"
-#include "e2.h"
 #include "fiber_bundles_namespace.h"
-#include "index_space_iterator.h"
-#include "poset_dof_map.h"
-#include "binary_section_space_schema_poset.h"
 #include "sec_at1_space.h"
 #include "sec_e2.h"
 #include "std_iostream.h"
-#include "std_sstream.h"
 #include "storage_agent.h"
-#include "structured_block_1d.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;
@@ -40,28 +31,13 @@ int main( int argc, char* argv[])
   storage_agent lsa_read("example27.hdf", sheaf_file::READ_ONLY);
   lsa_read.read_entire(lns);
 
-  // Get a handle to the poset
+  // Create a section space for sec_e2 sections on the line segment mesh
+  // using default values for fiber space, rep, and schema.
 
-  binary_section_space_schema_poset& lsssp = 
-    lns.member_poset<binary_section_space_schema_poset>(poset_path("e2_on_mesh_schema"), false);
-  
+  poset_path lbase_path("mesh/block");
+  poset_path lssp_path("e2_on_block");
 
-  // $$ERROR: schema poset doesn't seem to contain schema member after read from disk,
-  // Does contain it before writing.
-
-  binary_section_space_schema_member lmbr;
-  lmbr.attach_to_state(&lsssp, "mesh/block", "fiber_space_schema/e2_schema");
-
-  cout << boolalpha << lns.contains_poset_member(lmbr.path(), true) << endl;
-
-  // Specify name and schema, let args default.
-
-  sec_e2::host_type& lhost = 
-    lns.new_section_space<sec_e2>("e2_on_block",
-                                  arg_list(""),
-                                  //                                  "e2_on_mesh_schema/e2_on_block_schema",
-                                  lmbr.path(),
-                                  true);
+  sec_e2::host_type& lhost = lns.new_section_space<sec_e2>(lssp_path, lbase_path);
   
   // Print the finished poset.
 

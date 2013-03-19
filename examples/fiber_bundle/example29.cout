@@ -1,0 +1,177 @@
+SheafSystemProgrammersGuide Example29:
+
+
+#### BEGIN POSET e2_on_block ###################
+
+GENERAL
+-------
+
+poset: 'e2_on_block' 	host: 'Example21' 	index: 24 	version: -2
+
+
+ROW GRAPH
+---------
+
+Members and Covering Relation
+-----------------------------
+
+ member_ct = 7
+
+index:     0    bottom                              dof_map:  2147483647    upper_cover: 2 3 4 5 6		lower_cover:
+index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 2 3 4 5 6
+index:     2                                        dof_map:           0    upper_cover: 1			lower_cover: 0
+index:     3                                        dof_map:           1    upper_cover: 1			lower_cover: 0
+index:     4                                        dof_map:           2    upper_cover: 1			lower_cover: 0
+index:     5                                        dof_map:           3    upper_cover: 1			lower_cover: 0
+index:     6                                        dof_map:           4    upper_cover: 1			lower_cover: 0
+
+Member Id Space Family
+----------------------
+
+id spaces
+---------
+
+ begin = 0
+ end   = 384
+
+     index                            name        ct     begin       end  persistent
+ --------- ------------------------------- --------- --------- --------- -----------
+         0                           __hub         7         0         7
+ primary:
+         1                    __hub_term_0       128         0       128
+ secondary:
+         2                 __example28.hdf         2         2         4       false
+       128        __explicit_0_lower_cover         0
+       129        __explicit_1_lower_cover         5         0         5       false
+       130        __explicit_2_lower_cover         1         0         1       false
+       131        __explicit_3_lower_cover         1         0         1       false
+       132        __explicit_4_lower_cover         1         0         1       false
+       133        __explicit_5_lower_cover         1         0         1       false
+       134        __explicit_6_lower_cover         1         0         1       false
+       256        __explicit_0_upper_cover         5         0         5       false
+       257        __explicit_1_upper_cover         0
+       258        __explicit_2_upper_cover         1         0         1       false
+       259        __explicit_3_upper_cover         1         0         1       false
+       260        __explicit_4_upper_cover         1         0         1       false
+       261        __explicit_5_upper_cover         1         0         1       false
+       262        __explicit_6_upper_cover         1         0         1       false
+
+equivalence classes
+-------------------
+
+(   0,    0):    (   0,    0)    (   1,    0)    (   2,    2)    ( 130,    0)    ( 131,    0)    ( 132,    0)    ( 133,    0)    ( 134,    0)
+(   0,    1):    (   0,    1)    (   1,    1)    (   2,    3)    ( 258,    0)    ( 259,    0)    ( 260,    0)    ( 261,    0)    ( 262,    0)
+(   0,    2):    (   0,    2)    (   1,    2)    ( 129,    0)    ( 256,    0)
+(   0,    3):    (   0,    3)    (   1,    3)    ( 129,    1)    ( 256,    1)
+(   0,    4):    (   0,    4)    (   1,    4)    ( 129,    2)    ( 256,    2)
+(   0,    5):    (   0,    5)    (   1,    5)    ( 129,    3)    ( 256,    3)
+(   0,    6):    (   0,    6)    (   1,    6)    ( 129,    4)    ( 256,    4)
+
+
+
+ROW GRAPH SUBPOSETS
+-------------------
+
+Subposets
+---------
+
+index:   (0, 0)  jims                members: 0011111  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0_jims  
+index:   (0, 1)  e2_on_block         members: 1111111  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0       
+index:   (0, 2)  resident            members: 0100000  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 3)  __covariant0        members: 0000000  is_dof_sp:  false  dof_ct: 0  offsets: 
+
+Subposet Id Space Family
+----------------------
+
+id spaces
+---------
+
+ begin = 0
+ end   = 128
+
+     index                            name        ct     begin       end  persistent
+ --------- ------------------------------- --------- --------- --------- -----------
+         0                           __hub         4         0         4
+ primary:
+         1                    __hub_term_0       128         0       128
+ secondary:
+         2                 __example28.hdf         4         0         4       false
+
+equivalence classes
+-------------------
+
+(   0,    0):    (   0,    0)    (   1,    0)    (   2,    0)
+(   0,    1):    (   0,    1)    (   1,    1)    (   2,    1)
+(   0,    2):    (   0,    2)    (   1,    2)    (   2,    2)
+(   0,    3):    (   0,    3)    (   1,    3)    (   2,    3)
+
+
+
+TABLE
+-----
+
+Schema
+------
+
+member: host = 'e2_on_mesh_vertex_element_dlinear_schema' index = 32915 name = 'block_e2_schema' version= -2 unaliased version= -2
+
+Table Attributes
+----------------
+
+table dof count: 6 table dof tuple size: 32
+table dofs:
+                                    name                                   value
+---------------------------------------- ----------------------------------------
+                                       p                                        1
+                                      dd                                        2
+                       vector_space_path                              e2_on_block
+                               factor_ct                                        2
+                                       d                                        2
+                       scalar_space_path                                  sec_at0
+
+Row Attributes
+--------------
+
+row dof count: 4 row dof tuple size: 32
+
+ index  type    dof   0    dof   1    dof   2    dof   3
+                     _x         _y         _x         _y
+ ----- ----- ---------- ---------- ---------- ----------
+     0                0          1          0          1
+     1                0          1          0          2
+     2                0          2          0          2
+     3                0          3          0          3
+     4                0          1          0          1
+
+Tuple Id Space Family
+----------------------
+
+id spaces
+---------
+
+ begin = 0
+ end   = 128
+
+     index                            name        ct     begin       end  persistent
+ --------- ------------------------------- --------- --------- --------- -----------
+         0                           __hub         5         0         5
+ primary:
+         2                    __hub_term_0       128         0       128
+ secondary:
+         1                 __example28.hdf         0
+
+equivalence classes
+-------------------
+
+(   0,    0):    (   0,    0)    (   2,    0)
+(   0,    1):    (   0,    1)    (   2,    1)
+(   0,    2):    (   0,    2)    (   2,    2)
+(   0,    3):    (   0,    3)    (   2,    3)
+(   0,    4):    (   0,    4)    (   2,    4)
+
+
+
+#### END POSET e2_on_block ###################
+

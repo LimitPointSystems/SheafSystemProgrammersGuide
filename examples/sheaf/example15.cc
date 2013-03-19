@@ -96,15 +96,7 @@ int main( int argc, char* argv[])
   ltest.member_dof_map(lmbr2, true).put_dof("d", int(1));
   ltest.member_dof_map(lmbr2, true).put_dof("cell_type", "segment");
 
-  cout << ltest << endl;
-
-  // Workaround for soon to be fixed bug.
-  // Have to detach handles allocated on stack
-  // before they go out of scope.
-
-  lspatial.detach_from_state();
-  lcell.detach_from_state();
-  
+  cout << ltest << endl;  
   
   // Exit:
 
