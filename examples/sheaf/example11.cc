@@ -142,14 +142,6 @@ int main( int argc, char* argv[])
 
   cout << "c1 is_attached() = " << boolalpha << lc1.is_attached() << endl;
 
-  // Workaround for soon to be fixed bug.
-  // Have to detach each handle allocated on the stack
-  // before it goes out of scope.
-
-  lv0.detach_from_state();
-  lv1.detach_from_state();
-  ls0.detach_from_state();
-
   // Exit:
 
   return 0;
