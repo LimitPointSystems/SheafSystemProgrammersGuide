@@ -2,14 +2,13 @@
 #
 # Path to your C++ compiler
 #
-CXX = /home/dmbutler/LPS/prerequisites/gcc/bin/g++
-
+CXX = 
 #
 # Path the SheafSystem installation
 #
-SHEAF_LIB_DIR = /home/dmbutler/components-tutorial-5-2/build/Debug-contracts/lib
-SHEAF_INC_DIR = /home/dmbutler/install/include
-SHEAF_INSTALL_DIR = /home/dmbutler/install
+SHEAF_INSTALL_DIR = 
+SHEAF_LIB_DIR = $(SHEAF_INSTALL_DIR)/Debug-contracts/lib
+SHEAF_INC_DIR = $(SHEAF_INSTALL_DIR)/include
 
 example1: example1.cc
 	$(CXX) -o example1 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example1.cc -lsheaves	
