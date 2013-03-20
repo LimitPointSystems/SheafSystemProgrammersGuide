@@ -37,7 +37,7 @@ collect_unit_test_sources()
 # Source for example executables.
 #
 set(EXAMPLE_SRCS
-
+   example32.cc
  )
 
 collect_example_sources()

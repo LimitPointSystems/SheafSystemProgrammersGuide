@@ -48,7 +48,6 @@ set(EXAMPLE_SRCS
     example29.cc
     example30.cc
     example31.cc
-    example32.cc
  )
 
 collect_example_sources()
