@@ -2,7 +2,7 @@
 #
 # Path to your C++ compiler
 #
-CXX = /home/dmbutler/LPS/prerequisites/gcc/bin/g++
+CXX = 
 
 #
 # Path the SheafSystem installation
