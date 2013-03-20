@@ -64,6 +64,7 @@ int main( int argc, char* argv[])
   // Create a general coordinates section.
 
   sec_e1 le1_coords(&le1_host);
+  le1_coords.put_name("general_coordinates", true, true);
   
   // Have explicitly initialize general coordinates.
   // In a more realitistic case, the coordinate values
