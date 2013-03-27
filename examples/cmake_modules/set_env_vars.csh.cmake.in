@@ -45,7 +45,7 @@ endif # revert_file
 	endif
 	
 	echo setting CLASSPATH in this terminal.
-	setenv CLASSPATH .:@SHEAVES_LIB_OUTPUT_DIR@/SheafScope.jar:@SHEAVES_LIB_OUTPUT_DIR@/solvers_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/tools_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/fields_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/geometry_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/fiber_bundles_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/sheaves_java_binding.jar:@VTK_LIB_DIR@/java/vtk.jar:@JMF_LIB_DIR@/jmf.jar
+	setenv CLASSPATH .:@SHEAVES_LIB_OUTPUT_DIR@/SheafScope.jar:@SHEAVES_LIB_OUTPUT_DIR@/solvers_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/tools_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/fields_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/geometry_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/fiber_bundles_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/sheaves_java_binding.jar:@VTK_LIB_DIR@/java/vtk.jar:@SHEAVES_LIB_OUTPUT_DIR@/jmf.jar
 
 	echo setting PATH in this terminal.
 	setenv PATH @JDK_BIN_DIR@:$PATH
