@@ -31,7 +31,7 @@ int main( int argc, char* argv[])
   
   cout << lmbr_ids.name() << " has " << lmbr_ids.ct() << " ids." << endl;
   
-  // Id spaces are defined as half open intervals, like STL iterators.
+  // Id spaces are defined as half open intervals, like STL containers.
   // If the space is "gathered", begin() == 0 and end() = ct().
   // If the space is not gathered, it's "scattered". 
 
