@@ -6,7 +6,8 @@
 //
 
 /// @example Example9
-/// SheafSystem Programmer's Guide Example 9: Creating, accessing and deleting posets. 
+/// SheafSystem Programmer's Guide Example 9: 
+/// Creating, accessing and deleting posets. 
 
 #include "sheaves_namespace.h"
 #include "std_iostream.h"
@@ -22,22 +23,22 @@ int main( int argc, char* argv[])
 
   sheaves_namespace lns("Example9");
 
-  // We use a schema with a single integer attribute.
+  // Create a path for the cell poset.
 
-  poset_path lschema_path("primitives", "INT");
+  poset_path lcell_path("cell", "");
 
-  // The contructor for the ordinary poset class doesn't need any arguments.
+  // Use the primitives schema as the schema for the cell poset.
 
-  arg_list largs = poset::make_args();
+  poset_path lcell_schema_path(xns.primitives_schema_path());
 
-  // Create the poset.
+  // Create the cell poset, will be id 6.
   
-  poset& lposet = 
-    lns.new_member_poset<poset>("simple_poset", lschema_path, largs, true);
+  poset& lcell_poset = 
+    poset::new_table(xns, lcell_path, lcell_schema_path, true);
 
   // Print the poset to cout.
 
-  cout << lposet << endl;
+  cout << lcell_poset << endl;
 
   // Write the namespace to a sheaf file.
 
@@ -50,12 +51,12 @@ int main( int argc, char* argv[])
   
   // and by path:
 
-  poset_state_handle& lpsh2 = lns.member_poset("simple_poset", true);
+  poset_state_handle& lpsh2 = lns.member_poset("cell", true);
 
   // Delete the poset by path. 
   // Invalidates all the above references.
 
-  lns.delete_poset(lposet.path(), true);
+  lns.delete_poset(lcell_poset.path(), true);
   
   // Exit:
 
