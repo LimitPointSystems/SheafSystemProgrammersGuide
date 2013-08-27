@@ -23,40 +23,45 @@ int main( int argc, char* argv[])
 
   sheaves_namespace lns("Example9");
 
-  // Create a path for the cell poset.
+  // Create a path for the poset.
 
-  poset_path lcell_path("cell", "");
+  poset_path lposet_path("simple_poset", "");
 
-  // Use the primitives schema as the schema for the cell poset.
+  // Use the INT member of the primtives poset as the schema for the simple poset.
 
-  poset_path lcell_schema_path(xns.primitives_schema_path());
+  poset_path lschema_path("primitives", "INT");
 
   // Create the cell poset, will be id 6.
   
-  poset& lcell_poset = 
-    poset::new_table(xns, lcell_path, lcell_schema_path, true);
+  poset& lposet = poset::new_table(lns, lposet_path, lschema_path, true);
+
+  cout << "poset id: " << lposet.index().hub_pod() << endl;
 
   // Print the poset to cout.
 
-  cout << lcell_poset << endl;
+  cout << lposet << endl;
+
+  // Get another reference to the poset by id:
+
+  poset_state_handle& lpsh1 = lns.member_poset(6, true);
+  
+  // and by path (string literal invokes conversion to poset_path):
+
+  poset_state_handle& lpsh2 = lns.member_poset("simple_poset", true);
+
+  // Get a reference to type poset:
+
+  poset& lposet2 = lns.member_poset<poset>("simple_poset", true);
 
   // Write the namespace to a sheaf file.
 
   storage_agent lsa("example9.hdf");
   lsa.write_entire(lns);
 
-  // Get another reference to the poset by id:
-
-  poset_state_handle& lpsh1 = lns.member_poset(6, true);
-  
-  // and by path:
-
-  poset_state_handle& lpsh2 = lns.member_poset("cell", true);
-
   // Delete the poset by path. 
   // Invalidates all the above references.
 
-  lns.delete_poset(lcell_poset.path(), true);
+  lns.delete_poset(lposet.path(), true);
   
   // Exit:
 
