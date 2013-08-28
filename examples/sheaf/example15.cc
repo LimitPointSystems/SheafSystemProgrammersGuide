@@ -29,7 +29,7 @@ int main( int argc, char* argv[])
 
   // Create the cell schema poset.
   
-  poset& lposet = lns.new_schema_poset("cell_schema_poset", true);
+  poset& lposet = schema_poset_member::standard_host(lns,"cell_schema_poset", true);
 
   // Create the schema for spatial_structure. It doesn't inherit anything,
   // so specify bottom as the parent. It has one data member, name "d", type "INT", 
@@ -76,7 +76,7 @@ int main( int argc, char* argv[])
 
   // Test the schema by creating a poset using it.
 
-  poset& ltest = lns.new_member_poset<poset>("test", lcell.path(), "", true);
+  poset& ltest = poset::new_table(lns, "test", lcell.path(), true);  
 
   ltest.begin_jim_edit_mode(true);
   pod_index_type lmbr0 = ltest.new_member(true);
