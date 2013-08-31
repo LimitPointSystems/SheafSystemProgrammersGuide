@@ -31,9 +31,9 @@ int main( int argc, char* argv[])
 
   poset_path lschema_path("primitives", "INT");
 
-  // Create the cell poset, will be id 6.
+  // Create the poset, will be id 6.
   
-  poset& lposet = poset::new_table(lns, lposet_path, lschema_path, true);
+  poset& lposet = abstract_poset_member::new_host(lns, lposet_path, lschema_path, true);
 
   cout << "poset id: " << lposet.index().hub_pod() << endl;
 
