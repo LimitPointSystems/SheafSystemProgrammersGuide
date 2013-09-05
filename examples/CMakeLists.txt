@@ -15,10 +15,13 @@
 # limitations under the License.
 #
 
-set(CMAKE_CONFIGURATION_TYPES Debug-contracts Debug-no-contracts Release-contracts Release-no-contracts CACHE
-    STRING "Supported configuration types"
-    FORCE)
- 
+if(WIN32)
+    set(CMAKE_CONFIGURATION_TYPES Debug-contracts Debug-no-contracts Release-contracts Release-no-contracts 
+         RelWithDebInfo-contracts RelWithDebInfo-no-contracts CACHE STRING "Supported configuration types" FORCE)
+else()
+    set(CMAKE_CONFIGURATION_TYPES Debug-contracts Debug-no-contracts Release-contracts Release-no-contracts 
+             CACHE STRING "Supported configuration types" FORCE)
+endif()
 project(examples)
 
 message(STATUS "Processing ${PROJECT_NAME}")
@@ -64,11 +67,6 @@ create_output_dirs()
 add_example_targets()
 
 #
-# Add the aerchive target. USed for release procedure.
-#
-add_archive_target()
-
-#
 # Add the cumulative examples target.
 #
 add_custom_target(examples)
@@ -77,7 +75,7 @@ add_dependencies(examples ${${COMPONENT}_EXAMPLES}})
 #
 # Add files to the clean target
 #
-add_clean_files()
+#add_clean_files()
 
 #
 # Configure the environment scripts. 

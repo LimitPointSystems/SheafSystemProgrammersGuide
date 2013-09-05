@@ -33,6 +33,6 @@ find_package(Sheaf)
 # Find Git
 # Needed for "archive" target
 #
-find_package(Git)
+#find_package(Git)
     
 
