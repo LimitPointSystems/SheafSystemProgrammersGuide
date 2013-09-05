@@ -22,34 +22,6 @@
 #
 
 #
-# Establish the list of components in this system
-#
-set(COMPONENTS sheaf fiber_bundle field CACHE STRING "List of components in this system" FORCE)
-
-#
-# Establish the version number for this build.
-# This is only relevant for releases. 0.0.0 is chosen here
-# simply as an identifier for non-release builds.
-#
-set(LIB_VERSION 0.0.0.0 CACHE STRING "Library version number for release purposes")
-mark_as_advanced(LIB_VERSION)
-
-#
-# Set the default value for install location
-#
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND LIB_VERSION MATCHES "0.0.0.0" )
-    if(LINUX64GNU OR LINUX64INTEL)
-      set(CMAKE_INSTALL_PREFIX
-        "$ENV{HOME}/${PROJECT_NAME}" CACHE PATH "${PROJECT_NAME} install prefix" FORCE
-        )
-    else()
-      set(CMAKE_INSTALL_PREFIX
-        "$ENV{USERPROFILE}/${PROJECT_NAME}" CACHE PATH "${PROJECT_NAME} install prefix" FORCE
-        )
-    endif()
-endif()
-
-#
 # Platform definitions
 #
 # OS is 64 bit Windows, compiler is cl 
@@ -73,18 +45,6 @@ endif()
 # Set the cmake module path.
 #
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules CACHE STRING "Location of Cmake modules")
-
-#
-# Define the exports files
-#
-#set(EXPORTS_FILE ${PROJECT_NAME}-exports.cmake CACHE STRING "System exports file name")
-#set(INSTALL_CONFIG_FILE ${PROJECT_NAME}-install.cmake CACHE STRING "Install config file name")
-
-#
-# Delete the exports file at the start of each cmake run
-#
-#execute_process(COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/${EXPORTS_FILE})
-#execute_process(COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/${INSTALL_CONFIG_FILE})
 
 #
 # Set the default build type.
@@ -118,12 +78,6 @@ set(ALL_BIN_TARGETS CACHE STRING "Aggregate list of component bin targets")
 set(INTELWARN CACHE BOOL "Toggle Intel compiler warnings")
 
 #
-# Define the exports files
-#
-#set(EXPORTS_FILE ${PROJECT_NAME}-exports.cmake CACHE STRING "System exports file name")
-#set(INSTALL_CONFIG_FILE ${PROJECT_NAME}-install.cmake CACHE STRING "Install config file name")
-
-#
 # True if we want kd_lattice to link against VTK
 #
 #set(USE_VTK ON CACHE BOOL "Set to link geometry against VTK libs.")
@@ -132,22 +86,6 @@ set(INTELWARN CACHE BOOL "Toggle Intel compiler warnings")
 # Toggle multi-process compilation in win32.
 #
 set(ENABLE_WIN32_MP ON CACHE BOOL "Toggle win32 compiler MP directive. Works for MS and Intel. Default is ON.")
-
-#   
-#  Type of system documentation to build: Dev or User
-#
-if(NOT LPS_DOC_STATE)
-    set(LPS_DOC_STATE User CACHE STRING "Type of documentation to build: [Dev|User]")
-endif()
-
-#
-# Default linux installation location is /usr/local
-# Set a default where the user has write permission ; in this
-# case, the top of the components source tree.
-# "lib", "include", and "bin" will be appended to this location.
-# See "add_install_target" in cmake_modules/LPSCommon.cmake for source.
-#
-set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR} CACHE STRING "System install location")
 
 #
 # Targets with global scope are declared and optionally defined in 
@@ -211,7 +149,6 @@ function(clear_component_variables comp)
     # clear the ipath var so consecutive cmake runs don't
     # list the same include paths n times.
     unset(${COMP}_IPATH CACHE)
-
         
 endfunction(clear_component_variables)
 

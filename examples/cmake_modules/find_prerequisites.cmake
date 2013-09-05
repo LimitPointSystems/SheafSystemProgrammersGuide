@@ -25,14 +25,9 @@
 #
 # Set the location of the sheaf system top level.
 #
-set(SHEAFSYSTEM_HOME CACHE PATH "Sheaf_system top level directory.")
+set(SHEAFSYSTEM_HOME CACHE PATH "SheafSystem top level directory.")
 
 find_package(Sheaf)
 
-#
-# Find Git
-# Needed for "archive" target
-#
-#find_package(Git)
     
 

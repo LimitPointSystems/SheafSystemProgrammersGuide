@@ -15,18 +15,27 @@
 # limitations under the License.
 #
 
+#
+# Set the Configuration types.
+#
 if(WIN32)
     set(CMAKE_CONFIGURATION_TYPES Debug-contracts Debug-no-contracts Release-contracts Release-no-contracts 
-         RelWithDebInfo-contracts RelWithDebInfo-no-contracts CACHE STRING "Supported configuration types" FORCE)
+        RelWithDebInfo-contracts RelWithDebInfo-no-contracts CACHE STRING "Supported configuration types"
+        FORCE)
 else()
-    set(CMAKE_CONFIGURATION_TYPES Debug-contracts Debug-no-contracts Release-contracts Release-no-contracts 
-             CACHE STRING "Supported configuration types" FORCE)
+   set(CMAKE_CONFIGURATION_TYPES Debug-contracts Debug-no-contracts Release-contracts Release-no-contracts 
+       CACHE STRING "Supported configuration types"
+       FORCE)
 endif()
+
+#
+# Establish the project name
+#    
 project(examples)
 
 message(STATUS "Processing ${PROJECT_NAME}")
 
-cmake_minimum_required(VERSION 2.8.6)
+cmake_minimum_required(VERSION 2.8.8)
 
 #
 # Include variable definitions and functions
@@ -50,11 +59,6 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/component_definitions.cmake)
 # Set compiler flags for all build configurations
 #
 set_compiler_flags()
-
-#
-# Set the compiler optimization level
-#
-set_optimization_level()
 
 #
 # Set up output directories
