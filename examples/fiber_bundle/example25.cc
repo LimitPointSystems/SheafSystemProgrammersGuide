@@ -11,7 +11,6 @@
 #include "at1_space.h"
 #include "e3.h"
 #include "fiber_bundles_namespace.h"
-#include "poset.h"
 #include "std_iostream.h"
 
 using namespace sheaf;
@@ -25,24 +24,23 @@ int main( int argc, char* argv[])
 
   fiber_bundles_namespace lns("Example25");
   
-  // Create a space for e3 objects; use all the defaults.
+  // Create a space for e3 objects; empty suffix
+  // e3::host_type is at1_space
 
-  at1_space& le3_space = lns.new_fiber_space<e3>();
+  at1_space& le3_space = e3::standard_host(lns, "", true);
   
   cout << "e3 space name: " << le3_space.name() << endl;
   cout << "e3 space schema name: " << le3_space.schema().name() << endl;
   cout << "e3 space scalar space path: " << le3_space.scalar_space_path() << endl;
 
-  // Create another space for e3 objects, specifying the arguments explicitly.
+  // Create another space for e3 objects, suffix "_other".
 
-  arg_list largs = at1_space::make_arg_list("e3_at0_space");
-
-  at1_space& lanother_e3_space = lns.new_fiber_space<e3>("another_e3_space", largs);  
+  at1_space& le3_other_space = e3::standard_host(lns, "_other", true);
   
   cout << endl;
-  cout << "another e3 space name: " << lanother_e3_space.name() << endl;
-  cout << "another e3 space schema name: " << lanother_e3_space.schema().name() << endl;
-  cout << "another e3 space scalar space path: " << lanother_e3_space.scalar_space_path() << endl;
+  cout << "another e3 space name: " << le3_other_space.name() << endl;
+  cout << "another e3 space schema name: " << le3_other_space.schema().name() << endl;
+  cout << "another e3 space scalar space path: " << le3_other_space.scalar_space_path() << endl;
   
   // Exit:
 
