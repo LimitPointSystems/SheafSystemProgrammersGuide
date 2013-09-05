@@ -25,25 +25,44 @@ int main( int argc, char* argv[])
 
   fiber_bundles_namespace lns("Example28");
 
-  // Populate the namespace from the file we wrote in example27.
-  // Retrieves the base space, fiber space and section space schema.
+  // Populate the namespace from the file we wrote in example25.
+  // Retrieves the base space.
 
-  storage_agent lsa_read("example27.hdf", sheaf_file::READ_ONLY);
+  storage_agent lsa_read("example23.hdf", sheaf_file::READ_ONLY);
   lsa_read.read_entire(lns);
 
   // Create a section space for sec_e2 sections on the line segment mesh
-  // using default values for fiber space, rep, and schema.
+  // using standard rep and no suffixes.
 
   poset_path lbase_path("mesh/block");
-  poset_path lssp_path("e2_on_block");
 
-  sec_e2::host_type& lhost = lns.new_section_space<sec_e2>(lssp_path, lbase_path);
+  sec_e2::host_type& lsec_e2_host = sec_e2::standard_host(lns, lbase_path, "", "", "", true);
+
+  cout << endl;
+  cout << "sec_e2 space path: " << lsec_e2_host.path() << endl;
+  cout << "sec_e2 space schema path: " << lsec_e2_host.schema().path() << endl;
+  cout << "sec_e2 space scalar space path: " << lsec_e2_host.scalar_space_path() << endl;
   
   // Print the finished poset.
 
-  cout << lhost << endl;
+  cout << lsec_e2_host << endl;
 
-  // Write it to a file for later use.
+
+  // Create a section space for sec_e2 sections on the line segment mesh
+  // using rep "elelment_element_constant" and both section and fiber suffixes.
+
+  poset_path lrep_path("sec_rep_descriptors", "element_element_constant");
+  
+  sec_e2::host_type& lsec_e2_other_host = 
+    sec_e2::standard_host(lns, lbase_path, lrep_path, "_other", "_new", true);
+  
+  cout << endl;
+  cout << "other sec_e2 space path: " << lsec_e2_other_host.path() << endl;
+  cout << "other sec_e2 space schema path: " << lsec_e2_other_host.schema().path() << endl;
+  cout << "other sec_e2 space scalar space path: " << lsec_e2_other_host.scalar_space_path() << endl;
+
+
+  // Write the namespace to a file for later use.
 
   storage_agent lsa_write("example28.hdf", sheaf_file::READ_WRITE);
   lsa_write.write_entire(lns);

@@ -8,7 +8,7 @@
 /// @example Example21
 /// SheafSystem Programmer's Guide Example 21: Creating a base_space_poset. 
 
-#include "base_space_member_prototype.h"
+#include "base_space_member.h"
 #include "base_space_poset.h"
 #include "fiber_bundles_namespace.h"
 #include "std_iostream.h"

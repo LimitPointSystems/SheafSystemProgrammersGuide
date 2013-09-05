@@ -5,233 +5,233 @@ Subobject hierarchy in fiber_space_schema
 at0_schema
    atp_schema
       tp_schema
-         p: INT
-         dd: INT
-         vector_space_path: C_STRING
+         p: INT  table
+         dd: INT  table
+         vector_space_path: C_STRING  table
          vd_schema
             tuple_schema
-               factor_ct: INT
-            d: INT
-            scalar_space_path: C_STRING
-   value: DOUBLE
+               factor_ct: INT  table
+            d: INT  table
+            scalar_space_path: C_STRING  table
+   value: DOUBLE  row
 
 e4_schema
    ed_schema
       at1_schema
          atp_schema
             tp_schema
-               p: INT
-               dd: INT
-               vector_space_path: C_STRING
-   x: DOUBLE
-   y: DOUBLE
-   z: DOUBLE
-   t: DOUBLE
+               p: INT  table
+               dd: INT  table
+               vector_space_path: C_STRING  table
+   x: DOUBLE  row
+   y: DOUBLE  row
+   z: DOUBLE  row
+   t: DOUBLE  row
 
 e3_schema
    ed_schema
       at1_schema
          atp_schema
             tp_schema
-               p: INT
-               dd: INT
-               vector_space_path: C_STRING
-   x: DOUBLE
-   y: DOUBLE
-   z: DOUBLE
+               p: INT  table
+               dd: INT  table
+               vector_space_path: C_STRING  table
+   x: DOUBLE  row
+   y: DOUBLE  row
+   z: DOUBLE  row
 
 e2_schema
    ed_schema
       at1_schema
          atp_schema
             tp_schema
-               p: INT
-               dd: INT
-               vector_space_path: C_STRING
-   x: DOUBLE
-   y: DOUBLE
+               p: INT  table
+               dd: INT  table
+               vector_space_path: C_STRING  table
+   x: DOUBLE  row
+   y: DOUBLE  row
 
 e1_schema
    ed_schema
       at1_schema
          atp_schema
             tp_schema
-               p: INT
-               dd: INT
-               vector_space_path: C_STRING
-   x: DOUBLE
+               p: INT  table
+               dd: INT  table
+               vector_space_path: C_STRING  table
+   x: DOUBLE  row
 
 t2_e3_schema
    t2_schema
       tp_schema
-         p: INT
-         dd: INT
-         vector_space_path: C_STRING
-   xx: DOUBLE
-   xy: DOUBLE
-   xz: DOUBLE
-   yx: DOUBLE
-   yy: DOUBLE
-   yz: DOUBLE
-   zx: DOUBLE
-   zy: DOUBLE
-   zz: DOUBLE
+         p: INT  table
+         dd: INT  table
+         vector_space_path: C_STRING  table
+   xx: DOUBLE  row
+   xy: DOUBLE  row
+   xz: DOUBLE  row
+   yx: DOUBLE  row
+   yy: DOUBLE  row
+   yz: DOUBLE  row
+   zx: DOUBLE  row
+   zy: DOUBLE  row
+   zz: DOUBLE  row
 
 t2_e2_schema
    t2_schema
       tp_schema
-         p: INT
-         dd: INT
-         vector_space_path: C_STRING
-   xx: DOUBLE
-   xy: DOUBLE
-   yx: DOUBLE
-   yy: DOUBLE
+         p: INT  table
+         dd: INT  table
+         vector_space_path: C_STRING  table
+   xx: DOUBLE  row
+   xy: DOUBLE  row
+   yx: DOUBLE  row
+   yy: DOUBLE  row
 
 t3_e3_schema
    t3_schema
       tp_schema
-         p: INT
-         dd: INT
-         vector_space_path: C_STRING
-   xxx: DOUBLE
-   xxy: DOUBLE
-   xxz: DOUBLE
-   xyx: DOUBLE
-   xyy: DOUBLE
-   xyz: DOUBLE
-   xzx: DOUBLE
-   xzy: DOUBLE
-   xzz: DOUBLE
-   yxx: DOUBLE
-   yxy: DOUBLE
-   yxz: DOUBLE
-   yyx: DOUBLE
-   yyy: DOUBLE
-   yyz: DOUBLE
-   yzx: DOUBLE
-   yzy: DOUBLE
-   yzz: DOUBLE
-   zxx: DOUBLE
-   zxy: DOUBLE
-   zxz: DOUBLE
-   zyx: DOUBLE
-   zyy: DOUBLE
-   zyz: DOUBLE
-   zzx: DOUBLE
-   zzy: DOUBLE
-   zzz: DOUBLE
+         p: INT  table
+         dd: INT  table
+         vector_space_path: C_STRING  table
+   xxx: DOUBLE  row
+   xxy: DOUBLE  row
+   xxz: DOUBLE  row
+   xyx: DOUBLE  row
+   xyy: DOUBLE  row
+   xyz: DOUBLE  row
+   xzx: DOUBLE  row
+   xzy: DOUBLE  row
+   xzz: DOUBLE  row
+   yxx: DOUBLE  row
+   yxy: DOUBLE  row
+   yxz: DOUBLE  row
+   yyx: DOUBLE  row
+   yyy: DOUBLE  row
+   yyz: DOUBLE  row
+   yzx: DOUBLE  row
+   yzy: DOUBLE  row
+   yzz: DOUBLE  row
+   zxx: DOUBLE  row
+   zxy: DOUBLE  row
+   zxz: DOUBLE  row
+   zyx: DOUBLE  row
+   zyy: DOUBLE  row
+   zyz: DOUBLE  row
+   zzx: DOUBLE  row
+   zzy: DOUBLE  row
+   zzz: DOUBLE  row
 
 t4_e2_schema
    t4_schema
       tp_schema
-         p: INT
-         dd: INT
-         vector_space_path: C_STRING
-   xxxx: DOUBLE
-   xxxy: DOUBLE
-   xxyx: DOUBLE
-   xxyy: DOUBLE
-   xyxx: DOUBLE
-   xyxy: DOUBLE
-   xyyx: DOUBLE
-   xyyy: DOUBLE
-   yxxx: DOUBLE
-   yxxy: DOUBLE
-   yxyx: DOUBLE
-   yxyy: DOUBLE
-   yyxx: DOUBLE
-   yyxy: DOUBLE
-   yyyx: DOUBLE
-   yyyy: DOUBLE
+         p: INT  table
+         dd: INT  table
+         vector_space_path: C_STRING  table
+   xxxx: DOUBLE  row
+   xxxy: DOUBLE  row
+   xxyx: DOUBLE  row
+   xxyy: DOUBLE  row
+   xyxx: DOUBLE  row
+   xyxy: DOUBLE  row
+   xyyx: DOUBLE  row
+   xyyy: DOUBLE  row
+   yxxx: DOUBLE  row
+   yxxy: DOUBLE  row
+   yxyx: DOUBLE  row
+   yxyy: DOUBLE  row
+   yyxx: DOUBLE  row
+   yyxy: DOUBLE  row
+   yyyx: DOUBLE  row
+   yyyy: DOUBLE  row
 
 t4_e3_schema
    t4_schema
       tp_schema
-         p: INT
-         dd: INT
-         vector_space_path: C_STRING
-   xxxx: DOUBLE
-   xxxy: DOUBLE
-   xxxz: DOUBLE
-   xxyx: DOUBLE
-   xxyy: DOUBLE
-   xxyz: DOUBLE
-   xxzx: DOUBLE
-   xxzy: DOUBLE
-   xxzz: DOUBLE
-   xyxx: DOUBLE
-   xyxy: DOUBLE
-   xyxz: DOUBLE
-   xyyx: DOUBLE
-   xyyy: DOUBLE
-   xyyz: DOUBLE
-   xyzx: DOUBLE
-   xyzy: DOUBLE
-   xyzz: DOUBLE
-   xzxx: DOUBLE
-   xzxy: DOUBLE
-   xzxz: DOUBLE
-   xzyx: DOUBLE
-   xzyy: DOUBLE
-   xzyz: DOUBLE
-   xzzx: DOUBLE
-   xzzy: DOUBLE
-   xzzz: DOUBLE
-   yxxx: DOUBLE
-   yxxy: DOUBLE
-   yxxz: DOUBLE
-   yxyx: DOUBLE
-   yxyy: DOUBLE
-   yxyz: DOUBLE
-   yxzx: DOUBLE
-   yxzy: DOUBLE
-   yxzz: DOUBLE
-   yyxx: DOUBLE
-   yyxy: DOUBLE
-   yyxz: DOUBLE
-   yyyx: DOUBLE
-   yyyy: DOUBLE
-   yyyz: DOUBLE
-   yyzx: DOUBLE
-   yyzy: DOUBLE
-   yyzz: DOUBLE
-   yzxx: DOUBLE
-   yzxy: DOUBLE
-   yzxz: DOUBLE
-   yzyx: DOUBLE
-   yzyy: DOUBLE
-   yzyz: DOUBLE
-   yzzx: DOUBLE
-   yzzy: DOUBLE
-   yzzz: DOUBLE
-   zxxx: DOUBLE
-   zxxy: DOUBLE
-   zxxz: DOUBLE
-   zxyx: DOUBLE
-   zxyy: DOUBLE
-   zxyz: DOUBLE
-   zxzx: DOUBLE
-   zxzy: DOUBLE
-   zxzz: DOUBLE
-   zyxx: DOUBLE
-   zyxy: DOUBLE
-   zyxz: DOUBLE
-   zyyx: DOUBLE
-   zyyy: DOUBLE
-   zyyz: DOUBLE
-   zyzx: DOUBLE
-   zyzy: DOUBLE
-   zyzz: DOUBLE
-   zzxx: DOUBLE
-   zzxy: DOUBLE
-   zzxz: DOUBLE
-   zzyx: DOUBLE
-   zzyy: DOUBLE
-   zzyz: DOUBLE
-   zzzx: DOUBLE
-   zzzy: DOUBLE
-   zzzz: DOUBLE
+         p: INT  table
+         dd: INT  table
+         vector_space_path: C_STRING  table
+   xxxx: DOUBLE  row
+   xxxy: DOUBLE  row
+   xxxz: DOUBLE  row
+   xxyx: DOUBLE  row
+   xxyy: DOUBLE  row
+   xxyz: DOUBLE  row
+   xxzx: DOUBLE  row
+   xxzy: DOUBLE  row
+   xxzz: DOUBLE  row
+   xyxx: DOUBLE  row
+   xyxy: DOUBLE  row
+   xyxz: DOUBLE  row
+   xyyx: DOUBLE  row
+   xyyy: DOUBLE  row
+   xyyz: DOUBLE  row
+   xyzx: DOUBLE  row
+   xyzy: DOUBLE  row
+   xyzz: DOUBLE  row
+   xzxx: DOUBLE  row
+   xzxy: DOUBLE  row
+   xzxz: DOUBLE  row
+   xzyx: DOUBLE  row
+   xzyy: DOUBLE  row
+   xzyz: DOUBLE  row
+   xzzx: DOUBLE  row
+   xzzy: DOUBLE  row
+   xzzz: DOUBLE  row
+   yxxx: DOUBLE  row
+   yxxy: DOUBLE  row
+   yxxz: DOUBLE  row
+   yxyx: DOUBLE  row
+   yxyy: DOUBLE  row
+   yxyz: DOUBLE  row
+   yxzx: DOUBLE  row
+   yxzy: DOUBLE  row
+   yxzz: DOUBLE  row
+   yyxx: DOUBLE  row
+   yyxy: DOUBLE  row
+   yyxz: DOUBLE  row
+   yyyx: DOUBLE  row
+   yyyy: DOUBLE  row
+   yyyz: DOUBLE  row
+   yyzx: DOUBLE  row
+   yyzy: DOUBLE  row
+   yyzz: DOUBLE  row
+   yzxx: DOUBLE  row
+   yzxy: DOUBLE  row
+   yzxz: DOUBLE  row
+   yzyx: DOUBLE  row
+   yzyy: DOUBLE  row
+   yzyz: DOUBLE  row
+   yzzx: DOUBLE  row
+   yzzy: DOUBLE  row
+   yzzz: DOUBLE  row
+   zxxx: DOUBLE  row
+   zxxy: DOUBLE  row
+   zxxz: DOUBLE  row
+   zxyx: DOUBLE  row
+   zxyy: DOUBLE  row
+   zxyz: DOUBLE  row
+   zxzx: DOUBLE  row
+   zxzy: DOUBLE  row
+   zxzz: DOUBLE  row
+   zyxx: DOUBLE  row
+   zyxy: DOUBLE  row
+   zyxz: DOUBLE  row
+   zyyx: DOUBLE  row
+   zyyy: DOUBLE  row
+   zyyz: DOUBLE  row
+   zyzx: DOUBLE  row
+   zyzy: DOUBLE  row
+   zyzz: DOUBLE  row
+   zzxx: DOUBLE  row
+   zzxy: DOUBLE  row
+   zzxz: DOUBLE  row
+   zzyx: DOUBLE  row
+   zzyy: DOUBLE  row
+   zzyz: DOUBLE  row
+   zzzx: DOUBLE  row
+   zzzy: DOUBLE  row
+   zzzz: DOUBLE  row
 
 met_e3_schema
    met_ed_schema
@@ -239,15 +239,15 @@ met_e3_schema
          st2_schema
             stp_schema
                tp_schema
-                  p: INT
-                  dd: INT
-                  vector_space_path: C_STRING
-   xx: DOUBLE
-   xy: DOUBLE
-   yy: DOUBLE
-   xz: DOUBLE
-   yz: DOUBLE
-   zz: DOUBLE
+                  p: INT  table
+                  dd: INT  table
+                  vector_space_path: C_STRING  table
+   xx: DOUBLE  row
+   xy: DOUBLE  row
+   yy: DOUBLE  row
+   xz: DOUBLE  row
+   yz: DOUBLE  row
+   zz: DOUBLE  row
 
 met_e2_schema
    met_ed_schema
@@ -255,12 +255,12 @@ met_e2_schema
          st2_schema
             stp_schema
                tp_schema
-                  p: INT
-                  dd: INT
-                  vector_space_path: C_STRING
-   xx: DOUBLE
-   xy: DOUBLE
-   yy: DOUBLE
+                  p: INT  table
+                  dd: INT  table
+                  vector_space_path: C_STRING  table
+   xx: DOUBLE  row
+   xy: DOUBLE  row
+   yy: DOUBLE  row
 
 met_e1_schema
    met_ed_schema
@@ -268,196 +268,196 @@ met_e1_schema
          st2_schema
             stp_schema
                tp_schema
-                  p: INT
-                  dd: INT
-                  vector_space_path: C_STRING
-   xx: DOUBLE
+                  p: INT  table
+                  dd: INT  table
+                  vector_space_path: C_STRING  table
+   xx: DOUBLE  row
 
 st2_e2_schema
    st2_schema
       stp_schema
          tp_schema
-            p: INT
-            dd: INT
-            vector_space_path: C_STRING
-   xx: DOUBLE
-   xy: DOUBLE
-   yy: DOUBLE
+            p: INT  table
+            dd: INT  table
+            vector_space_path: C_STRING  table
+   xx: DOUBLE  row
+   xy: DOUBLE  row
+   yy: DOUBLE  row
 
 st2_e3_schema
    st2_schema
       stp_schema
          tp_schema
-            p: INT
-            dd: INT
-            vector_space_path: C_STRING
-   xx: DOUBLE
-   xy: DOUBLE
-   xz: DOUBLE
-   yy: DOUBLE
-   yz: DOUBLE
-   zz: DOUBLE
+            p: INT  table
+            dd: INT  table
+            vector_space_path: C_STRING  table
+   xx: DOUBLE  row
+   xy: DOUBLE  row
+   xz: DOUBLE  row
+   yy: DOUBLE  row
+   yz: DOUBLE  row
+   zz: DOUBLE  row
 
 st3_e3_schema
    st3_schema
       stp_schema
          tp_schema
-            p: INT
-            dd: INT
-            vector_space_path: C_STRING
-   xxx: DOUBLE
-   xxy: DOUBLE
-   xxz: DOUBLE
-   xyy: DOUBLE
-   xyz: DOUBLE
-   xzz: DOUBLE
-   yyy: DOUBLE
-   yyz: DOUBLE
-   yzz: DOUBLE
-   zzz: DOUBLE
+            p: INT  table
+            dd: INT  table
+            vector_space_path: C_STRING  table
+   xxx: DOUBLE  row
+   xxy: DOUBLE  row
+   xxz: DOUBLE  row
+   xyy: DOUBLE  row
+   xyz: DOUBLE  row
+   xzz: DOUBLE  row
+   yyy: DOUBLE  row
+   yyz: DOUBLE  row
+   yzz: DOUBLE  row
+   zzz: DOUBLE  row
 
 st4_e2_schema
    st4_schema
       stp_schema
          tp_schema
-            p: INT
-            dd: INT
-            vector_space_path: C_STRING
-   xxxx: DOUBLE
-   xxxy: DOUBLE
-   xxyy: DOUBLE
-   xyyy: DOUBLE
-   yyyy: DOUBLE
+            p: INT  table
+            dd: INT  table
+            vector_space_path: C_STRING  table
+   xxxx: DOUBLE  row
+   xxxy: DOUBLE  row
+   xxyy: DOUBLE  row
+   xyyy: DOUBLE  row
+   yyyy: DOUBLE  row
 
 st4_e3_schema
    st4_schema
       stp_schema
          tp_schema
-            p: INT
-            dd: INT
-            vector_space_path: C_STRING
-   xxxx: DOUBLE
-   xxxy: DOUBLE
-   xxxz: DOUBLE
-   xxyy: DOUBLE
-   xxyz: DOUBLE
-   xxzz: DOUBLE
-   xyyy: DOUBLE
-   xyyz: DOUBLE
-   xyzz: DOUBLE
-   xzzz: DOUBLE
-   yyyy: DOUBLE
-   yyyz: DOUBLE
-   yyzz: DOUBLE
-   yzzz: DOUBLE
-   zzzz: DOUBLE
+            p: INT  table
+            dd: INT  table
+            vector_space_path: C_STRING  table
+   xxxx: DOUBLE  row
+   xxxy: DOUBLE  row
+   xxxz: DOUBLE  row
+   xxyy: DOUBLE  row
+   xxyz: DOUBLE  row
+   xxzz: DOUBLE  row
+   xyyy: DOUBLE  row
+   xyyz: DOUBLE  row
+   xyzz: DOUBLE  row
+   xzzz: DOUBLE  row
+   yyyy: DOUBLE  row
+   yyyz: DOUBLE  row
+   yyzz: DOUBLE  row
+   yzzz: DOUBLE  row
+   zzzz: DOUBLE  row
 
 at2_e2_schema
    at2_schema
       atp_schema
          tp_schema
-            p: INT
-            dd: INT
-            vector_space_path: C_STRING
-   xy: DOUBLE
+            p: INT  table
+            dd: INT  table
+            vector_space_path: C_STRING  table
+   xy: DOUBLE  row
 
 at2_e3_schema
    at2_schema
       atp_schema
          tp_schema
-            p: INT
-            dd: INT
-            vector_space_path: C_STRING
-   xy: DOUBLE
-   xz: DOUBLE
-   yz: DOUBLE
+            p: INT  table
+            dd: INT  table
+            vector_space_path: C_STRING  table
+   xy: DOUBLE  row
+   xz: DOUBLE  row
+   yz: DOUBLE  row
 
 at3_e3_schema
    at3_schema
       atp_schema
          tp_schema
-            p: INT
-            dd: INT
-            vector_space_path: C_STRING
-   component: DOUBLE
+            p: INT  table
+            dd: INT  table
+            vector_space_path: C_STRING  table
+   component: DOUBLE  row
 
 jcb_e23_schema
    jcb_ed_schema
       jcb_schema
-         dd: INT
-         domain_path: C_STRING
-         range_path: C_STRING
-         dr: INT
-   dxdu: DOUBLE
-   dxdv: DOUBLE
-   dydu: DOUBLE
-   dydv: DOUBLE
-   dzdu: DOUBLE
-   dzdv: DOUBLE
+         dd: INT  table
+         domain_path: C_STRING  table
+         range_path: C_STRING  table
+         dr: INT  table
+   dxdu: DOUBLE  row
+   dxdv: DOUBLE  row
+   dydu: DOUBLE  row
+   dydv: DOUBLE  row
+   dzdu: DOUBLE  row
+   dzdv: DOUBLE  row
 
 jcb_e13_schema
    jcb_ed_schema
       jcb_schema
-         dd: INT
-         domain_path: C_STRING
-         range_path: C_STRING
-         dr: INT
-   dxdu: DOUBLE
-   dydu: DOUBLE
-   dzdu: DOUBLE
+         dd: INT  table
+         domain_path: C_STRING  table
+         range_path: C_STRING  table
+         dr: INT  table
+   dxdu: DOUBLE  row
+   dydu: DOUBLE  row
+   dzdu: DOUBLE  row
 
 jcb_e33_schema
    jcb_ed_schema
       jcb_schema
-         dd: INT
-         domain_path: C_STRING
-         range_path: C_STRING
-         dr: INT
-   dxdu: DOUBLE
-   dxdv: DOUBLE
-   dxdw: DOUBLE
-   dydu: DOUBLE
-   dydv: DOUBLE
-   dydw: DOUBLE
-   dzdu: DOUBLE
-   dzdv: DOUBLE
-   dzdw: DOUBLE
+         dd: INT  table
+         domain_path: C_STRING  table
+         range_path: C_STRING  table
+         dr: INT  table
+   dxdu: DOUBLE  row
+   dxdv: DOUBLE  row
+   dxdw: DOUBLE  row
+   dydu: DOUBLE  row
+   dydv: DOUBLE  row
+   dydw: DOUBLE  row
+   dzdu: DOUBLE  row
+   dzdv: DOUBLE  row
+   dzdw: DOUBLE  row
 
 gl3_schema
    gln_schema
-      scalar_space_path: C_STRING
-      vector_space_path: C_STRING
-      n: INT
-   bxx: DOUBLE
-   bxy: DOUBLE
-   bxz: DOUBLE
-   byx: DOUBLE
-   byy: DOUBLE
-   byz: DOUBLE
-   bzx: DOUBLE
-   bzy: DOUBLE
-   bzz: DOUBLE
-   cxx: DOUBLE
-   cxy: DOUBLE
-   cxz: DOUBLE
-   cyx: DOUBLE
-   cyy: DOUBLE
-   cyz: DOUBLE
-   czx: DOUBLE
-   czy: DOUBLE
-   czz: DOUBLE
+      scalar_space_path: C_STRING  table
+      vector_space_path: C_STRING  table
+      n: INT  table
+   bxx: DOUBLE  row
+   bxy: DOUBLE  row
+   bxz: DOUBLE  row
+   byx: DOUBLE  row
+   byy: DOUBLE  row
+   byz: DOUBLE  row
+   bzx: DOUBLE  row
+   bzy: DOUBLE  row
+   bzz: DOUBLE  row
+   cxx: DOUBLE  row
+   cxy: DOUBLE  row
+   cxz: DOUBLE  row
+   cyx: DOUBLE  row
+   cyy: DOUBLE  row
+   cyz: DOUBLE  row
+   czx: DOUBLE  row
+   czy: DOUBLE  row
+   czz: DOUBLE  row
 
 gl2_schema
    gln_schema
-      scalar_space_path: C_STRING
-      vector_space_path: C_STRING
-      n: INT
-   bxx: DOUBLE
-   bxy: DOUBLE
-   byx: DOUBLE
-   byy: DOUBLE
-   cxx: DOUBLE
-   cxy: DOUBLE
-   cyx: DOUBLE
-   cyy: DOUBLE
+      scalar_space_path: C_STRING  table
+      vector_space_path: C_STRING  table
+      n: INT  table
+   bxx: DOUBLE  row
+   bxy: DOUBLE  row
+   byx: DOUBLE  row
+   byy: DOUBLE  row
+   cxx: DOUBLE  row
+   cxy: DOUBLE  row
+   cyx: DOUBLE  row
+   cyy: DOUBLE  row
 
