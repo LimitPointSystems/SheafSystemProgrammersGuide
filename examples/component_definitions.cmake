@@ -17,7 +17,7 @@
 
 #
 # Include functions and definitions common to all components.
-# .
+# 
 include(${CMAKE_MODULE_PATH}/LPSCommon.cmake)
 
 #

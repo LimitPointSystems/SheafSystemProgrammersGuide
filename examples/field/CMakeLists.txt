@@ -19,13 +19,13 @@
 # Programmer Filename Entry Section
 #------------------------------------------------
 
-set(CLUSTER field)
+set(CLUSTER ${CMAKE_CURRENT_BINARY_DIR})
 
 #
 # Library sources.
 #
 set(SRCS
-)
+    )
 
 collect_sources()
 
@@ -33,7 +33,7 @@ collect_sources()
 # Headers that are NOT associated with a .cc file.
 #
 set(ADDITIONAL_INCS
-  )
+    )
 
 collect_includes()  
 
@@ -41,7 +41,7 @@ collect_includes()
 # Source for unit test executables.
 #
 set(UNIT_TEST_SRCS
-)
+    )
 
 collect_unit_test_sources()
 
@@ -50,7 +50,7 @@ collect_unit_test_sources()
 #
 set(EXAMPLE_SRCS
    example32.cc
- )
+    )
 
 collect_example_sources()
 
