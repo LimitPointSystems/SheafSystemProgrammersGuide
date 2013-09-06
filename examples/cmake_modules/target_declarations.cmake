@@ -27,5 +27,12 @@ if(LINUX64GNU OR LINUX64INTEL)
             COMMAND ${CMAKE_COMMAND} --build  ${CMAKE_BINARY_DIR} --target clean
             COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/documentation)   
 
+    # build and run the executables, redirecting their output to a .out file.
+    # copy the file(s) to their source origin.
+    # Source files will need to know their cluster, or since they are numbered
+    # then perhaps we can make the decision of where to copy the output
+    # by parsing their name
+    add_custom_target(outfiles DEPENDS 
+ 
 endif()
 
