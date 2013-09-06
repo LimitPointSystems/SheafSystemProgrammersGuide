@@ -31,21 +31,20 @@ int main( int argc, char* argv[])
 
   fiber_bundles_namespace lns("Example30");
 
-  // Create a new base space with structured_block_1d with 2 segments.
+  // Create a new base space with structured_block_1d with 4 segments.
+  // (We'll need that many segments for example31.)
 
-  arg_list largs = base_space_poset::make_args(1);
-  base_space_poset& lbase_host = lns.new_base_space<structured_block_1d>("mesh2", largs);
-  structured_block_1d lblock(&lbase_host, 2, true);
+  base_space_poset& lbase_host = structured_block_1d::standard_host(lns, "mesh2", true);
+  
+  structured_block_1d lblock(&lbase_host, 4, true);
   lblock.put_name("block", true, true);
 
   // Create a section space for uniform coordinates
 
-  poset_path le1u_path("e1_uniform_on_block");
   poset_path lbase_path("mesh2/block");
-  poset_path le1u_rep_path("sec_rep_descriptors/vertex_block_uniform");
-  
-  sec_e1_uniform::host_type& le1u_host =
-    lns.new_section_space<sec_e1_uniform>(le1u_path, lbase_path, le1u_rep_path, true);
+
+  sec_e1_uniform::host_type& le1u_host = 
+    sec_e1_uniform::standard_host(lns, lbase_path, "", "", "", true);
 
   // Create the coordinates section. 
   // Uniform coordinates are initialized by the constructor.
@@ -56,27 +55,23 @@ int main( int argc, char* argv[])
   // Create a section space for general coordinates;
   // use the default vertex_element_dlinear rep.
 
-  poset_path le1_path("e1_on_block");
-  
-  sec_e1::host_type& le1_host =
-    lns.new_section_space<sec_e1>(le1_path, lbase_path);
+  sec_e1::host_type& le1_host = sec_e1::standard_host(lns, lbase_path, "", "", "", true);
   
   // Create a general coordinates section.
 
   sec_e1 le1_coords(&le1_host);
   le1_coords.put_name("general_coordinates", true, true);
   
-  // Have explicitly initialize general coordinates.
+  // Have to explicitly initialize general coordinates.
   // In a more realitistic case, the coordinate values
   // would come from some external source such as a mesher.
-  // But this mesh only has 3 vertices, so we'll just make
+  // But this mesh only has 5 vertices, so we'll just make
   // something up that's definitely not uniform..
 
-  sec_e1::dof_type lcoord_values[3] = { 0.0, 1.0, 10.0};
+  sec_e1::dof_type lcoord_values[5] = {1.0, 2.0, 4.0, 8.0, 16.0};
 
   sec_e1::fiber_type::volatile_type lfiber;
-  index_space_handle& ldisc_id_space = 
-    le1_coords.schema().discretization_id_space();
+  index_space_handle& ldisc_id_space = le1_coords.schema().discretization_id_space();
   index_space_iterator&  ldisc_itr = ldisc_id_space.get_iterator();
   while(!ldisc_itr.is_done())
   {
