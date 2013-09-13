@@ -1,7 +1,7 @@
 SheafSystemProgrammersGuide Example28:
 
 sec_e2 space path: e2_on_mesh_block_vertex_element_dlinear
-sec_e2 space schema path: e2_on_mesh_vertex_element_dlinear_schema/e2_on_block_schema
+sec_e2 space schema path: e2_on_mesh_vertex_element_dlinear_schema/e2_schema_on_block
 sec_e2 space scalar space path: at0_on_mesh_block_vertex_element_dlinear
 
 
@@ -97,7 +97,7 @@ TABLE
 Schema
 ------
 
-member: host = 'e2_on_mesh_vertex_element_dlinear_schema' index = 32915 name = 'e2_on_block_schema' version= -3 unaliased version= -2
+member: host = 'e2_on_mesh_vertex_element_dlinear_schema' index = 32915 name = 'e2_schema_on_block' version= -3 unaliased version= -2
 
 Table Attributes
 ----------------
@@ -147,5 +147,5 @@ equivalence classes
 
 
 other sec_e2 space path: e2_new_on_mesh_block_element_element_constant_other
-other sec_e2 space schema path: e2_new_on_mesh_element_element_constant_schema/e2_on_block_schema
+other sec_e2 space schema path: e2_new_on_mesh_element_element_constant_schema/e2_schema_on_block
 other sec_e2 space scalar space path: at0_new_on_mesh_block_element_element_constant_other

@@ -1,12 +1,232 @@
 SheafSystemProgrammersGuide Example31:
 
 
-#### BEGIN POSET e2_on_block ###################
+#### BEGIN POSET mesh2 ###################
 
 GENERAL
 -------
 
-poset: 'e2_on_block' 	host: 'Example30' 	index: 29 	version: -2
+poset: 'mesh2' 	host: 'Example30' 	index: 14 	version: -2
+
+
+ROW GRAPH
+---------
+
+Members and Covering Relation
+-----------------------------
+
+ member_ct = 14
+
+index:     0    bottom  dof_map:  2147483647    upper_cover: 133 134 135 136 137		lower_cover:
+index:     1    top     dof_map:  2147483647    upper_cover:			lower_cover: 128
+index:     2    patch0  dof_map:  2147483647    upper_cover: 128			lower_cover: 129 130
+index:     3    patch1  dof_map:  2147483647    upper_cover: 128			lower_cover: 131 132
+index:   128    block   dof_map:           0    upper_cover: 1			lower_cover: 2 3
+index:   129            dof_map:           1    upper_cover: 2			lower_cover: 133 134
+index:   130            dof_map:           1    upper_cover: 2			lower_cover: 134 135
+index:   131            dof_map:           1    upper_cover: 3			lower_cover: 135 136
+index:   132            dof_map:           1    upper_cover: 3			lower_cover: 136 137
+index:   133            dof_map:           2    upper_cover: 129			lower_cover: 0
+index:   134            dof_map:           2    upper_cover: 129 130			lower_cover: 0
+index:   135            dof_map:           2    upper_cover: 130 131			lower_cover: 0
+index:   136            dof_map:           2    upper_cover: 131 132			lower_cover: 0
+index:   137            dof_map:           2    upper_cover: 132			lower_cover: 0
+
+Member Id Space Family
+----------------------
+
+id spaces
+---------
+
+ begin = 0
+ end   = 404
+
+     index                            name        ct     begin       end  persistent
+ --------- ------------------------------- --------- --------- --------- -----------
+         0                           __hub        14         0       138
+ primary:
+         6                    __hub_term_0       128         0       128
+         9                    __hub_term_1        10         0        10
+ secondary:
+         1                        __blocks         1         0         1       false
+         2                __block_vertices         2         0         2       false
+         3                      __vertices         5         0         5       false
+         4                      __elements         4         0         4       false
+         5                         __cells        10         0        10       false
+         7                 __example30.hdf         3         2         5       false
+        10        __128__elements_id_space         4         0         4       false
+        11        __128__vertices_id_space         5         0         5       false
+        12            __block_vertices_128         2         0         2       false
+        13  __128__block_vertices_id_space         2         0         2       false
+        14      __explicit_128_lower_cover         2         4         6       false
+        15      __explicit_129_upper_cover         1         0         1       false
+        16      __explicit_130_upper_cover         1         0         1       false
+        17      __explicit_131_upper_cover         1         0         1       false
+        18      __explicit_132_upper_cover         1         0         1       false
+       128        __explicit_0_lower_cover         0
+       129        __explicit_1_lower_cover         1         0         1       false
+       130        __explicit_2_lower_cover         2         0         2       false
+       131        __explicit_3_lower_cover         2         0         2       false
+       256        __explicit_0_upper_cover         5         0         5       false
+       257        __explicit_1_upper_cover         0
+       258        __explicit_2_upper_cover         1         0         1       false
+       259        __explicit_3_upper_cover         1         0         1       false
+       384      __implicit_128_lower_cover         4         0         4       false
+       385                                         2         0         2       false
+       386                                         2         0         2       false
+       387                                         2         0         2       false
+       388                                         2         0         2       false
+       389                                         1         0         1       false
+       390                                         1         0         1       false
+       391                                         1         0         1       false
+       392                                         1         0         1       false
+       393                                         1         0         1       false
+       394      __explicit_128_upper_cover         1         0         1       false
+       395                                         1         0         1       false
+       396                                         1         0         1       false
+       397                                         1         0         1       false
+       398                                         1         0         1       false
+       399                                         1         0         1       false
+       400                                         2         0         2       false
+       401                                         2         0         2       false
+       402                                         2         0         2       false
+       403                                         1         0         1       false
+
+equivalence classes
+-------------------
+
+(   0,    0):    (   0,    0)    (   6,    0)    (   7,    2)    ( 389,    0)    ( 390,    0)    ( 391,    0)    ( 392,    0)    ( 393,    0)
+(   0,    1):    (   0,    1)    (   6,    1)    (   7,    3)    ( 394,    0)
+(   0,    2):    (   0,    2)    (   6,    2)    (  14,    4)    (  15,    0)    (  16,    0)
+(   0,    3):    (   0,    3)    (   6,    3)    (  14,    5)    (  17,    0)    (  18,    0)
+(   0,  128):    (   0,  128)    (   1,    0)    (   7,    4)    (   9,    0)    ( 129,    0)    ( 258,    0)    ( 259,    0)    ( 395,    0)    ( 396,    0)    ( 397,    0)    ( 398,    0)
+(   0,  129):    (   0,  129)    (   4,    0)    (   5,    0)    (   9,    1)    (  10,    0)    ( 130,    0)    ( 384,    0)    ( 399,    0)    ( 400,    0)
+(   0,  130):    (   0,  130)    (   4,    1)    (   5,    1)    (   9,    2)    (  10,    1)    ( 130,    1)    ( 384,    1)    ( 400,    1)    ( 401,    0)
+(   0,  131):    (   0,  131)    (   4,    2)    (   5,    2)    (   9,    3)    (  10,    2)    ( 131,    0)    ( 384,    2)    ( 401,    1)    ( 402,    0)
+(   0,  132):    (   0,  132)    (   4,    3)    (   5,    3)    (   9,    4)    (  10,    3)    ( 131,    1)    ( 384,    3)    ( 402,    1)    ( 403,    0)
+(   0,  133):    (   0,  133)    (   2,    0)    (   3,    0)    (   5,    4)    (   9,    5)    (  11,    0)    (  12,    0)    (  13,    0)    ( 256,    0)    ( 385,    0)
+(   0,  134):    (   0,  134)    (   3,    1)    (   5,    5)    (   9,    6)    (  11,    1)    ( 256,    1)    ( 385,    1)    ( 386,    0)
+(   0,  135):    (   0,  135)    (   3,    2)    (   5,    6)    (   9,    7)    (  11,    2)    ( 256,    2)    ( 386,    1)    ( 387,    0)
+(   0,  136):    (   0,  136)    (   3,    3)    (   5,    7)    (   9,    8)    (  11,    3)    ( 256,    3)    ( 387,    1)    ( 388,    0)
+(   0,  137):    (   0,  137)    (   2,    1)    (   3,    4)    (   5,    8)    (   9,    9)    (  11,    4)    (  12,    1)    (  13,    1)    ( 256,    4)    ( 388,    1)
+
+
+
+ROW GRAPH SUBPOSETS
+-------------------
+
+Subposets
+---------
+
+index:   (0, 0)  jims                members: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000111111111  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0_jims  
+index:   (0, 1)  whole               members: 111100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001111111111  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0       
+index:   (0, 2)  resident            members: 010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 3)  __blocks            members: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 4)  __block_vertices    members: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 5)  __vertices          members: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011111  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 6)  __elements          members: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000111100000  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 7)  __cells             members: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000111111111  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 8)  patches             members: 001100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  is_dof_sp:  false  dof_ct: 0  offsets: 
+
+Subposet Id Space Family
+----------------------
+
+id spaces
+---------
+
+ begin = 0
+ end   = 128
+
+     index                            name        ct     begin       end  persistent
+ --------- ------------------------------- --------- --------- --------- -----------
+         0                           __hub         9         0         9
+ primary:
+         1                    __hub_term_0       128         0       128
+ secondary:
+         2                 __example30.hdf         3         0         3       false
+
+equivalence classes
+-------------------
+
+(   0,    0):    (   0,    0)    (   1,    0)    (   2,    0)
+(   0,    1):    (   0,    1)    (   1,    1)    (   2,    1)
+(   0,    2):    (   0,    2)    (   1,    2)    (   2,    2)
+(   0,    3):    (   0,    3)    (   1,    3)
+(   0,    4):    (   0,    4)    (   1,    4)
+(   0,    5):    (   0,    5)    (   1,    5)
+(   0,    6):    (   0,    6)    (   1,    6)
+(   0,    7):    (   0,    7)    (   1,    7)
+(   0,    8):    (   0,    8)    (   1,    8)
+
+
+
+TABLE
+-----
+
+Schema
+------
+
+member: host = 'base_space_schema' index = 2 name = 'base_space_member_schema' version= -2 unaliased version= -2
+
+Table Attributes
+----------------
+
+table dof count: 1 table dof tuple size: 4
+table dofs:
+                                    name                                   value
+---------------------------------------- ----------------------------------------
+                                  max_db                                        1
+
+Row Attributes
+--------------
+
+row dof count: 10 row dof tuple size: 64
+
+ index  type    dof   0    dof   1                                          dof   2    dof   3    dof   4                                          dof   5    dof   6    dof   7    dof   8    dof   9
+                     db    type_id                                        type_name refinement local_cell                             local_cell_type_name       size     i_size     j_size     k_size
+ ----- ----- ---------- ---------- ------------------------------------------------ ---------- ---------- ------------------------------------------------ ---------- ---------- ---------- ----------
+     0                1         20                              structured_block_1d          0          2                                  segment_complex          4          4          0          0
+     1                1          2                                  segment_complex          0          0                                                           0          0          0          0
+     2                0          0                                            point          0          0                                                           0          0          0          0
+
+Tuple Id Space Family
+----------------------
+
+id spaces
+---------
+
+ begin = 0
+ end   = 128
+
+     index                            name        ct     begin       end  persistent
+ --------- ------------------------------- --------- --------- --------- -----------
+         0                           __hub         3         0         3
+ primary:
+         2                    __hub_term_0       128         0       128
+ secondary:
+         1                 __example30.hdf         3         0       129       false
+
+equivalence classes
+-------------------
+
+(   0,    0):    (   0,    0)    (   1,    0)    (   2,    0)
+(   0,    1):    (   0,    1)    (   1,   64)    (   2,    1)
+(   0,    2):    (   0,    2)    (   1,  128)    (   2,    2)
+
+
+
+#### END POSET mesh2 ###################
+
+
+
+#### BEGIN POSET e2_on_mesh2_block_vertex_element_dlinear ###################
+
+GENERAL
+-------
+
+poset: 'e2_on_mesh2_block_vertex_element_dlinear' 	host: 'Example30' 	index: 30 	version: -2
 
 
 ROW GRAPH
@@ -17,11 +237,11 @@ Members and Covering Relation
 
  member_ct = 5
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover: 2 3			lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 4
-index:     2    branch0                             dof_map:           0    upper_cover: 4			lower_cover: 0
-index:     3    branch1                             dof_map:           1    upper_cover: 4			lower_cover: 0
-index:     4                                        dof_map:  2147483647    upper_cover: 1			lower_cover: 2 3
+index:     0    bottom   dof_map:  2147483647    upper_cover: 2 3			lower_cover:
+index:     1    top      dof_map:  2147483647    upper_cover:			lower_cover: 4
+index:     2    branch0  dof_map:           0    upper_cover: 4			lower_cover: 0
+index:     3    branch1  dof_map:           1    upper_cover: 4			lower_cover: 0
+index:     4             dof_map:  2147483647    upper_cover: 1			lower_cover: 2 3
 
 Member Id Space Family
 ----------------------
@@ -70,7 +290,7 @@ Subposets
 
 index:   (0, 0)  jims                members: 00110  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0_jims  
-index:   (0, 1)  e2_on_block         members: 11111  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 1)  whole               members: 11111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0       
 index:   (0, 2)  resident            members: 00000  is_dof_sp:  false  dof_ct: 0  offsets: 
 index:   (0, 3)  __covariant0        members: 00000  is_dof_sp:  false  dof_ct: 0  offsets: 
@@ -107,7 +327,7 @@ TABLE
 Schema
 ------
 
-member: host = 'e2_on_mesh2_vertex_element_dlinear_schema' index = 32915 name = 'e2_on_block' version= -3 unaliased version= -2
+member: host = 'e2_on_mesh2_vertex_element_dlinear_schema' index = 32915 name = 'e2_schema_on_block' version= -3 unaliased version= -2
 
 Table Attributes
 ----------------
@@ -118,21 +338,21 @@ table dofs:
 ---------------------------------------- ----------------------------------------
                                        p                                        1
                                       dd                                        2
-                       vector_space_path                              e2_on_block
+                       vector_space_path e2_on_mesh2_block_vertex_element_dlinear
                                factor_ct                                        2
                                        d                                        2
-                       scalar_space_path                                  sec_at0
+                       scalar_space_path at0_on_mesh2_block_vertex_element_dlinear
 
 Row Attributes
 --------------
 
-row dof count: 6 row dof tuple size: 48
+row dof count: 10 row dof tuple size: 80
 
- index  type    dof   0    dof   1    dof   2    dof   3    dof   4    dof   5
-                  131_x      131_y      132_x      132_y      133_x      133_y
- ----- ----- ---------- ---------- ---------- ---------- ---------- ----------
-     0                0          0          1          1                      
-     1                                      2          2          3          3
+ index  type    dof   0    dof   1    dof   2    dof   3    dof   4    dof   5    dof   6    dof   7    dof   8    dof   9
+                                                                                                                          
+ ----- ----- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+     0                0          0          1          1          2          2                                            
+     1                                                            3          3          4          4          5          5
 
 Tuple Id Space Family
 ----------------------
@@ -158,5 +378,5 @@ equivalence classes
 
 
 
-#### END POSET e2_on_block ###################
+#### END POSET e2_on_mesh2_block_vertex_element_dlinear ###################
 

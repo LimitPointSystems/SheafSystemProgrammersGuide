@@ -21,13 +21,13 @@ Members and Covering Relation
 
  member_ct = 7
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover: 2 3			lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 4
-index:     2    v0                                  dof_map:           0    upper_cover: 5			lower_cover: 0
-index:     3    v1                                  dof_map:           1    upper_cover: 5			lower_cover: 0
-index:     4    s0                                  dof_map:           2    upper_cover: 1			lower_cover: 6
-index:     5    c0                                  dof_map:  2147483647    upper_cover: 6			lower_cover: 2 3
-index:     6    c1                                  dof_map:  2147483647    upper_cover: 4			lower_cover: 5
+index:     0    bottom  dof_map:  2147483647    upper_cover: 2 3			lower_cover:
+index:     1    top     dof_map:  2147483647    upper_cover:			lower_cover: 4
+index:     2    v0      dof_map:           0    upper_cover: 5			lower_cover: 0
+index:     3    v1      dof_map:           1    upper_cover: 5			lower_cover: 0
+index:     4    s0      dof_map:           2    upper_cover: 1			lower_cover: 6
+index:     5    c0      dof_map:  2147483647    upper_cover: 6			lower_cover: 2 3
+index:     6    c1      dof_map:  2147483647    upper_cover: 4			lower_cover: 5
 
 Member Id Space Family
 ----------------------
@@ -81,7 +81,7 @@ Subposets
 
 index:   (0, 0)  jims                members: 0011100  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0_jims  
-index:   (0, 1)  simple_poset        members: 1111111  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 1)  whole               members: 1111111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0       
 index:   (0, 2)  resident            members: 0100000  is_dof_sp:  false  dof_ct: 0  offsets: 
 
