@@ -81,10 +81,11 @@ int main( int argc, char* argv[])
   storage_agent lsa_read("example30.hdf", sheaf_file::READ_ONLY);
   lsa_read.read_entire(lns);
 
-  // Get the coordinates space.
+  // Get the coordinates space. We created it with standard_host in example30 and
+  // now retrieved it from the file, so standard_host will find it rather than
+  // creating a new host.
 
-  poset_path le1_path("e1_on_block");
-  sec_e1::host_type& le1_host = lns.member_poset<sec_e1::host_type>(le1_path, true);
+  sec_e1::host_type& le1_host = sec_e1::standard_host(lns, "mesh2/block", "", "", "", true);
 
   // Get a handle for the coordinates section
 
@@ -92,11 +93,9 @@ int main( int argc, char* argv[])
   
   // Create a scalar section space.
 
-  poset_path lat0_path1("at0_on_block");
   poset_path lbase_path1("mesh2/block");
   
-  sec_at0::host_type& lat0_space1 = 
-    lns.new_section_space<sec_at0>(lat0_path1, lbase_path1);  
+  sec_at0::host_type& lat0_space1 = sec_at0::standard_host(lns, lbase_path1, "", "", "", true);  
   
   // Create a scalar section for the property
 
@@ -126,19 +125,16 @@ int main( int argc, char* argv[])
 
   // Create a different base space with 3 segments
 
-  arg_list largs = base_space_poset::make_args(1);
-  base_space_poset& lbase_host = lns.new_base_space<structured_block_1d>("mesh3", largs);
+  base_space_poset& lbase_host = structured_block_1d::standard_host(lns, "mesh3", true);
   structured_block_1d lblock3(&lbase_host, 3, true);
   lblock3.put_name("block3", true, true);
 
   // Create a section space for uniform coordinates on the new base space.
 
-  poset_path le1u_path("e1_uniform_on_block3");
   poset_path lbase_path2("mesh3/block3");
-  poset_path le1u_rep_path("sec_rep_descriptors/vertex_block_uniform");
-  
+
   sec_e1_uniform::host_type& le1u_host =
-    lns.new_section_space<sec_e1_uniform>(le1u_path, lbase_path2, le1u_rep_path, true);
+    sec_e1_uniform::standard_host(lns, lbase_path2, "", "", "", true);  
 
   // Create the coordinates section for the new base space. 
   // Uniform coordinates are initialized by the constructor.
@@ -149,9 +145,9 @@ int main( int argc, char* argv[])
   // Create a scalar section space on the new base space.
 
   poset_path lat0_path2("at0_on_block3");
-  
+
   sec_at0::host_type& lat0_space2 = 
-    lns.new_section_space<sec_at0>(lat0_path2, lbase_path2);  
+    sec_at0::standard_host(lns, lbase_path2, "", "", "", true);  
   
   // Create a scalar section for the property
 

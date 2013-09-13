@@ -17,8 +17,8 @@ Members and Covering Relation
 
  member_ct = 2
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover:			lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover:
+index:     0    bottom  dof_map:  2147483647    upper_cover:			lower_cover:
+index:     1    top     dof_map:  2147483647    upper_cover:			lower_cover:
 
 Member Id Space Family
 ----------------------
@@ -61,7 +61,7 @@ Subposets
 
 index:   (0, 0)  jims                members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0_jims  
-index:   (0, 1)  mesh                members: 11  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 1)  whole               members: 11  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0       
 index:   (0, 2)  resident            members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
 index:   (0, 3)  __blocks            members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
@@ -106,7 +106,7 @@ TABLE
 Schema
 ------
 
-member: host = 'base_space_schema' index = 23 name = 'base_space_schema_member' version= -3 unaliased version= -2
+member: host = 'base_space_schema' index = 2 name = 'base_space_member_schema' version= -3 unaliased version= -2
 
 Table Attributes
 ----------------

@@ -8,7 +8,7 @@
 /// @example Example21
 /// SheafSystem Programmer's Guide Example 21: Creating a base_space_poset. 
 
-#include "base_space_member_prototype.h"
+#include "base_space_member.h"
 #include "base_space_poset.h"
 #include "fiber_bundles_namespace.h"
 #include "std_iostream.h"
@@ -25,14 +25,9 @@ int main( int argc, char* argv[])
 
   fiber_bundles_namespace lns("Example21");
 
-  // The contructor for base_space_poset needs max_db = 1 for line_segment mesh.
-
-  arg_list largs = base_space_poset::make_args(1);
-
   // Create the poset.
   
-  base_space_poset& lposet = 
-    lns.new_base_space<base_space_member_prototype>("mesh", largs);
+  base_space_poset& lposet = base_space_member::standard_host(lns, "mesh", 1, true);
 
   // Print the poset to cout.
 

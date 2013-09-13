@@ -22,6 +22,7 @@
 #include "fiber_bundles_namespace.h"
 #include "poset.h"
 #include "std_iostream.h"
+#include "tuple.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;
@@ -36,7 +37,7 @@ int main( int argc, char* argv[])
 
   // Get a handle to the fiber space schema poset.
 
-  poset& lfiber_schema = lns.member_poset<poset>(lns.standard_fiber_space_schema_poset_name(), true);
+  poset& lfiber_schema = lns.member_poset<poset>(tuple::standard_schema_path(), true);
 
   // Use a biorder_itr to print out the subobject hierarchy.
   
@@ -89,8 +90,6 @@ int main( int argc, char* argv[])
     }
     litr.next();
   }
-
-  lschema.detach_from_state();
   
   // Exit:
 

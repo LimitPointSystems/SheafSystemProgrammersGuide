@@ -46,31 +46,22 @@ int main( int argc, char* argv[])
   poset_path lpath("mesh");
   base_space_poset& lposet = lns.member_poset<base_space_poset>(lpath, true);
 
-  // Create attribute tuples for member prototypes "vertex" and "segment".
-  // These will be autmatically initialized with all the proper attribute values.
-
-  scoped_index lv_tuple_id = lposet.new_row_dof_map("point");
-  scoped_index ls_tuple_id = lposet.new_row_dof_map("segment");
-
   // Allow creation of jims.
 
   lposet.begin_jim_edit_mode(true);
 
-  // Create the first vertex and assign its attributes at the same time
-  // by providing the attribute tuple to use.
+  // Create the vertices as copies of the point prototype.
+  // Initializes all member attributes to be same as point prototype.
 
-  pod_index_type lv0_pod = lposet.new_member(true, lv_tuple_id.hub_pod());
+  pod_index_type lv0_pod = lposet.new_member("point", false);
   lposet.put_member_name(lv0_pod, "v0", true);
 
-  // Create the second vertex with the same attribute tuple.
-  // v0 and v1 share the tuple; essential memory savings for a large mesh.
-
-  pod_index_type lv1_pod = lposet.new_member(true, lv_tuple_id.hub_pod());
+  pod_index_type lv1_pod = lposet.new_member("point", false);
   lposet.put_member_name(lv1_pod, "v1", true);
 
-  // Create the segment with the segment tuple.
+  // Create the segment as a copy of the segment prototype.
 
-  pod_index_type ls0_pod = lposet.new_member(true, ls_tuple_id.hub_pod());
+  pod_index_type ls0_pod = lposet.new_member("segment", false);
   lposet.put_member_name(ls0_pod, "s0", true);
 
   // Print the attribute tuples for the members.

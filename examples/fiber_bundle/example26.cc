@@ -38,9 +38,10 @@ int main( int argc, char* argv[])
 
   fiber_bundles_namespace lns("Example26");
   
-  // Create a space for e3 objects; use all the defaults.
+  // Create a standard space for e3 objects; empty suffix
+  // e3::host_type is at1_space
 
-  at1_space& le3_space = lns.new_fiber_space<e3>();
+  at1_space& le3_space = e3::standard_host(lns, "", true);
   
   // Create some persistent vectors.
 
@@ -146,13 +147,6 @@ int main( int argc, char* argv[])
   // uses implicit coversion to row_dofs_type.
 
   e3 k_hat(le3_space, k_hat_v, true);
-
-  // Clean up.
-  // Workaround for soon to be fixed bug.
-
-  i_hat.detach_from_state();
-  j_hat.detach_from_state();
-  k_hat.detach_from_state();
 
   // Exit:
 

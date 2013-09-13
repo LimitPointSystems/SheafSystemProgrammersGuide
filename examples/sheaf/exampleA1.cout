@@ -7,5 +7,4 @@ access request depth 2
 access request depth 1
 access request depth 0
 terminate called after throwing an instance of 'std::logic_error'
-  what():  'is_external() ? name_space()->state_is_read_accessible() : state_is_read_accessible()' in file poset_state_handle.cc at line 1178
-Abort
+  what():  'state_is_read_accessible()' in file namespace_poset.cc at line 2106

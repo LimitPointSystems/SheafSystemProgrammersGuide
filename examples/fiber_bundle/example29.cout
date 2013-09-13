@@ -1,12 +1,12 @@
 SheafSystemProgrammersGuide Example29:
 
 
-#### BEGIN POSET e2_on_block ###################
+#### BEGIN POSET e2_on_mesh_block_vertex_element_dlinear ###################
 
 GENERAL
 -------
 
-poset: 'e2_on_block' 	host: 'Example21' 	index: 24 	version: -2
+poset: 'e2_on_mesh_block_vertex_element_dlinear' 	host: 'Example21' 	index: 23 	version: -2
 
 
 ROW GRAPH
@@ -17,13 +17,13 @@ Members and Covering Relation
 
  member_ct = 7
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover: 2 3 4 5 6		lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 2 3 4 5 6
-index:     2                                        dof_map:           0    upper_cover: 1			lower_cover: 0
-index:     3                                        dof_map:           1    upper_cover: 1			lower_cover: 0
-index:     4                                        dof_map:           2    upper_cover: 1			lower_cover: 0
-index:     5                                        dof_map:           3    upper_cover: 1			lower_cover: 0
-index:     6                                        dof_map:           4    upper_cover: 1			lower_cover: 0
+index:     0    bottom  dof_map:  2147483647    upper_cover: 2 3 4 5 6		lower_cover:
+index:     1    top     dof_map:  2147483647    upper_cover:			lower_cover: 2 3 4 5 6
+index:     2            dof_map:           0    upper_cover: 1			lower_cover: 0
+index:     3            dof_map:           1    upper_cover: 1			lower_cover: 0
+index:     4            dof_map:           2    upper_cover: 1			lower_cover: 0
+index:     5            dof_map:           3    upper_cover: 1			lower_cover: 0
+index:     6            dof_map:           4    upper_cover: 1			lower_cover: 0
 
 Member Id Space Family
 ----------------------
@@ -77,7 +77,7 @@ Subposets
 
 index:   (0, 0)  jims                members: 0011111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0_jims  
-index:   (0, 1)  e2_on_block         members: 1111111  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 1)  whole               members: 1111111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0       
 index:   (0, 2)  resident            members: 0100000  is_dof_sp:  false  dof_ct: 0  offsets: 
 index:   (0, 3)  __covariant0        members: 0000000  is_dof_sp:  false  dof_ct: 0  offsets: 
@@ -115,7 +115,7 @@ TABLE
 Schema
 ------
 
-member: host = 'e2_on_mesh_vertex_element_dlinear_schema' index = 32915 name = 'block_e2_schema' version= -2 unaliased version= -2
+member: host = 'e2_on_mesh_vertex_element_dlinear_schema' index = 32915 name = 'e2_schema_on_block' version= -2 unaliased version= -2
 
 Table Attributes
 ----------------
@@ -126,10 +126,10 @@ table dofs:
 ---------------------------------------- ----------------------------------------
                                        p                                        1
                                       dd                                        2
-                       vector_space_path                              e2_on_block
+                       vector_space_path  e2_on_mesh_block_vertex_element_dlinear
                                factor_ct                                        2
                                        d                                        2
-                       scalar_space_path                                  sec_at0
+                       scalar_space_path at0_on_mesh_block_vertex_element_dlinear
 
 Row Attributes
 --------------
@@ -137,7 +137,7 @@ Row Attributes
 row dof count: 4 row dof tuple size: 32
 
  index  type    dof   0    dof   1    dof   2    dof   3
-                     _x         _y         _x         _y
+                                                        
  ----- ----- ---------- ---------- ---------- ----------
      0                0          1          0          1
      1                0          1          0          2
@@ -173,5 +173,5 @@ equivalence classes
 
 
 
-#### END POSET e2_on_block ###################
+#### END POSET e2_on_mesh_block_vertex_element_dlinear ###################
 

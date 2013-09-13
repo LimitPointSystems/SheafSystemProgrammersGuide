@@ -22,12 +22,12 @@ Members and Covering Relation
 
  member_ct = 6
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover: 3 5			lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 4
-index:     2    spatial_structure                   dof_map:           0    upper_cover: 4			lower_cover: 3
-index:     3    d                                   dof_map:           1    upper_cover: 2			lower_cover: 0
-index:     4    cell                                dof_map:           2    upper_cover: 1			lower_cover: 2 5
-index:     5    cell_type                           dof_map:           3    upper_cover: 4			lower_cover: 0
+index:     0    bottom             dof_map:  2147483647    upper_cover: 3 5			lower_cover:
+index:     1    top                dof_map:  2147483647    upper_cover:			lower_cover: 4
+index:     2    spatial_structure  dof_map:           0    upper_cover: 4			lower_cover: 3
+index:     3    d                  dof_map:           1    upper_cover: 2			lower_cover: 0
+index:     4    cell               dof_map:           2    upper_cover: 1			lower_cover: 2 5
+index:     5    cell_type          dof_map:           3    upper_cover: 4			lower_cover: 0
 
 Member Id Space Family
 ----------------------
@@ -78,13 +78,13 @@ ROW GRAPH SUBPOSETS
 Subposets
 ---------
 
-index:   (0, 0)  jims                 members: 001111  is_dof_sp:  false  dof_ct: 0  offsets: 
-                 __version_0_jims   
-index:   (0, 1)  cell_schema_poset    members: 111111  is_dof_sp:  false  dof_ct: 0  offsets: 
-                 __version_0        
-index:   (0, 2)  resident             members: 000000  is_dof_sp:  false  dof_ct: 0  offsets: 
-index:   (0, 3)  __top_table_dofs     members: 000000  is_dof_sp:  false  dof_ct: 0  offsets: 
-index:   (0, 4)  __top_row_dofs       members: 000101  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 0)  jims                members: 001111  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0_jims  
+index:   (0, 1)  whole               members: 111111  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0       
+index:   (0, 2)  resident            members: 000000  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 3)  __top_table_dofs    members: 000000  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 4)  __top_row_dofs      members: 000101  is_dof_sp:  false  dof_ct: 0  offsets: 
 
 Subposet Id Space Family
 ----------------------
@@ -185,11 +185,11 @@ Members and Covering Relation
 
  member_ct = 5
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover: 2 3 4		lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 2 3 4
-index:     2    v0                                  dof_map:           0    upper_cover: 1			lower_cover: 0
-index:     3    v1                                  dof_map:           1    upper_cover: 1			lower_cover: 0
-index:     4    s0                                  dof_map:           2    upper_cover: 1			lower_cover: 0
+index:     0    bottom  dof_map:  2147483647    upper_cover: 2 3 4		lower_cover:
+index:     1    top     dof_map:  2147483647    upper_cover:			lower_cover: 2 3 4
+index:     2    v0      dof_map:           0    upper_cover: 1			lower_cover: 0
+index:     3    v1      dof_map:           1    upper_cover: 1			lower_cover: 0
+index:     4    s0      dof_map:           2    upper_cover: 1			lower_cover: 0
 
 Member Id Space Family
 ----------------------
@@ -236,7 +236,7 @@ Subposets
 
 index:   (0, 0)  jims                members: 00111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0_jims  
-index:   (0, 1)  test                members: 11111  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 1)  whole               members: 11111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0       
 index:   (0, 2)  resident            members: 00000  is_dof_sp:  false  dof_ct: 0  offsets: 
 

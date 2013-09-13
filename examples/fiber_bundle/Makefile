@@ -18,7 +18,7 @@
 #
 # Path to your C++ compiler
 #
-CXX = 
+CXX =  
 
 #
 # Path the SheafSystem installation
@@ -28,34 +28,60 @@ SHEAF_LIB_DIR = $(SHEAF_INSTALL_DIR)/Debug-contracts/lib
 SHEAF_INC_DIR = $(SHEAF_INSTALL_DIR)/include
 
 example21: example21.cc
-	$(CXX) -o example21 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example21.cc -lfiber_bundles -lsheaves	
+	$(CXX) -g -o example21 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example21.cc -lfiber_bundles_debug -lsheaves_debug	
 
 example22: example22.cc
-	$(CXX) -o example22 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example22.cc -lfiber_bundles -lsheaves	
+	$(CXX) -g -o example22 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example22.cc -lfiber_bundles_debug -lsheaves_debug	
 
 example23: example23.cc
-	$(CXX) -o example23 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example23.cc -lfiber_bundles -lsheaves	
+	$(CXX) -g -o example23 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example23.cc -lfiber_bundles_debug -lsheaves_debug	
 
 example24: example24.cc
-	$(CXX) -o example24 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example24.cc -lfiber_bundles -lsheaves	
+	$(CXX) -g -o example24 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example24.cc -lfiber_bundles_debug -lsheaves_debug	
 
 example25: example25.cc
-	$(CXX) -o example25 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example25.cc -lfiber_bundles -lsheaves	
+	$(CXX) -g -o example25 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example25.cc -lfiber_bundles_debug -lsheaves_debug	
 
 example26: example26.cc
-	$(CXX) -o example26 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example26.cc -lfiber_bundles -lsheaves	
-
-example27: example27.cc
-	$(CXX) -o example27 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example27.cc -lfiber_bundles -lsheaves	
+	$(CXX) -g -o example26 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example26.cc -lfiber_bundles_debug -lsheaves_debug	
 
 example28: example28.cc
-	$(CXX) -o example28 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example28.cc -lfiber_bundles -lsheaves	
+	$(CXX) -g -o example28 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example28.cc -lfiber_bundles_debug -lsheaves_debug	
 
 example29: example29.cc
-	$(CXX) -o example29 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example29.cc -lfiber_bundles -lsheaves	
+	$(CXX) -g -o example29 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example29.cc -lfiber_bundles_debug -lsheaves_debug	
 
 example30: example30.cc
-	$(CXX) -o example30 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example30.cc -lfiber_bundles -lsheaves	
+	$(CXX) -g -o example30 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example30.cc -lfiber_bundles_debug -lsheaves_debug	
 
 example31: example31.cc
-	$(CXX) -o example31 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example31.cc -lfiber_bundles -lsheaves	
+	$(CXX) -g -o example31 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example31.cc -lfiber_bundles_debug -lsheaves_debug	
+
+clean:
+	rm -f example21 example21.hdf
+	rm -f example22 example22.hdf
+	rm -f example23 example23.hdf
+	rm -f example24
+	rm -f example25 
+	rm -f example26
+	rm -f example28 example28.hdf
+	rm -f example29 example29.hdf 
+	rm -f example30 example30.hdf 
+	rm -f example31
+
+clean-cout:
+	rm *.cout
+
+update-cout: example21 example22 example23 example24 example25 example26 \
+             example28 example29 example30 example31 
+
+	./example21 > example21.cout
+	./example22 > example22.cout
+	./example23 > example23.cout
+	./example24 > example24.cout
+	./example25 > example25.cout
+	./example26 > example26.cout
+	./example28 > example28.cout
+	./example29 > example29.cout
+	./example30 > example30.cout
+	./example31 > example31.cout

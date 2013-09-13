@@ -1,12 +1,16 @@
 SheafSystemProgrammersGuide Example28:
 
+sec_e2 space path: e2_on_mesh_block_vertex_element_dlinear
+sec_e2 space schema path: e2_on_mesh_vertex_element_dlinear_schema/e2_schema_on_block
+sec_e2 space scalar space path: at0_on_mesh_block_vertex_element_dlinear
 
-#### BEGIN POSET e2_on_block ###################
+
+#### BEGIN POSET e2_on_mesh_block_vertex_element_dlinear ###################
 
 GENERAL
 -------
 
-poset: 'e2_on_block' 	host: 'Example21' 	index: 24 	version: -2
+poset: 'e2_on_mesh_block_vertex_element_dlinear' 	host: 'Example21' 	index: 23 	version: -2
 
 
 ROW GRAPH
@@ -17,8 +21,8 @@ Members and Covering Relation
 
  member_ct = 2
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover:			lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover:
+index:     0    bottom  dof_map:  2147483647    upper_cover:			lower_cover:
+index:     1    top     dof_map:  2147483647    upper_cover:			lower_cover:
 
 Member Id Space Family
 ----------------------
@@ -56,7 +60,7 @@ Subposets
 
 index:   (0, 0)  jims                members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0_jims  
-index:   (0, 1)  e2_on_block         members: 11  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 1)  whole               members: 11  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0       
 index:   (0, 2)  resident            members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
 index:   (0, 3)  __covariant0        members: 00  is_dof_sp:  false  dof_ct: 0  offsets: 
@@ -93,7 +97,7 @@ TABLE
 Schema
 ------
 
-member: host = 'e2_on_mesh_vertex_element_dlinear_schema' index = 32915 name = 'e2_on_block' version= -3 unaliased version= -2
+member: host = 'e2_on_mesh_vertex_element_dlinear_schema' index = 32915 name = 'e2_schema_on_block' version= -3 unaliased version= -2
 
 Table Attributes
 ----------------
@@ -104,10 +108,10 @@ table dofs:
 ---------------------------------------- ----------------------------------------
                                        p                                        1
                                       dd                                        2
-                       vector_space_path                              e2_on_block
+                       vector_space_path  e2_on_mesh_block_vertex_element_dlinear
                                factor_ct                                        2
                                        d                                        2
-                       scalar_space_path                                  sec_at0
+                       scalar_space_path at0_on_mesh_block_vertex_element_dlinear
 
 Row Attributes
 --------------
@@ -115,7 +119,7 @@ Row Attributes
 row dof count: 4 row dof tuple size: 32
 
  index  type    dof   0    dof   1    dof   2    dof   3
-                     _x         _y         _x         _y
+                                                        
  ----- ----- ---------- ---------- ---------- ----------
 
 Tuple Id Space Family
@@ -139,5 +143,9 @@ equivalence classes
 
 
 
-#### END POSET e2_on_block ###################
+#### END POSET e2_on_mesh_block_vertex_element_dlinear ###################
 
+
+other sec_e2 space path: e2_new_on_mesh_block_element_element_constant_other
+other sec_e2 space schema path: e2_new_on_mesh_element_element_constant_schema/e2_schema_on_block
+other sec_e2 space scalar space path: at0_new_on_mesh_block_element_element_constant_other

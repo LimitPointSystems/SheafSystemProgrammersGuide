@@ -18,6 +18,8 @@
 /// @example Example31
 /// SheafSystem Programmer's Guide Example 31: Multisections.
 
+#include "base_space_member.h"
+#include "base_space_poset.h"
 #include "e2.h"
 #include "fiber_bundles_namespace.h"
 #include "index_space_handle.h"
@@ -27,6 +29,8 @@
 #include "std_iostream.h"
 #include "std_sstream.h"
 #include "storage_agent.h"
+#include "subposet.h"
+#include "tern.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;
@@ -45,20 +49,50 @@ int main( int argc, char* argv[])
   storage_agent lsa_read("example30.hdf", sheaf_file::READ_ONLY);
   lsa_read.read_entire(lns);
 
-  // Create a section space for sec_e2;
-  // use the default vertex_element_dlinear rep.
+  // Get the base space.
 
-  poset_path le2_path("e2_on_block");
-  poset_path lbase_path("mesh2/block");
+  base_space_poset& lbase_host = lns.member_poset<base_space_poset>("mesh2", true);
   
+  // Create some patches in the base space:
+  // First get elements id space.
+  
+  index_space_handle& lseg_id_space = lbase_host.elements().id_space();
+  
+  // Create the first patch - a jrm that contains the first two segments.
+
+  scoped_index lpatch_segs[2];
+  
+  lpatch_segs[0].put(lseg_id_space, 0);
+  lpatch_segs[1].put(lseg_id_space, 1);
+  base_space_member lpatch0(&lbase_host, lpatch_segs, 2, tern::TRUE, true);
+  lpatch0.put_name("patch0", true, true);  
+
+  // Create the second patch.
+
+  lpatch_segs[0].put(lseg_id_space, 2);
+  lpatch_segs[1].put(lseg_id_space, 3);
+  base_space_member lpatch1(&lbase_host, lpatch_segs, 2, tern::TRUE, true);
+  lpatch1.put_name("patch1", true, true);
+
+  // Create a subposet for the patches.
+
+  subposet lpatches(&lbase_host);
+  lpatches.put_name("patches", true, true);
+  lpatches.insert_member(lpatch0.index());
+  lpatches.insert_member(lpatch1.index());
+
+  // Print the base space with the patches.
+
+  cout << lbase_host << endl;
+
+  // Create a section space for sec_e2.
+
   sec_e2::host_type& le2_host =
-    lns.new_section_space<sec_e2>(le2_path, lbase_path);
+    sec_e2::standard_host(lns, "mesh2/block", "", "", "", true);
 
-  // Create a multisection.
-  // We'll use the evaluation subposet for the xbase_parts arg, 
-  // create one branch on each segment.
+  // Create a multisection on the patches.
 
-  sec_e2 lmulti(&le2_host, le2_host.schema().evaluation(), true);
+  sec_e2 lmulti(&le2_host, lpatches, true);
 
   // Set the attributes of the branches.
   // Because lfiber is incremented every time

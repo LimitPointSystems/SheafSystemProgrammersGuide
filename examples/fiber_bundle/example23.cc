@@ -90,11 +90,6 @@ int main( int argc, char* argv[])
   storage_agent lsa_write("example23.hdf", sheaf_file::READ_WRITE);
   lsa_write.write_entire(lns);
 
-  // Clean up.
-  // Workaround for soon to be fixed bug.
-
-  lblock.detach_from_state();
-
   // Exit:
 
   return 0;

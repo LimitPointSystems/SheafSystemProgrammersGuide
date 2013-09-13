@@ -17,12 +17,12 @@ Members and Covering Relation
 
  member_ct = 6
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover: 130 131			lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 128
-index:   128    block                               dof_map:           0    upper_cover: 1			lower_cover: 129
-index:   129    s0                                  dof_map:           1    upper_cover: 128			lower_cover: 130 131
-index:   130    v0                                  dof_map:           2    upper_cover: 129			lower_cover: 0
-index:   131    v1                                  dof_map:           2    upper_cover: 129			lower_cover: 0
+index:     0    bottom  dof_map:  2147483647    upper_cover: 130 131			lower_cover:
+index:     1    top     dof_map:  2147483647    upper_cover:			lower_cover: 128
+index:   128    block   dof_map:           0    upper_cover: 1			lower_cover: 129
+index:   129    s0      dof_map:           1    upper_cover: 128			lower_cover: 130 131
+index:   130    v0      dof_map:           2    upper_cover: 129			lower_cover: 0
+index:   131    v1      dof_map:           2    upper_cover: 129			lower_cover: 0
 
 Member Id Space Family
 ----------------------
@@ -82,7 +82,7 @@ Subposets
 
 index:   (0, 0)  jims                members: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0_jims  
-index:   (0, 1)  mesh                members: 110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001111  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 1)  whole               members: 110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0       
 index:   (0, 2)  resident            members: 010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  is_dof_sp:  false  dof_ct: 0  offsets: 
 index:   (0, 3)  __blocks            members: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000  is_dof_sp:  false  dof_ct: 0  offsets: 
@@ -128,7 +128,7 @@ TABLE
 Schema
 ------
 
-member: host = 'base_space_schema' index = 23 name = 'base_space_schema_member' version= -2 unaliased version= -2
+member: host = 'base_space_schema' index = 2 name = 'base_space_member_schema' version= -2 unaliased version= -2
 
 Table Attributes
 ----------------
@@ -147,7 +147,7 @@ row dof count: 10 row dof tuple size: 64
  index  type    dof   0    dof   1                                          dof   2    dof   3    dof   4                                          dof   5    dof   6    dof   7    dof   8    dof   9
                      db    type_id                                        type_name refinement local_cell                             local_cell_type_name       size     i_size     j_size     k_size
  ----- ----- ---------- ---------- ------------------------------------------------ ---------- ---------- ------------------------------------------------ ---------- ---------- ---------- ----------
-     0                1         19                              structured_block_1d          0          2                                  segment_complex          1          1          0          0
+     0                1         20                              structured_block_1d          0          2                                  segment_complex          1          1          0          0
      1                1          2                                  segment_complex          0          0                                                           0          0          0          0
      2                0          0                                            point          0          0                                                           0          0          0          0
 
