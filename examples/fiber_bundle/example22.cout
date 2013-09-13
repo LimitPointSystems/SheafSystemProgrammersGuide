@@ -1,7 +1,7 @@
 SheafSystemProgrammersGuide Example22:
-v0 tuple: 0	0	point	0	0		0	0	0	0
-v1 tuple: 0	0	point	0	0		0	0	0	0
-s0 tuple: 1	1	segment	0	0		0	0	0	0
+v0 tuple: db=0	type_id=0	type_name=point	refinement_depth=0	local_cell_type_id=2147483647	local_cell_type_name=	size=0	i_size=0	j_size=0	k_size=0
+v1 tuple: db=0	type_id=0	type_name=point	refinement_depth=0	local_cell_type_id=2147483647	local_cell_type_name=	size=0	i_size=0	j_size=0	k_size=0
+s0 tuple: db=1	type_id=1	type_name=segment	refinement_depth=0	local_cell_type_id=2147483647	local_cell_type_name=	size=0	i_size=0	j_size=0	k_size=0
 
 
 #### BEGIN POSET mesh ###################
@@ -20,11 +20,11 @@ Members and Covering Relation
 
  member_ct = 5
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover: 2 3			lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 4
-index:     2    v0                                  dof_map:           0    upper_cover: 4			lower_cover: 0
-index:     3    v1                                  dof_map:           0    upper_cover: 4			lower_cover: 0
-index:     4    s0                                  dof_map:           1    upper_cover: 1			lower_cover: 2 3
+index:     0    bottom  dof_map:  2147483647    upper_cover: 2 3			lower_cover:
+index:     1    top     dof_map:  2147483647    upper_cover:			lower_cover: 4
+index:     2    v0      dof_map:           0    upper_cover: 4			lower_cover: 0
+index:     3    v1      dof_map:           0    upper_cover: 4			lower_cover: 0
+index:     4    s0      dof_map:           1    upper_cover: 1			lower_cover: 2 3
 
 Member Id Space Family
 ----------------------
@@ -77,7 +77,7 @@ Subposets
 
 index:   (0, 0)  jims                members: 00111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0_jims  
-index:   (0, 1)  mesh                members: 11111  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 1)  whole               members: 11111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0       
 index:   (0, 2)  resident            members: 01000  is_dof_sp:  false  dof_ct: 0  offsets: 
 index:   (0, 3)  __blocks            members: 00000  is_dof_sp:  false  dof_ct: 0  offsets: 
@@ -123,7 +123,7 @@ TABLE
 Schema
 ------
 
-member: host = 'base_space_schema' index = 23 name = 'base_space_schema_member' version= -2 unaliased version= -2
+member: host = 'base_space_schema' index = 2 name = 'base_space_member_schema' version= -2 unaliased version= -2
 
 Table Attributes
 ----------------
@@ -142,8 +142,8 @@ row dof count: 10 row dof tuple size: 64
  index  type    dof   0    dof   1                                          dof   2    dof   3    dof   4                                          dof   5    dof   6    dof   7    dof   8    dof   9
                      db    type_id                                        type_name refinement local_cell                             local_cell_type_name       size     i_size     j_size     k_size
  ----- ----- ---------- ---------- ------------------------------------------------ ---------- ---------- ------------------------------------------------ ---------- ---------- ---------- ----------
-     0                0          0                                            point          0          0                                                           0          0          0          0
-     1                1          1                                          segment          0          0                                                           0          0          0          0
+     0                0          0                                            point          0 2147483647                                                           0          0          0          0
+     1                1          1                                          segment          0 2147483647                                                           0          0          0          0
 
 Tuple Id Space Family
 ----------------------

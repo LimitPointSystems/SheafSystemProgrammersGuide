@@ -29,7 +29,7 @@ int main( int argc, char* argv[])
 
   fiber_bundles_namespace lns("Example29");
 
-  // Populate the namespace from the file we wrote in example27.
+  // Populate the namespace from the file we wrote in example28.
   // Retrieves the section space.
 
   storage_agent lsa_read("example28.hdf", sheaf_file::READ_ONLY);
@@ -37,7 +37,7 @@ int main( int argc, char* argv[])
 
   // Get a handle for the section space.
 
-  poset_path lssp_path("e2_on_block");
+  poset_path lssp_path("e2_on_mesh_block_vertex_element_dlinear");
 
   sec_e2::host_type& lhost = lns.member_poset<sec_e2::host_type>(lssp_path, true);
 

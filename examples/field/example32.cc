@@ -71,8 +71,8 @@ int main( int argc, char* argv[])
   storage_agent lsa_read("example30.hdf", sheaf_file::READ_ONLY);
   lsa_read.read_entire(lns);
 
-  // Get the coordinates space. We created it with stanrd_host in example30 and
-  // just retrieved it from the file, so standard_host will find it rather than
+  // Get the coordinates space. We created it with standard_host in example30 and
+  // now retrieved it from the file, so standard_host will find it rather than
   // creating a new host.
 
   sec_e1::host_type& le1_host = sec_e1::standard_host(lns, "mesh2/block", "", "", "", true);

@@ -20,12 +20,12 @@ Members and Covering Relation
 
  member_ct = 6
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover: 2 3 4		lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 4 5
-index:     2    primitives_schema                   dof_map:           0    upper_cover: 5			lower_cover: 0
-index:     3    namespace_poset_schema              dof_map:           1    upper_cover: 5			lower_cover: 0
-index:     4    primitives                          dof_map:           2    upper_cover: 1			lower_cover: 0
-index:     5    schema definitions                  dof_map:  2147483647    upper_cover: 1			lower_cover: 2 3
+index:     0    bottom                  dof_map:  2147483647    upper_cover: 2 3 4		lower_cover:
+index:     1    top                     dof_map:  2147483647    upper_cover:			lower_cover: 4 5
+index:     2    primitives_schema       dof_map:           0    upper_cover: 5			lower_cover: 0
+index:     3    namespace_poset_schema  dof_map:           1    upper_cover: 5			lower_cover: 0
+index:     4    primitives              dof_map:           2    upper_cover: 1			lower_cover: 0
+index:     5    schema definitions      dof_map:  2147483647    upper_cover: 1			lower_cover: 2 3
 
 Member Id Space Family
 ----------------------
@@ -76,7 +76,7 @@ Subposets
 
 index:   (0, 0)  jims                members: 001110  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0_jims  
-index:   (0, 1)  Example6            members: 111111  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 1)  whole               members: 111111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0       
 index:   (0, 2)  resident            members: 000000  is_dof_sp:  false  dof_ct: 0  offsets: 
 
@@ -175,11 +175,11 @@ Members and Covering Relation
 
  member_ct = 5
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover: 2 3 4		lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 2 3 4
-index:     2    size                                dof_map:           0    upper_cover: 1			lower_cover: 0
-index:     3    alignment                           dof_map:           1    upper_cover: 1			lower_cover: 0
-index:     4    type_id                             dof_map:           2    upper_cover: 1			lower_cover: 0
+index:     0    bottom     dof_map:  2147483647    upper_cover: 2 3 4		lower_cover:
+index:     1    top        dof_map:  2147483647    upper_cover:			lower_cover: 2 3 4
+index:     2    size       dof_map:           0    upper_cover: 1			lower_cover: 0
+index:     3    alignment  dof_map:           1    upper_cover: 1			lower_cover: 0
+index:     4    type_id    dof_map:           2    upper_cover: 1			lower_cover: 0
 
 Member Id Space Family
 ----------------------
@@ -226,13 +226,13 @@ ROW GRAPH SUBPOSETS
 Subposets
 ---------
 
-index:   (0, 0)  jims                 members: 00111  is_dof_sp:  false  dof_ct: 0  offsets: 
-                 __version_0_jims   
-index:   (0, 1)  primitives_schema    members: 11111  is_dof_sp:  false  dof_ct: 0  offsets: 
-                 __version_0        
-index:   (0, 2)  resident             members: 00000  is_dof_sp:  false  dof_ct: 0  offsets: 
-index:   (0, 3)  __top_table_dofs     members: 00000  is_dof_sp:   true  dof_ct: 0  offsets:  {NOT_A_PRIMITIVE_TYPE, 0, 0, 0}
-index:   (0, 4)  __top_row_dofs       members: 00111  is_dof_sp:   true  dof_ct: 3  offsets:  {UNSIGNED_LONG_INT, 8, 8, 0}, {UNSIGNED_LONG_INT, 8, 8, 8}, {INT, 4, 4, 16}, {NOT_A_PRIMITIVE_TYPE, 0, 0, 20}
+index:   (0, 0)  jims                members: 00111  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0_jims  
+index:   (0, 1)  whole               members: 11111  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0       
+index:   (0, 2)  resident            members: 00000  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 3)  __top_table_dofs    members: 00000  is_dof_sp:   true  dof_ct: 0  offsets:  {NOT_A_PRIMITIVE_TYPE, 0, 0, 0}
+index:   (0, 4)  __top_row_dofs      members: 00111  is_dof_sp:   true  dof_ct: 3  offsets:  {UNSIGNED_LONG_INT, 8, 8, 0}, {UNSIGNED_LONG_INT, 8, 8, 8}, {INT, 4, 4, 16}, {NOT_A_PRIMITIVE_TYPE, 0, 0, 20}
 
 Subposet Id Space Family
 ----------------------
@@ -331,17 +331,17 @@ Members and Covering Relation
 
  member_ct = 11
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover: 2 3 4 5 6 7 8 9lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 2 10
-index:     2    pointer                             dof_map:           0    upper_cover: 1			lower_cover: 0
-index:     3    type_id                             dof_map:           1    upper_cover: 10			lower_cover: 0
-index:     4    class                               dof_map:           2    upper_cover: 10			lower_cover: 0
-index:     5    prereq_id_0                         dof_map:           3    upper_cover: 10			lower_cover: 0
-index:     6    prereq_id_1                         dof_map:           4    upper_cover: 10			lower_cover: 0
-index:     7    prereq_id_2                         dof_map:           5    upper_cover: 10			lower_cover: 0
-index:     8    prereq_id_3                         dof_map:           6    upper_cover: 10			lower_cover: 0
-index:     9    prereq_id_4                         dof_map:           7    upper_cover: 10			lower_cover: 0
-index:    10    io                                  dof_map:  2147483647    upper_cover: 1			lower_cover: 3 4 5 6 7 8 9
+index:     0    bottom       dof_map:  2147483647    upper_cover: 2 3 4 5 6 7 8 9lower_cover:
+index:     1    top          dof_map:  2147483647    upper_cover:			lower_cover: 2 10
+index:     2    pointer      dof_map:           0    upper_cover: 1			lower_cover: 0
+index:     3    type_id      dof_map:           1    upper_cover: 10			lower_cover: 0
+index:     4    class        dof_map:           2    upper_cover: 10			lower_cover: 0
+index:     5    prereq_id_0  dof_map:           3    upper_cover: 10			lower_cover: 0
+index:     6    prereq_id_1  dof_map:           4    upper_cover: 10			lower_cover: 0
+index:     7    prereq_id_2  dof_map:           5    upper_cover: 10			lower_cover: 0
+index:     8    prereq_id_3  dof_map:           6    upper_cover: 10			lower_cover: 0
+index:     9    prereq_id_4  dof_map:           7    upper_cover: 10			lower_cover: 0
+index:    10    io           dof_map:  2147483647    upper_cover: 1			lower_cover: 3 4 5 6 7 8 9
 
 Member Id Space Family
 ----------------------
@@ -406,13 +406,13 @@ ROW GRAPH SUBPOSETS
 Subposets
 ---------
 
-index:   (0, 0)  jims                      members: 00111111110  is_dof_sp:  false  dof_ct: 0  offsets: 
-                 __version_0_jims        
-index:   (0, 1)  namespace_poset_schema    members: 11111111111  is_dof_sp:  false  dof_ct: 0  offsets: 
-                 __version_0             
-index:   (0, 2)  resident                  members: 00000000000  is_dof_sp:  false  dof_ct: 0  offsets: 
-index:   (0, 3)  __top_table_dofs          members: 00000000000  is_dof_sp:  false  dof_ct: 0  offsets: 
-index:   (0, 4)  __top_row_dofs            members: 00111111110  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 0)  jims                members: 00111111110  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0_jims  
+index:   (0, 1)  whole               members: 11111111111  is_dof_sp:  false  dof_ct: 0  offsets: 
+                 __version_0       
+index:   (0, 2)  resident            members: 00000000000  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 3)  __top_table_dofs    members: 00000000000  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 4)  __top_row_dofs      members: 00111111110  is_dof_sp:  false  dof_ct: 0  offsets: 
 
 Subposet Id Space Family
 ----------------------
@@ -521,27 +521,27 @@ Members and Covering Relation
 
  member_ct = 21
 
-index:     0    bottom                              dof_map:  2147483647    upper_cover: 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20lower_cover:
-index:     1    top                                 dof_map:  2147483647    upper_cover:			lower_cover: 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
-index:     2    BOOL                                dof_map:           0    upper_cover: 1			lower_cover: 0
-index:     3    CHAR                                dof_map:           1    upper_cover: 1			lower_cover: 0
-index:     4    SIGNED_CHAR                         dof_map:           2    upper_cover: 1			lower_cover: 0
-index:     5    SHORT_INT                           dof_map:           3    upper_cover: 1			lower_cover: 0
-index:     6    INT                                 dof_map:           4    upper_cover: 1			lower_cover: 0
-index:     7    LONG_INT                            dof_map:           5    upper_cover: 1			lower_cover: 0
-index:     8    LONG_LONG_INT                       dof_map:           6    upper_cover: 1			lower_cover: 0
-index:     9    UNSIGNED_CHAR                       dof_map:           7    upper_cover: 1			lower_cover: 0
-index:    10    UNSIGNED_SHORT_INT                  dof_map:           8    upper_cover: 1			lower_cover: 0
-index:    11    UNSIGNED_INT                        dof_map:           9    upper_cover: 1			lower_cover: 0
-index:    12    UNSIGNED_LONG_INT                   dof_map:          10    upper_cover: 1			lower_cover: 0
-index:    13    UNSIGNED_LONG_LONG_INT              dof_map:          11    upper_cover: 1			lower_cover: 0
-index:    14    FLOAT                               dof_map:          12    upper_cover: 1			lower_cover: 0
-index:    15    DOUBLE                              dof_map:          13    upper_cover: 1			lower_cover: 0
-index:    16    LONG_DOUBLE                         dof_map:          14    upper_cover: 1			lower_cover: 0
-index:    17    VOID_STAR                           dof_map:          15    upper_cover: 1			lower_cover: 0
-index:    18    C_STRING                            dof_map:          16    upper_cover: 1			lower_cover: 0
-index:    19    NAMESPACE_RELATIVE_MEMBER_INDEX     dof_map:          17    upper_cover: 1			lower_cover: 0
-index:    20    NAMESPACE_RELATIVE_SUBPOSET_INDEX   dof_map:          18    upper_cover: 1			lower_cover: 0
+index:     0    bottom                             dof_map:  2147483647    upper_cover: 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20lower_cover:
+index:     1    top                                dof_map:  2147483647    upper_cover:			lower_cover: 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+index:     2    BOOL                               dof_map:           0    upper_cover: 1			lower_cover: 0
+index:     3    CHAR                               dof_map:           1    upper_cover: 1			lower_cover: 0
+index:     4    SIGNED_CHAR                        dof_map:           2    upper_cover: 1			lower_cover: 0
+index:     5    SHORT_INT                          dof_map:           3    upper_cover: 1			lower_cover: 0
+index:     6    INT                                dof_map:           4    upper_cover: 1			lower_cover: 0
+index:     7    LONG_INT                           dof_map:           5    upper_cover: 1			lower_cover: 0
+index:     8    LONG_LONG_INT                      dof_map:           6    upper_cover: 1			lower_cover: 0
+index:     9    UNSIGNED_CHAR                      dof_map:           7    upper_cover: 1			lower_cover: 0
+index:    10    UNSIGNED_SHORT_INT                 dof_map:           8    upper_cover: 1			lower_cover: 0
+index:    11    UNSIGNED_INT                       dof_map:           9    upper_cover: 1			lower_cover: 0
+index:    12    UNSIGNED_LONG_INT                  dof_map:          10    upper_cover: 1			lower_cover: 0
+index:    13    UNSIGNED_LONG_LONG_INT             dof_map:          11    upper_cover: 1			lower_cover: 0
+index:    14    FLOAT                              dof_map:          12    upper_cover: 1			lower_cover: 0
+index:    15    DOUBLE                             dof_map:          13    upper_cover: 1			lower_cover: 0
+index:    16    LONG_DOUBLE                        dof_map:          14    upper_cover: 1			lower_cover: 0
+index:    17    VOID_STAR                          dof_map:          15    upper_cover: 1			lower_cover: 0
+index:    18    C_STRING                           dof_map:          16    upper_cover: 1			lower_cover: 0
+index:    19    NAMESPACE_RELATIVE_MEMBER_INDEX    dof_map:          17    upper_cover: 1			lower_cover: 0
+index:    20    NAMESPACE_RELATIVE_SUBPOSET_INDEX  dof_map:          18    upper_cover: 1			lower_cover: 0
 
 Member Id Space Family
 ----------------------
@@ -638,7 +638,7 @@ Subposets
 
 index:   (0, 0)  jims                members: 001111111111111111111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0_jims  
-index:   (0, 1)  primitives          members: 111111111111111111111  is_dof_sp:  false  dof_ct: 0  offsets: 
+index:   (0, 1)  whole               members: 111111111111111111111  is_dof_sp:  false  dof_ct: 0  offsets: 
                  __version_0       
 index:   (0, 2)  resident            members: 000000000000000000000  is_dof_sp:  false  dof_ct: 0  offsets: 
 index:   (0, 3)  __top_table_dofs    members: 000000000000000000000  is_dof_sp:  false  dof_ct: 0  offsets: 
