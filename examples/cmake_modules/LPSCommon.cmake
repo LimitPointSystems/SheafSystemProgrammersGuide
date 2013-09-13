@@ -480,7 +480,7 @@ function(add_example_targets)
         # Add building of executable and link with shared library
         message(STATUS "Creating ${t_file} from ${t_cc_file}")
         add_executable(${t_file} ${t_cc_file})
-    
+ 
         # Make sure the library is up to date
         if(WIN64MSVC OR WIN64INTEL)
             if(${USE_VTK})
@@ -490,14 +490,16 @@ function(add_example_targets)
             endif()
             # Insert the unit tests into the VS folder "unit_tests"
             set_target_properties(${t_file} PROPERTIES FOLDER "Example Targets")
+        # Supply the *_DLL_IMPORTS directive to preprocessor
+        set_target_properties(${t_file} PROPERTIES COMPILE_DEFINITIONS "SHEAF_DLL_IMPORTS")            
         else()
           # add_dependencies(${t_file})
            target_link_libraries(${t_file} ${FIELDS_SHARED_LIBS})
         endif()
     
-        # Supply the *_DLL_IMPORTS directive to preprocessor
-        set_target_properties(${t_file} PROPERTIES COMPILE_DEFINITIONS "SHEAF_DLL_IMPORTS")
-    
+
+        get_target_property(CLUSTER_NAME ${t_file} LABELS)
+        message(STATUS "CLUSTER IS: ${CLUSTER_NAME}")  
     endforeach()
 
 endfunction(add_example_targets)
