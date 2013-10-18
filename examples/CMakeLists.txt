@@ -68,7 +68,7 @@ create_output_dirs()
 #
 # Add the individual example targets.
 #
-#add_example_targets()
+add_example_targets()
 
 #
 # Add the cumulative examples target.

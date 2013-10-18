@@ -43,7 +43,7 @@ set(EXAMPLE_SRCS
     example24.cc
     example25.cc
     example26.cc
-    example27.cc
+#    example27.cc
     example28.cc
     example29.cc
     example30.cc

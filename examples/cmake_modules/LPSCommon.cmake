@@ -496,10 +496,7 @@ function(add_example_targets)
           # add_dependencies(${t_file})
            target_link_libraries(${t_file} ${FIELDS_SHARED_LIBS})
         endif()
-    
-
         get_target_property(CLUSTER_NAME ${t_file} LABELS)
-        message(STATUS "CLUSTER IS: ${CLUSTER_NAME}")  
     endforeach()
 
 endfunction(add_example_targets)
