@@ -105,15 +105,6 @@ include(${CMAKE_MODULE_PATH}/target_declarations.cmake)
 #
 include(${CMAKE_MODULE_PATH}/find_prerequisites.cmake)
 
-#
-# C++11 features
-#
-message(STATUS " ")
-message(STATUS "Checking for C++11 Compliance - ")
-message(STATUS " ")
-
-include(${CMAKE_MODULE_PATH}/CheckCXX11Features.cmake)
-
 # If SHEAFSYSTEM_HOME contains white space, escape it.
 file(TO_NATIVE_PATH "${SHEAFSYSTEM_HOME}" SHEAFSYSTEM_HOME)
 
