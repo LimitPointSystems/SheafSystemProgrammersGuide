@@ -38,7 +38,7 @@ int main( int argc, char* argv[])
 
   // Get a handle to the fiber space schema poset.
 
-  poset& lfiber_schema = lns.member_poset<poset>(tuple::standard_schema_path(), true);
+  poset& lfiber_schema = lns.member_poset<poset>(fiber_bundle::tuple::standard_schema_path(), true);
 
   // Use a biorder_itr to print out the subobject hierarchy.
   
