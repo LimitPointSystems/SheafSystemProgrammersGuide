@@ -320,3 +320,47 @@ function(collect_example_sources)
 
 endfunction(collect_example_sources)
 
+# 
+# Convenience wrapper for the massage function.
+# The Eclipse Cmakeed plugin renders this pretty much obsolete
+# from a pregramming viewpoint, but the syntax is prettier
+# than what it wraps.
+#
+function(status_message txt)
+
+    # Let the user know what's being configured
+    message(STATUS " ")
+    message(STATUS "${txt} - ")
+    message(STATUS " ")
+
+endfunction()
+
+# 
+# Convenience routine for diagnostic output during configure phase.
+# Displays a list of included directories for module it is called in.
+#
+function(showincs)
+    message(STATUS "Displaying include directories for ${PROJECT_NAME}:")
+    message(STATUS "===================================================")    
+    get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+    foreach(dir ${dirs})
+        message(STATUS "dir='${dir}'")
+    endforeach() 
+    message(STATUS "===================================================")       
+endfunction()
+
+# 
+# Get the current system date and store it in RESULT
+#
+macro(get_date RESULT)
+    if(WIN32)
+        execute_process(COMMAND "cmd" " /C date /T" OUTPUT_VARIABLE ${RESULT})
+        string(REGEX REPLACE "(..)/(..)/..(..).*" "\\1/\\2/\\3" ${RESULT} ${${RESULT}})
+    elseif(UNIX)
+        execute_process(COMMAND "date" "+%m/%d/%Y" OUTPUT_VARIABLE ${RESULT})
+        string(REGEX REPLACE "(..)/(..)/..(..).*" "\\1/\\2/\\3" ${RESULT} ${${RESULT}})
+    else(WIN32)
+        message(WARNING "date not implemented")
+        set(${RESULT} 000000)
+    endif(WIN32)
+endmacro(get_date)
