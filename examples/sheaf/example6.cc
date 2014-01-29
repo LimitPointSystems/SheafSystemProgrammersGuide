@@ -22,6 +22,7 @@
 #include "std_iostream.h"
 
 using namespace sheaf;
+using namespace std;
 
 int main( int argc, char* argv[])
 {  

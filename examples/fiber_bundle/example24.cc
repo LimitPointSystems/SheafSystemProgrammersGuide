@@ -26,6 +26,7 @@
 
 using namespace sheaf;
 using namespace fiber_bundle;
+using namespace std;
 
 int main( int argc, char* argv[])
 {  

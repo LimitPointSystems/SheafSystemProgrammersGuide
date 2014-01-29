@@ -23,12 +23,14 @@
 #include "fiber_bundles_namespace.h"
 #include "poset.h"
 #include "std_iostream.h"
+#include "std_iomanip.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;
 using namespace fiber_bundle::vd_algebra;
 using namespace fiber_bundle::ed_algebra;
 using namespace fiber_bundle::e3_algebra;
+using namespace std;
 
 int main( int argc, char* argv[])
 {  

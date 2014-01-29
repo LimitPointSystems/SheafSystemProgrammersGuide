@@ -27,6 +27,7 @@
 #include "total_poset_member.h"
 
 using namespace sheaf;
+using namespace std;
 
 int main( int argc, char* argv[])
 {  

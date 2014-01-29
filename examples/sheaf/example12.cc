@@ -26,6 +26,7 @@
 #include "subposet.h"
 
 using namespace sheaf;
+using namespace std;
 
 int main( int argc, char* argv[])
 {  

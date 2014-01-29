@@ -32,6 +32,7 @@
 using namespace sheaf;
 using namespace fiber_bundle;
 using namespace fiber_bundle::vd_algebra;
+using namespace std;
 
 int main( int argc, char* argv[])
 {  
