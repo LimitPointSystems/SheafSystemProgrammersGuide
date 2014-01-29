@@ -65,12 +65,13 @@ endif()
 # Check for and configure system cxx includes.
 #
 function(check_cxx_includes)
+
    include(CheckIncludeFileCXX)
 
     # C++ Headers for C Library Facilities
 
     if(NOT HAVE_CASSERT)
-       message(STATUS "Looking for C++ Headers For C Library Functions")   
+        status_message("Looking for C++ Headers For C Library Functions")   
     endif()
 
     check_include_file_cxx(cassert HAVE_CASSERT)
@@ -96,7 +97,7 @@ function(check_cxx_includes)
     # C++ Library Headers
 
     if(NOT HAVE_ALGORITHM)
-       message(STATUS "Looking for C++ Standard Library Headers")    
+        status_message("Looking for C++ Standard Library Headers")    
     endif()
 
     check_include_file_cxx(algorithm HAVE_ALGORITHM)
@@ -104,6 +105,14 @@ function(check_cxx_includes)
     check_include_file_cxx(complex HAVE_COMPLEX)    
     check_include_file_cxx(deque HAVE_DEQUE)
     check_include_file_cxx(exception HAVE_EXCEPTION)    
+    check_include_file_cxx(forward_list HAVE_FORWARD_LIST)
+     if(NOT HAVE_FORWARD_LIST)
+        check_include_file_cxx(ext/slist HAVE_EXT_SLIST) 
+
+        if(NOT HAVE_EXT_SLIST)
+            message(FATAL_ERROR "ERROR: ${CMAKE_CXX_COMPILER} does not appear to support forward_list or slist. Configure phase aborted")
+        endif()
+    endif()
     check_include_file_cxx(fstream HAVE_FSTREAM)
     check_include_file_cxx(functional HAVE_FUNCTIONAL)
     check_include_file_cxx(iomanip HAVE_IOMANIP)
@@ -127,302 +136,28 @@ function(check_cxx_includes)
     check_include_file_cxx(strtream HAVE_STRSTREAM)
     check_include_file_cxx(streambuf HAVE_STREAMBUF)
     check_include_file_cxx(string HAVE_STRING)
+    check_include_file_cxx(unordered_map HAVE_UNORDERED_MAP)
+     if(NOT HAVE_UNORDERED_MAP)
+        check_include_file_cxx(tr1/unordered_map HAVE_TR1_UNORDERED_MAP) 
+
+        if(NOT HAVE_TR1_UNORDERED_MAP)
+            message(FATAL_ERROR "ERROR: ${CMAKE_CXX_COMPILER} does not appear to support unordered_map. Configure phase aborted")
+        endif()
+    endif()
+    check_include_file_cxx(unordered_set HAVE_UNORDERED_SET)
+    if(NOT HAVE_UNORDERED_SET)
+        check_include_file_cxx(tr1/unordered_set HAVE_TR1_UNORDERED_SET)
+
+        if(NOT HAVE_TR1_UNORDERED_SET)
+            message(FATAL_ERROR "ERROR: ${CMAKE_CXX_COMPILER} does not appear to support unordered_set. Configure phase aborted")
+        endif()
+    endif()
     check_include_file_cxx(typeinfo HAVE_TYPEINFO)
     check_include_file_cxx(utility HAVE_UTILITY)
     check_include_file_cxx(valarray HAVE_VALARRAY)
     check_include_file_cxx(vector HAVE_VECTOR)
 
-    # STL
-
-    if(NOT (HAVE_HASH_MAP OR HAVE_EXT_HASH_MAP))
-       message(STATUS "Looking for C++ STL Headers")
-    endif()
-
-    check_include_file_cxx(hash_map HAVE_HASH_MAP)
-    check_include_file_cxx(ext/hash_map HAVE_EXT_HASH_MAP)
-    check_include_file_cxx(hash_set HAVE_HASH_SET)
-    check_include_file_cxx(ext/hash_set HAVE_EXT_HASH_SET)    
-    check_include_file_cxx(slist HAVE_SLIST)
-    check_include_file_cxx(ext/slist HAVE_EXT_SLIST)
-    
-    # C++ TR1 Extensions
-
-    if(NOT (HAVE_UNORDERED_MAP OR HAVE_TR1_UNORDERED_MAP))
-       message(STATUS "Looking for C++ TR1 Headers") 
-    endif()
-
-    check_include_file_cxx(unordered_map HAVE_UNORDERED_MAP) 
-    check_include_file_cxx(tr1/unordered_map HAVE_TR1_UNORDERED_MAP) 
-    check_include_file_cxx(unordered_set HAVE_UNORDERED_SET)
-    check_include_file_cxx(tr1/unordered_set HAVE_TR1_UNORDERED_SET)
-
 endfunction(check_cxx_includes)
-
-
-#
-# Set the compiler flags per build configuration
-#
-function(set_compiler_flags)
-       
-       # Toggle multi-process compilation in Windows
-       # Set in system_definitions.cmake
-       if(ENABLE_WIN32_MP)
-           set(MP "/MP")
-       else()
-           set(MP "")
-       endif()
-        
-    if(WIN64MSVC)
-    
-       set(LPS_CXX_FLAGS 
-       "${MP} /GR /nologo /DWIN32 /D_WINDOWS /W1 /EHsc " 
-       CACHE STRING "C++ Compiler Flags")       
-       
-       set(LPS_SHARED_LINKER_FLAGS 
-       "/INCREMENTAL:NO /NOLOGO /DLL /SUBSYSTEM:CONSOLE /MACHINE:X64 " 
-       CACHE STRING "Linker Flags for Shared Libs")
-       
-       set(LPS_EXE_LINKER_FLAGS_DEBUG " /DEBUG" 
-       CACHE STRING "Debug Linker Flags" FORCE)
-       
-       set(LPS_EXE_LINKER_FLAGS 
-       "/INCREMENTAL:NO /NOLOGO /DLL /SUBSYSTEM:CONSOLE /MACHINE:X64" 
-       CACHE STRING "Linker Flags for Executables")
-    
-    elseif(WIN64INTEL)
-    
-       set(LPS_CXX_FLAGS 
-       "/D_USRDLL ${MP} /GR /nologo /DWIN32 /D_WINDOWS /W1 /wd2651 /EHsc ${OPTIMIZATION} /Qprof-gen:srcpos /D_HDF5USEDLL_" 
-       CACHE STRING "C++ Compiler Flags")
-       
-       set(LPS_SHARED_LINKER_FLAGS 
-       "/INCREMENTAL:NO /NOLOGO /DLL /SUBSYSTEM:CONSOLE  /NXCOMPAT /MACHINE:X64" 
-       CACHE STRING "Linker Flags") 
-    
-    elseif(LINUX64INTEL)
-    
-        if(ENABLE_COVERAGE)
-            if(INTELWARN)
-               set(LPS_CXX_FLAGS 
-               "-ansi -m64 -w1 -wd186,1125 -Wno-deprecated -prof-gen=srcpos")
-            else()
-               set(LPS_CXX_FLAGS 
-               "-ansi -m64 -w0 -Wno-deprecated -prof-gen=srcpos")
-            endif()
-        else()
-            if(INTELWARN)
-               set(LPS_CXX_FLAGS 
-               "-ansi -m64 -w1 -wd186,1125 -Wno-deprecated")
-            else()
-               set(LPS_CXX_FLAGS 
-               "-ansi -m64 -w0 -Wno-deprecated ")
-            endif() 
-       endif() # ENABLE_COVERAGE        
-    elseif(LINUX64GNU)
-        set(LPS_CXX_FLAGS 
-        "-ansi -m64 -Wno-deprecated")       
-    endif()
-
-    #                 
-    # Debug_contracts section
-    #
-        
-    # Configuration specific flags 
-    if(WIN64MSVC OR WIN64INTEL)
- 
-        if(${USE_VTK})     
-            set(CMAKE_CXX_FLAGS_DEBUG_CONTRACTS 
-            "${LPS_CXX_FLAGS} /Zi /D\"_ITERATOR_DEBUG_LEVEL=2\" /MDd /LDd /Od /DUSE_VTK" 
-            CACHE STRING "Flags used by the C++ compiler for Debug_contracts builds" )
-
-            set(CMAKE_EXE_LINKER_FLAGS_DEBUG_CONTRACTS 
-            "${CMAKE_EXE_LINKER_FLAGS} ${LPS_EXE_LINKER_FLAGS_DEBUG}" 
-            CACHE STRING "Flags used by the linker for executables for Debug_contracts builds")                
-        else()
-             set(CMAKE_CXX_FLAGS_DEBUG_CONTRACTS 
-             "${LPS_CXX_FLAGS} /Zi /D\"_ITERATOR_DEBUG_LEVEL=2\" /MDd /LDd /Od" 
-             CACHE STRING "Flags used by the C++ compiler for Debug_contracts builds" )        
-             
-             set(CMAKE_EXE_LINKER_FLAGS_DEBUG_CONTRACTS 
-             "${CMAKE_EXE_LINKER_FLAGS} ${LPS_EXE_LINKER_FLAGS_DEBUG}" 
-             CACHE STRING "Flags used by the linker for executables for Debug_contracts builds")                      
-        endif()
-        set(CMAKE_SHARED_LINKER_FLAGS_DEBUG_CONTRACTS "${LPS_SHARED_LINKER_FLAGS} /DEBUG" CACHE
-             STRING "Flags used by the linker for shared libraries for Debug_contracts builds")
-    else() # Linux
-        if(${USE_VTK})
-            set(CMAKE_CXX_FLAGS_DEBUG_CONTRACTS "${LPS_CXX_FLAGS} -g -DUSE_VTK " CACHE
-                STRING "Flags used by the C++ compiler for Debug_contracts builds")
-            set(CMAKE_EXE_LINKER_FLAGS_DEBUG_CONTRACTS "${CMAKE_EXE_LINKER_FLAGS}" CACHE
-                STRING "Flags used by the linker for executables for Debug_contracts builds")                        
-        else()         
-            set(CMAKE_CXX_FLAGS_DEBUG_CONTRACTS "${LPS_CXX_FLAGS} -g " CACHE
-                STRING "Flags used by the C++ compiler for Debug_contracts builds" )
-            set(CMAKE_EXE_LINKER_FLAGS_DEBUG_CONTRACTS "${CMAKE_EXE_LINKER_FLAGS}" CACHE
-                STRING "Flags used by the linker for executables for Debug_contracts builds")                        
-        endif()
-    endif()
-    
-    mark_as_advanced(CMAKE_CXX_FLAGS_DEBUG_CONTRACTS
-                     CMAKE_EXE_LINKER_FLAGS_DEBUG_CONTRACTS CMAKE_SHARED_LINKER_FLAGS_DEBUG_CONTRACTS)
-
-    #                 
-    # Debug_contracts section
-    #      
-
-    if(WIN64MSVC OR WIN64INTEL)
-    
-        if(${USE_VTK})
-             set(CMAKE_CXX_FLAGS_DEBUG_NO_CONTRACTS "${LPS_CXX_FLAGS} /Zi /D\"_ITERATOR_DEBUG_LEVEL=2\" /MDd /LDd /Od /DUSE_VTK /DNDEBUG" CACHE
-                STRING "Flags used by the C++ compiler for Debug_no_contracts builds" )
-         else()
-            set(CMAKE_CXX_FLAGS_DEBUG_NO_CONTRACTS "${LPS_CXX_FLAGS} /Zi /D\"_ITERATOR_DEBUG_LEVEL=2\" /MDd /LDd /Od /DNDEBUG" CACHE
-                STRING "Flags used by the C++ compiler for Debug_no_contracts builds" )            
-         endif()
-    
-     set(CMAKE_SHARED_LINKER_FLAGS_DEBUG_NO_CONTRACTS "${LPS_SHARED_LINKER_FLAGS} /DEBUG" CACHE
-         STRING "Flags used by the linker for shared libraries for Debug_contracts builds" )
-     set(CMAKE_EXE_LINKER_FLAGS_DEBUG_NO_CONTRACTS "${LPS_EXE_LINKER_FLAGS} /DEBUG" CACHE
-         STRING "Flags used by the linker for executables for Debug_contracts builds")                  
-    
-    else()
-        if(${USE_VTK})    
-            set(CMAKE_CXX_FLAGS_DEBUG_NO_CONTRACTS "${LPS_CXX_FLAGS} -g -DNDEBUG -DUSE_VTK" CACHE
-                STRING "Flags used by the C++ compiler for Debug_no_contracts builds" )
-        else()
-            set(CMAKE_CXX_FLAGS_DEBUG_NO_CONTRACTS "${LPS_CXX_FLAGS} -g -DNDEBUG" CACHE
-                STRING "Flags used by the C++ compiler for Debug_no_contracts builds" )
-        endif()
-    endif()
-
-    mark_as_advanced(CMAKE_CXX_FLAGS_DEBUG_NO_CONTRACTS
-                     CMAKE_EXE_LINKER_FLAGS_DEBUG_NO_CONTRACTS CMAKE_SHARED_LINKER_FLAGS_DEBUG_NO_CONTRACTS)
-    #                 
-    # Release_contracts section
-    #
-
-    if(WIN64MSVC OR WIN64INTEL)
-    
-        if(${USE_VTK})
-            set(CMAKE_CXX_FLAGS_RELEASE_CONTRACTS "${LPS_CXX_FLAGS} /DUSE_VTK /MD /LD /O2 " CACHE
-                STRING "Flags used by the C++ compiler for Release_contracts builds" )
-        else()   
-            set(CMAKE_CXX_FLAGS_RELEASE_CONTRACTS "${LPS_CXX_FLAGS} /MD /LD /O2 " CACHE
-                STRING "Flags used by the C++ compiler for Release_contracts builds" )
-        endif()
-  
-        set(CMAKE_EXE_LINKER_FLAGS_RELEASE_CONTRACTS "${LPS_EXE_LINKER_FLAGS}  /NXCOMPAT"  CACHE
-            STRING "Flags used by the linker for executables for Release_contracts builds" )
-        set(CMAKE_SHARED_LINKER_FLAGS_RELEASE_CONTRACTS "${LPS_SHARED_LINKER_FLAGS}  /NXCOMPAT " CACHE
-            STRING "Flags used by the linker for shared libraries for Release_contracts builds" ) 
-    else()
-        set(CMAKE_CXX_FLAGS_RELEASE_CONTRACTS "${LPS_CXX_FLAGS} ${OPTIMIZATION}" CACHE
-            STRING "Flags used by the C++ compiler for Release_contracts builds" )
-        set(CMAKE_EXE_LINKER_FLAGS_RELEASE_CONTRACTS "${LPS_EXE_LINKER_FLAGS}"  CACHE
-            STRING "Flags used by the linker for executables for Release_contracts builds" )
-        set(CMAKE_SHARED_LINKER_FLAGS_RELEASE_CONTRACTS "${LPS_SHARED_LINKER_FLAGS}" CACHE
-            STRING "Flags used by the linker for shared libraries for Release_contracts builds" )
-    endif()
-    
-    # True for all currently supported platforms        
-    mark_as_advanced(CMAKE_CXX_FLAGS_RELEASE_CONTRACTS
-                     CMAKE_EXE_LINKER_FLAGS_RELEASE_CONTRACTS CMAKE_SHARED_LINKER_FLAGS_RELEASE_CONTRACTS
-                    )
-    #                 
-    # Release_no_contracts section
-    #
-
-    if(WIN64MSVC OR WIN64INTEL)
-    
-       if(${USE_VTK})
-            set(CMAKE_CXX_FLAGS_RELEASE_NO_CONTRACTS "${LPS_CXX_FLAGS} /MD /LD /O2 /DUSE_VTK /DNDEBUG" CACHE
-                STRING "Flags used by the C++ compiler for Release_no_contracts builds" )
-       else()        
-            set(CMAKE_CXX_FLAGS_RELEASE_NO_CONTRACTS "${LPS_CXX_FLAGS}  /MD /LD /O2 /DNDEBUG" CACHE
-                STRING "Flags used by the C++ compiler for Release_no_contracts builds" )
-      endif()     
-                
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE_NO_CONTRACTS "${CMAKE_EXE_LINKER_FLAGS}  /NXCOMPAT" CACHE
-        STRING "Flags used by the linker for executables for Release_no_contracts builds" )
-    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE_NO_CONTRACTS "${LPS_SHARED_LINKER_FLAGS}  /NXCOMPAT" CACHE
-        STRING "Flags used by the linker for shared libraries for Release_no_contracts builds" )
-    else()
-        set(CMAKE_CXX_FLAGS_RELEASE_NO_CONTRACTS "${LPS_CXX_FLAGS} ${OPTIMIZATION} -DNDEBUG" CACHE
-            STRING "Flags used by the C++ compiler for Release_no_contracts builds" )
-        set(CMAKE_EXE_LINKER_FLAGS_RELEASE_NO_CONTRACTS "${CMAKE_EXE_LINKER_FLAGS}" CACHE
-            STRING "Flags used by the linker for executables for Release_no_contracts builds" )
-        set(CMAKE_SHARED_LINKER_FLAGS_RELEASE_NO_CONTRACTS "${LPS_SHARED_LINKER_FLAGS}" CACHE
-            STRING "Flags used by the linker for shared libraries for Release_no_contracts builds" )
-    endif()
-    
-    # True for all currently supported platforms        
-    mark_as_advanced(CMAKE_CXX_FLAGS_RELEASE_NO_CONTRACTS
-                     CMAKE_EXE_LINKER_FLAGS_RELEASE_NO_CONTRACTS CMAKE_SHARED_LINKER_FLAGS_RELEASE_NO_CONTRACTS
-                  )
-
-    #                 
-    # RelWithDebInfo_contracts section
-    #
-
-    if(WIN64MSVC OR WIN64INTEL)
-    
-        if(${USE_VTK})
-            set(CMAKE_CXX_FLAGS_RELWITHDEBINFO_CONTRACTS "${LPS_CXX_FLAGS} /DUSE_VTK /MD /LD /O2 " CACHE
-                STRING "RelWithDebInfo_contracts compiler flags" )
-        else()   
-            set(CMAKE_CXX_FLAGS_RELWITHDEBINFO_CONTRACTS "${LPS_CXX_FLAGS} /MD /LD /O2 " CACHE
-                STRING "RelWithDebInfo_contracts compiler flags" )
-        endif()
-  
-        set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_CONTRACTS "${LPS_EXE_LINKER_FLAGS} /DEBUG  /NXCOMPAT"  CACHE
-            STRING "RelWithDebInfo_contracts linker flags - executables" )
-        set(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_CONTRACTS "${LPS_SHARED_LINKER_FLAGS} /DEBUG  /NXCOMPAT " CACHE
-            STRING "RelWithDebInfo_contracts linker flags - shared libs" ) 
-    else()
-        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO_CONTRACTS "${LPS_CXX_FLAGS} ${OPTIMIZATION}" CACHE
-            STRING "RelWithDebInfo_contracts compiler flags" )
-        set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_CONTRACTS "${LPS_EXE_LINKER_FLAGS}"  CACHE
-            STRING "RelWithDebInfo_contracts linker flags - executables" )
-        set(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_CONTRACTS "${LPS_SHARED_LINKER_FLAGS}" CACHE
-            STRING "RelWithDebInfo_contracts linker flags - shared libs" )
-    endif()
-    
-    # True for all currently supported platforms        
-    mark_as_advanced(CMAKE_CXX_FLAGS_RELWITHDEBINFO_CONTRACTS
-                     CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_CONTRACTS CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_CONTRACTS
-                    )
-    #                 
-    # RelWithDebInfo_no_contracts section
-    #
-
-    if(WIN64MSVC OR WIN64INTEL)
-    
-       if(${USE_VTK})
-            set(CMAKE_CXX_FLAGS_RELWITHDEBINFO_NO_CONTRACTS "${LPS_CXX_FLAGS} /MD /LD /O2 /DUSE_VTK /DNDEBUG" CACHE
-                STRING "RelWithDebInfo_no_contracts compiler flags" )
-       else()        
-            set(CMAKE_CXX_FLAGS_RELWITHDEBINFO_NO_CONTRACTS "${LPS_CXX_FLAGS}  /MD /LD /O2 /DNDEBUG" CACHE
-                STRING "RelWithDebInfo_no_contracts compiler flags" )
-      endif()     
-                
-    set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_NO_CONTRACTS "${CMAKE_EXE_LINKER_FLAGS} /DEBUG  /NXCOMPAT" CACHE
-        STRING "RelWithDebInfo_no_contracts linker flags - executables" )
-    set(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_NO_CONTRACTS "${LPS_SHARED_LINKER_FLAGS} /DEBUG /NXCOMPAT" CACHE
-        STRING "RelWithDebInfo_no_contracts linker flags - shared libs" )
-    else()
-        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO_NO_CONTRACTS "${LPS_CXX_FLAGS} ${OPTIMIZATION} -DNDEBUG" CACHE
-            STRING "RelWithDebInfo_no_contracts compiler flags" )
-        set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_NO_CONTRACTS "${CMAKE_EXE_LINKER_FLAGS}" CACHE
-            STRING "RelWithDebInfo_no_contracts linker flags - executables" )
-        set(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_NO_CONTRACTS "${LPS_SHARED_LINKER_FLAGS}" CACHE
-            STRING "RelWithDebInfo_no_contracts linker flags - shared libs" )
-    endif()
-    
-    # True for all currently supported platforms        
-    mark_as_advanced(CMAKE_CXX_FLAGS_RELWITHDEBINFO_NO_CONTRACTS
-                     CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO_NO_CONTRACTS CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO_NO_CONTRACTS
-                  )
-endfunction(set_compiler_flags)	
 
 #
 # Create the build output directories.
