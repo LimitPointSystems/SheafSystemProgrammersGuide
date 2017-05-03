@@ -18,12 +18,12 @@
 #
 # Path to C++ compiler; set this to whreever your compiler is.
 #
-CXX = /usr/local/gcc/bin/g++
+CXX = 
 
 #
 # Path the SheafSystem installation; set this to where you've installed the SheafSystem.
 #
-SHEAF_INSTALL_DIR = /home/dmbutler/SheafSystem-github-lps/install
+SHEAF_INSTALL_DIR = 
 
 #
 # Some internal variables; leave these alone.
