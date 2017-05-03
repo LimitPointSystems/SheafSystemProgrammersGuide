@@ -19,11 +19,11 @@
 /// SheafSystem Programmer's Guide Example 10: Reading a sheaf file; 
 /// manipulating poset members with the poset interface. 
 
-#include "sheaves_namespace.h"
-#include "poset.h"
-#include "poset_dof_map.h"
-#include "std_iostream.h"
-#include "storage_agent.h"
+#include "SheafSystem/sheaves_namespace.h"
+#include "SheafSystem/poset.h"
+#include "SheafSystem/poset_dof_map.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/storage_agent.h"
 
 using namespace sheaf;
 using namespace std;

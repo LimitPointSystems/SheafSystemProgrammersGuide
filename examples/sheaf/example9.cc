@@ -19,9 +19,9 @@
 /// SheafSystem Programmer's Guide Example 9: 
 /// Creating, accessing and deleting posets. 
 
-#include "sheaves_namespace.h"
-#include "std_iostream.h"
-#include "storage_agent.h"
+#include "SheafSystem/sheaves_namespace.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/storage_agent.h"
 
 using namespace sheaf;
 using namespace std;

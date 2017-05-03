@@ -18,10 +18,10 @@
 /// @example Example4
 /// SheafSystem Programmer's Guide Example 4. Iterates over the member poset id space. 
 
-#include "index_space_handle.h"
-#include "index_space_iterator.h"
-#include "sheaves_namespace.h"
-#include "std_iostream.h"
+#include "SheafSystem/index_space_handle.h"
+#include "SheafSystem/index_space_iterator.h"
+#include "SheafSystem/sheaves_namespace.h"
+#include "SheafSystem/std_iostream.h"
 
 using namespace sheaf;
 using namespace std;

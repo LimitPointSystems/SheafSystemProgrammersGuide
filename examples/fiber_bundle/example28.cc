@@ -18,11 +18,11 @@
 /// @example Example28
 /// SheafSystem Programmer's Guide Example 28: Creating a section space.
 
-#include "fiber_bundles_namespace.h"
-#include "sec_at1_space.h"
-#include "sec_e2.h"
-#include "std_iostream.h"
-#include "storage_agent.h"
+#include "SheafSystem/fiber_bundles_namespace.h"
+#include "SheafSystem/sec_at1_space.h"
+#include "SheafSystem/sec_e2.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/storage_agent.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;

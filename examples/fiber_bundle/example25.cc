@@ -18,10 +18,10 @@
 /// @example Example25
 /// SheafSystem Programmer's Guide Example 25: Creating a fiber space.
 
-#include "at1_space.h"
-#include "e3.h"
-#include "fiber_bundles_namespace.h"
-#include "std_iostream.h"
+#include "SheafSystem/at1_space.h"
+#include "SheafSystem/e3.h"
+#include "SheafSystem/fiber_bundles_namespace.h"
+#include "SheafSystem/std_iostream.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;

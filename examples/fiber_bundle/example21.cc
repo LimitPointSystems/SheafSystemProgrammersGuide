@@ -18,11 +18,11 @@
 /// @example Example21
 /// SheafSystem Programmer's Guide Example 21: Creating a base_space_poset. 
 
-#include "base_space_member.h"
-#include "base_space_poset.h"
-#include "fiber_bundles_namespace.h"
-#include "std_iostream.h"
-#include "storage_agent.h"
+#include "SheafSystem/base_space_member.h"
+#include "SheafSystem/base_space_poset.h"
+#include "SheafSystem/fiber_bundles_namespace.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/storage_agent.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;

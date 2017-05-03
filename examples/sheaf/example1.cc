@@ -18,8 +18,8 @@
 /// @example Example1: Hello, sheaf
 /// SheafSystem Programmer's Guide Example 1. Creates a sheaf namespace. 
 
-#include "sheaves_namespace.h"
-#include "std_iostream.h"
+#include "SheafSystem/sheaves_namespace.h"
+#include "SheafSystem/std_iostream.h"
 
 using namespace sheaf;
 using namespace std;

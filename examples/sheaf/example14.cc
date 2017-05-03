@@ -18,13 +18,13 @@
 /// @example Example14
 /// SheafSystem Programmer's Guide Example 14: Depth first iterators. 
 
-#include "poset.h"
-#include "postorder_itr.h"
-#include "preorder_itr.h"
-#include "sheaves_namespace.h"
-#include "std_iostream.h"
-#include "storage_agent.h"
-#include "total_poset_member.h"
+#include "SheafSystem/poset.h"
+#include "SheafSystem/postorder_itr.h"
+#include "SheafSystem/preorder_itr.h"
+#include "SheafSystem/sheaves_namespace.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/storage_agent.h"
+#include "SheafSystem/total_poset_member.h"
 
 using namespace sheaf;
 using namespace std;

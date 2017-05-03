@@ -18,19 +18,19 @@
 /// @example Example31
 /// SheafSystem Programmer's Guide Example 31: Multisections.
 
-#include "base_space_member.h"
-#include "base_space_poset.h"
-#include "e2.h"
-#include "fiber_bundles_namespace.h"
-#include "index_space_handle.h"
-#include "index_space_iterator.h"
-#include "sec_at1_space.h"
-#include "sec_e2.h"
-#include "std_iostream.h"
-#include "std_sstream.h"
-#include "storage_agent.h"
-#include "subposet.h"
-#include "tern.h"
+#include "SheafSystem/base_space_member.h"
+#include "SheafSystem/base_space_poset.h"
+#include "SheafSystem/e2.h"
+#include "SheafSystem/fiber_bundles_namespace.h"
+#include "SheafSystem/index_space_handle.h"
+#include "SheafSystem/index_space_iterator.h"
+#include "SheafSystem/sec_at1_space.h"
+#include "SheafSystem/sec_e2.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/std_sstream.h"
+#include "SheafSystem/storage_agent.h"
+#include "SheafSystem/subposet.h"
+#include "SheafSystem/tern.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;

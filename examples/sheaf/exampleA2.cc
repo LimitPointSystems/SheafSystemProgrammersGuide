@@ -18,8 +18,8 @@
 /// @example ExampleA2: Auto concurrency access control.
 /// SheafSystem Programmer's Guide Example A2: Auto concurrency access control. 
 
-#include "sheaves_namespace.h"
-#include "std_iostream.h"
+#include "SheafSystem/sheaves_namespace.h"
+#include "SheafSystem/std_iostream.h"
 
 using namespace sheaf;
 using namespace std;

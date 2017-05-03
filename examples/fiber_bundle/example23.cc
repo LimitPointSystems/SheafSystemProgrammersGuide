@@ -18,14 +18,14 @@
 /// @example Example23
 /// SheafSystem Programmer's Guide Example 23: Blocks
 
-#include "base_space_poset.h"
-#include "index_space_iterator.h"
-#include "fiber_bundles_namespace.h"
-#include "poset_dof_map.h"
-#include "std_iostream.h"
-#include "std_sstream.h"
-#include "storage_agent.h"
-#include "structured_block_1d.h"
+#include "SheafSystem/base_space_poset.h"
+#include "SheafSystem/index_space_iterator.h"
+#include "SheafSystem/fiber_bundles_namespace.h"
+#include "SheafSystem/poset_dof_map.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/std_sstream.h"
+#include "SheafSystem/storage_agent.h"
+#include "SheafSystem/structured_block_1d.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;

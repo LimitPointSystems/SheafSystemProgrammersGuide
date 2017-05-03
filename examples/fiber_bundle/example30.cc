@@ -18,16 +18,16 @@
 /// @example Example30
 /// SheafSystem Programmer's Guide Example 30: Creating coordinate sections.
 
-#include "e2.h"
-#include "fiber_bundles_namespace.h"
-#include "index_space_handle.h"
-#include "index_space_iterator.h"
-#include "sec_at1_space.h"
-#include "sec_e1.h"
-#include "sec_e1_uniform.h"
-#include "std_iostream.h"
-#include "storage_agent.h"
-#include "structured_block_1d.h"
+#include "SheafSystem/e2.h"
+#include "SheafSystem/fiber_bundles_namespace.h"
+#include "SheafSystem/index_space_handle.h"
+#include "SheafSystem/index_space_iterator.h"
+#include "SheafSystem/sec_at1_space.h"
+#include "SheafSystem/sec_e1.h"
+#include "SheafSystem/sec_e1_uniform.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/storage_agent.h"
+#include "SheafSystem/structured_block_1d.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;
