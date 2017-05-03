@@ -16,66 +16,73 @@
 #
 
 #
-# Path to your C++ compiler
+# Path to C++ compiler; set this to whreever your compiler is.
 #
-CXX =
+CXX = /usr/local/gcc/bin/g++
+
 #
-# Path the SheafSystem installation
+# Path the SheafSystem installation; set this to where you've installed the SheafSystem.
 #
-SHEAF_INSTALL_DIR = 
-SHEAF_LIB_DIR = $(SHEAF_INSTALL_DIR)/Debug-contracts/lib
+SHEAF_INSTALL_DIR = /home/dmbutler/SheafSystem-github-lps/install
+
+#
+# Some internal variables; leave these alone.
+#
+CXX_FLAGS = -std=c++11 -m64 -Wno-deprecated -Wno-abi
+SHEAF_LIB_DIR = $(SHEAF_INSTALL_DIR)/Debug_contracts/lib
 SHEAF_INC_DIR = $(SHEAF_INSTALL_DIR)/include
 
+
 example1: example1.cc
-	$(CXX) -g -o example1 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example1.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example1 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example1.cc -lsheaves_debug	
 
 example2: example2.cc
-	$(CXX) -g -o example2 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example2.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example2 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example2.cc -lsheaves_debug	
 
 example3: example3.cc
-	$(CXX) -g -o example3 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example3.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example3 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example3.cc -lsheaves_debug	
 
 example4: example4.cc
-	$(CXX) -g -o example4 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example4.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example4 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example4.cc -lsheaves_debug	
 
 example5: example5.cc
-	$(CXX) -g -o example5 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example5.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example5 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example5.cc -lsheaves_debug	
 
 example6: example6.cc
-	$(CXX) -g -o example6 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example6.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example6 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example6.cc -lsheaves_debug	
 
 example7: example7.cc
-	$(CXX) -g -o example7 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example7.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example7 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example7.cc -lsheaves_debug	
 
 example8: example8.cc
-	$(CXX) -g -o example8 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example8.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example8 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example8.cc -lsheaves_debug	
 
 example9: example9.cc
-	$(CXX) -g -o example9 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example9.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example9 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example9.cc -lsheaves_debug	
 
 example10: example10.cc
-	$(CXX) -g -o example10 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example10.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example10 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example10.cc -lsheaves_debug	
 
 example11: example11.cc
-	$(CXX) -g -o example11 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example11.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example11 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example11.cc -lsheaves_debug	
 
 example12: example12.cc
-	$(CXX) -g -o example12 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example12.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example12 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example12.cc -lsheaves_debug	
 
 example13: example13.cc
-	$(CXX) -g -o example13 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example13.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example13 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example13.cc -lsheaves_debug	
 
 example14: example14.cc
-	$(CXX) -g -o example14 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example14.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example14 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example14.cc -lsheaves_debug	
 
 example15: example15.cc
-	$(CXX) -g -o example15 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example15.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o example15 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example15.cc -lsheaves_debug	
 
 exampleA1: exampleA1.cc
-	$(CXX) -g -o exampleA1 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) exampleA1.cc -lsheaves_debug	
+	$(CXX) $(CXX_FLAGS) -g -o exampleA1 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) exampleA1.cc -lsheaves_debug	
 
 exampleA2: exampleA2.cc
-	$(CXX) -g -o exampleA2 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) exampleA2.cc -lsheaves_debug
+	$(CXX) $(CXX_FLAGS) -g -o exampleA2 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) exampleA2.cc -lsheaves_debug
 
 clean:
 	rm -f example1

@@ -18,13 +18,13 @@
 /// @example Example13
 /// SheafSystem Programmer's Guide Example 13: Cover id spaces and iterators. 
 
-#include "index_space_handle.h"
-#include "index_space_iterator.h"
-#include "poset.h"
-#include "sheaves_namespace.h"
-#include "std_iostream.h"
-#include "storage_agent.h"
-#include "total_poset_member.h"
+#include "SheafSystem/index_space_handle.h"
+#include "SheafSystem/index_space_iterator.h"
+#include "SheafSystem/poset.h"
+#include "SheafSystem/sheaves_namespace.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/storage_agent.h"
+#include "SheafSystem/total_poset_member.h"
 
 using namespace sheaf;
 using namespace std;

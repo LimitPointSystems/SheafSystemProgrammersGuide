@@ -18,11 +18,11 @@
 /// @example Example24
 /// SheafSystem Programmer's Guide Example 24: Fiber schema subobject hierarchy.
 
-#include "biorder_itr.h"
-#include "fiber_bundles_namespace.h"
-#include "poset.h"
-#include "std_iostream.h"
-#include "tuple.h"
+#include "SheafSystem/biorder_itr.h"
+#include "SheafSystem/fiber_bundles_namespace.h"
+#include "SheafSystem/poset.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/tuple.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;

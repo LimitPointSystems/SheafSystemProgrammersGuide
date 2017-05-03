@@ -18,10 +18,10 @@
 /// @example Example3
 /// SheafSystem Programmer's Guide Example 3. Iterates over the member hub id space. 
 
-#include "hub_index_space_handle.h"
-#include "index_space_iterator.h"
-#include "sheaves_namespace.h"
-#include "std_iostream.h"
+#include "SheafSystem/hub_index_space_handle.h"
+#include "SheafSystem/index_space_iterator.h"
+#include "SheafSystem/sheaves_namespace.h"
+#include "SheafSystem/std_iostream.h"
 
 using namespace sheaf;
 using namespace std;

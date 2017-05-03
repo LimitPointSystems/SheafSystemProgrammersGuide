@@ -18,7 +18,7 @@
 /// @example Example2: Design By Contract
 /// SheafSystem Programmer's Guide Example 2. Design By Contract 
 
-#include "sheaves_namespace.h"
+#include "SheafSystem/sheaves_namespace.h"
 
 using namespace sheaf;
 using namespace std;

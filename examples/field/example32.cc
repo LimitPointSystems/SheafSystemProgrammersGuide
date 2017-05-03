@@ -19,21 +19,21 @@
 /// SheafSystem Programmer's Guide Example 32: Fields.
 
 
-#include "at0.h"
-#include "e1.h"
-#include "fiber_bundles_namespace.h"
-#include "field_at0.h"
-#include "index_space_handle.h"
-#include "index_space_iterator.h"
-#include "sec_at0.h"
-#include "sec_at0_space.h"
-#include "sec_at1_space.h"
-#include "sec_e1.h"
-#include "sec_e1_uniform.h"
-#include "std_iostream.h"
-#include "std_sstream.h"
-#include "storage_agent.h"
-#include "structured_block_1d.h"
+#include "SheafSystem/at0.h"
+#include "SheafSystem/e1.h"
+#include "SheafSystem/fiber_bundles_namespace.h"
+#include "SheafSystem/field_at0.h"
+#include "SheafSystem/index_space_handle.h"
+#include "SheafSystem/index_space_iterator.h"
+#include "SheafSystem/sec_at0.h"
+#include "SheafSystem/sec_at0_space.h"
+#include "SheafSystem/sec_at1_space.h"
+#include "SheafSystem/sec_e1.h"
+#include "SheafSystem/sec_e1_uniform.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/std_sstream.h"
+#include "SheafSystem/storage_agent.h"
+#include "SheafSystem/structured_block_1d.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;

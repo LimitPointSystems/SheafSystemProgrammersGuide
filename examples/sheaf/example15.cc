@@ -18,14 +18,14 @@
 /// @example Example15
 /// SheafSystem Programmer's Guide Example 15: Schema posets. 
 
-#include "index_space_iterator.h"
-#include "poset_path.h"
-#include "schema_descriptor.h"
-#include "schema_poset_member.h"
-#include "sheaves_namespace.h"
-#include "std_iostream.h"
-#include "storage_agent.h"
-#include "wsv_block.h"
+#include "SheafSystem/index_space_iterator.h"
+#include "SheafSystem/poset_path.h"
+#include "SheafSystem/schema_descriptor.h"
+#include "SheafSystem/schema_poset_member.h"
+#include "SheafSystem/sheaves_namespace.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/storage_agent.h"
+#include "SheafSystem/wsv_block.h"
 
 using namespace sheaf;
 using namespace std;

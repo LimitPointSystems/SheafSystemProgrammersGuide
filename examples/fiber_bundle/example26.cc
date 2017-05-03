@@ -18,12 +18,12 @@
 /// @example Example26
 /// SheafSystem Programmer's Guide Example 26: Persistent and volatile types.
 
-#include "at1_space.h"
-#include "e3.h"
-#include "fiber_bundles_namespace.h"
-#include "poset.h"
-#include "std_iostream.h"
-#include "std_iomanip.h"
+#include "SheafSystem/at1_space.h"
+#include "SheafSystem/e3.h"
+#include "SheafSystem/fiber_bundles_namespace.h"
+#include "SheafSystem/poset.h"
+#include "SheafSystem/std_iostream.h"
+#include "SheafSystem/std_iomanip.h"
 
 using namespace sheaf;
 using namespace fiber_bundle;

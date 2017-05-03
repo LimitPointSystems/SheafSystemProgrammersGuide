@@ -16,22 +16,27 @@
 #
 
 #
-# Path to your C++ compiler
+# Path to C++ compiler; set this to wherever your compiler is.
 #
-CXX =  
+CXX = /usr/local/gcc/bin/g++
 
 #
-# Path the SheafSystem installation
+# Path the SheafSystem installation; set this to where you've installed the SheafSystem.
 #
-SHEAF_INSTALL_DIR = 
-SHEAF_LIB_DIR = $(SHEAF_INSTALL_DIR)/Debug-contracts/lib 
+SHEAF_INSTALL_DIR = /home/dmbutler/SheafSystem-github-lps/install
+
+#
+# Some internal variables; leave these alone.
+#
+CXX_FLAGS = -std=c++11 -m64 -Wno-deprecated -Wno-abi
+SHEAF_LIB_DIR = $(SHEAF_INSTALL_DIR)/Debug_contracts/lib
 SHEAF_INC_DIR = $(SHEAF_INSTALL_DIR)/include
 
 example30.hdf: ../fiber_bundle/example30.hdf
 	cp ../fiber_bundle/example30.hdf .
 
 example32: example32.cc example30.hdf
-	$(CXX) -g -o example32 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example32.cc \
+	$(CXX) $(CXX_FLAGS) -g -o example32 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example32.cc \
                       -lfields_debug -lgeometry_debug -lfiber_bundles_debug -lsheaves_debug
 
 clean:
