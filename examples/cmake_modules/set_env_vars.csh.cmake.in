@@ -1,4 +1,3 @@
-
 #
 # Copyright (c) 2013 Limit Point Systems, Inc. 
 #
@@ -53,21 +52,22 @@ if (! -e $revert_file) then
 
 endif # revert_file
 
-	echo setting LD_LIBRARY_PATH in this terminal.
-    if ($?LD_LIBRARY_PATH) then
-		setenv LD_LIBRARY_PATH $LD_LIBRARY_PATH\:@GNU_LIBPATH@:@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SHEAVES_LIB_OUTPUT_DIR@:@VTK_LIB_DIR@:
-	else
-		setenv LD_LIBRARY_PATH @GNU_LIBPATH@:@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SHEAVES_LIB_OUTPUT_DIR@:@VTK_LIB_DIR@:
-	endif
-	
-	echo setting CLASSPATH in this terminal.
-	setenv CLASSPATH .:@SHEAVES_LIB_OUTPUT_DIR@/SheafScope.jar:@SHEAVES_LIB_OUTPUT_DIR@/solvers_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/tools_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/fields_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/geometry_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/fiber_bundles_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/sheaves_java_binding.jar:@VTK_LIB_DIR@/java/vtk.jar:@SHEAVES_LIB_OUTPUT_DIR@/jmf.jar
+echo setting LD_LIBRARY_PATH in this terminal.
 
-	echo setting PATH in this terminal.
-	setenv PATH @JDK_BIN_DIR@:$PATH
+if ($?LD_LIBRARY_PATH) then
+   setenv LD_LIBRARY_PATH $LD_LIBRARY_PATH\:@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SHEAFSYSTEM_LIB_DIR@:@VTK_LIB_DIR@:@SHFSYSTST_CXX_IMPLICIT_LINK_DIRECTORIES@:
+else
+   setenv LD_LIBRARY_PATH @CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SHEAFSYSTEM_LIB_DIR@:@VTK_LIB_DIR@:@SHFSYSTST_CXX_IMPLICIT_LINK_DIRECTORIES@:
+endif
 
-	echo setting PYTHONPATH in this terminal.
-	setenv PYTHONPATH .:@SHEAVES_LIB_OUTPUT_DIR@
+echo setting CLASSPATH in this terminal.
+setenv CLASSPATH .:@SHEAFSYSTEM_LIB_DIR@/SheafScope.jar:@SHEAFSYSTEM_LIB_DIR@/solvers_java_binding.jar:@SHEAFSYSTEM_LIB_DIR@/tools_java_binding.jar:@SHEAFSYSTEM_LIB_DIR@/fields_java_binding.jar:@SHEAFSYSTEM_LIB_DIR@/geometry_java_binding.jar:@SHEAFSYSTEM_LIB_DIR@/fiber_bundles_java_binding.jar:@SHEAFSYSTEM_LIB_DIR@/sheaves_java_binding.jar:@VTK_LIB_DIR@/vtk.jar:@JMF_JAR@
 
-	echo setting PROF_DIR in this terminal.
-	setenv PROF_DIR @COVERAGE_DIR@
+echo setting PATH in this terminal.
+setenv PATH @JDK_BIN_DIR@:$PATH
+
+echo setting PYTHONPATH in this terminal.
+setenv PYTHONPATH .:@SHEAFSYSTEM_LIB_DIR@
+
+echo setting PROF_DIR in this terminal.
+setenv PROF_DIR @COVERAGE_DIR@

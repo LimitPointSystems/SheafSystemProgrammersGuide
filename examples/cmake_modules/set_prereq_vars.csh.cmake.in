@@ -1,6 +1,6 @@
 
 #
-# Copyright (c) 2013 Limit Point Systems, Inc. 
+# Copyright (c) 2016 Limit Point Systems, Inc. 
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,18 +15,6 @@
 # limitations under the License.
 #
 
-#------------------------------------------------
-# Programmer Filename Entry Section
-#------------------------------------------------
+# PREREQ var values from most recent successful find_prerequisites.
 
-set(CLUSTER ${CMAKE_CURRENT_BINARY_DIR})
-
-#
-# Source for example executables.
-#
-set(EXAMPLE_SRCS
-   example32.cc
-    )
-
-SSPG_collect_example_sources(SheafSystemProgrammersGuide "${EXAMPLE_SRCS}")
-
+setenv PREREQ_SHEAFSYSTEM_CONFIG_DIR @PREREQ_SHEAFSYSTEM_CONFIG_DIR@
