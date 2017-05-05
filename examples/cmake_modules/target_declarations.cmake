@@ -187,9 +187,8 @@ function(SSPG_add_system_targets)
    if(SSPG_LINUX)
       SSPG_add_realclean_target()
       SSPG_add_tags_target()
+      SheafSystem_add_help_targets()
    endif()
-
-   SheafSystem_add_help_targets()
 
 endfunction(SSPG_add_system_targets)
 

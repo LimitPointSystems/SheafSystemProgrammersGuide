@@ -117,6 +117,4 @@ SSPG_add_system_targets()
 #
 # Configure the environment variable scripts. 
 #
-if(SSPG_LINUX)
-   SSPG_configure_set_env_var_scripts()
-endif()
+SSPG_configure_set_env_var_scripts()

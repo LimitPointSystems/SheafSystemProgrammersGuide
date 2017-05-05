@@ -85,13 +85,15 @@ function(SSPG_add_component_example_targets xcomponent_name)
    string(TOUPPER ${xcomponent_name} LCOMP_NAME_UC)
    string(TOLOWER ${xcomponent_name} lcomp_name_lc)
 
+   # Set the path to the SheafSystem bin directory; used by debugger paths below.
+
+   set(SSPG_SHEAFSYSTEM_BIN_DIR "${SSPG_SHEAFSYSTEM_ROOT}/bin"
+      CACHE STRING "Path to SheafSystem bin directory" FORCE)
+   mark_as_advanced(FORCE SSPG_SHEAFSYSTEM_BIN_DIR)   
+
    # $$TODO: Decompose into OS specific routines as test_tagets above.
 
    foreach(t_cc_file ${${LCOMP_NAME_UC}_EXAMPLE_SRCS})
-
-      # Let the user know what's being configured
-
-      SSPG_status_message("Configuring example executables for ${xcomponent_name}")   
 
       # Deduce name of executable from source filename
 
@@ -105,8 +107,6 @@ function(SSPG_add_component_example_targets xcomponent_name)
 
       # Add building of executable and link with shared library
 
-      SSPG_status_message("Creating ${t_file} from ${t_cc_file}")
-
       add_executable(${t_file} ${t_cc_file})
       
       # Make sure the library is up to date
@@ -118,6 +118,18 @@ function(SSPG_add_component_example_targets xcomponent_name)
          # Insert the unit tests into the VS folder "unit_tests"
 
          set_target_properties(${t_file} PROPERTIES FOLDER "Example Targets")
+
+         # Set up the debugger environment for this target.
+         # Apparently CMake or Visual Studio automatically appends the build type.
+
+         set(SSPG_DEBUGGER_PATH1 "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+         file(TO_NATIVE_PATH "${SSPG_DEBUGGER_PATH1}" SSPG_DEBUGGER_PATH1)
+
+         set(SSPG_DEBUGGER_PATH2 "${SSPG_SHEAFSYSTEM_BIN_DIR}")
+         file(TO_NATIVE_PATH "${SSPG_DEBUGGER_PATH2}" SSPG_DEBUGGER_PATH2)
+         
+         configure_file(${SSPG_CMAKE_MODULE_PATH}/project.vcxproj.user.in 
+            ${CMAKE_BINARY_DIR}/${t_file}.vcxproj.user @ONLY)
 
       elseif(SSPG_LINUX)
 

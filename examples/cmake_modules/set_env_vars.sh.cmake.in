@@ -59,13 +59,13 @@ fi
 echo setting LD_LIBRARY_PATH in this terminal.
 
 if test "x$LD_LIBRARY_PATH" != x ; then
-   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SHEAFSYSTEM_LIB_DIR@:@VTK_LIB_DIR@:@SHFSYSTST_CXX_IMPLICIT_LINK_DIRECTORIES@:
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SSPG_SHEAFSYSTEM_LIB_DIR@:@VTK_LIB_DIR@:@SSPG_CXX_IMPLICIT_LINK_DIRECTORIES@:
 else
-   export LD_LIBRARY_PATH=@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SHEAFSYSTEM_LIB_DIR@:@VTK_LIB_DIR@:@SHFSYSTST_CXX_IMPLICIT_LINK_DIRECTORIES@:
+   export LD_LIBRARY_PATH=@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SSPG_SHEAFSYSTEM_LIB_DIR@:@VTK_LIB_DIR@:@SSPG_CXX_IMPLICIT_LINK_DIRECTORIES@:
 fi
 
 echo setting CLASSPATH in this terminal
-export CLASSPATH=.:@SHEAFSYSTEM_LIB_DIR@/SheafScope.jar:@SHEAFSYSTEM_LIB_DIR@/solvers_java_binding.jar:@SHEAFSYSTEM_LIB_DIR@/tools_java_binding.jar:@SHEAFSYSTEM_LIB_DIR@/fields_java_binding.jar:@SHEAFSYSTEM_LIB_DIR@/geometry_java_binding.jar:@SHEAFSYSTEM_LIB_DIR@/fiber_bundles_java_binding.jar:@SHEAFSYSTEM_LIB_DIR@/sheaves_java_binding.jar:@VTK_LIB_DIR@/vtk.jar:@JMF_JAR@ 
+export CLASSPATH=.:@SSPG_SHEAFSYSTEM_LIB_DIR@/SheafScope.jar:@SSPG_SHEAFSYSTEM_LIB_DIR@/solvers_java_binding.jar:@SSPG_SHEAFSYSTEM_LIB_DIR@/tools_java_binding.jar:@SSPG_SHEAFSYSTEM_LIB_DIR@/fields_java_binding.jar:@SSPG_SHEAFSYSTEM_LIB_DIR@/geometry_java_binding.jar:@SSPG_SHEAFSYSTEM_LIB_DIR@/fiber_bundles_java_binding.jar:@SSPG_SHEAFSYSTEM_LIB_DIR@/sheaves_java_binding.jar:@VTK_LIB_DIR@/vtk.jar:@JMF_JAR@ 
 
 echo setting PATH in this terminal.
 export PATH=@JDK_BIN_DIR@:$PATH 

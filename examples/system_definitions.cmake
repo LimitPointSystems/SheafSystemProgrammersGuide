@@ -672,13 +672,22 @@ endfunction(SSPG_status_message)
 #
 function(SSPG_configure_set_env_var_scripts)
 
+   # Preconditions:
+
+   dbc_require_or(SSPG_WINDOWS SSPG_LINUX)
+
    # Set the path to the SheafSytem lib directory; used by set_env_var scripts.
 
-   set(SHEAFSYSTEM_LIB_DIR ${SSPG_SHEAFSYSTEM_ROOT}/${CMAKE_BUILD_TYPE}/lib
-      CACHE STRING "Path to SheafSystem library directory" FORCE)
-   mark_as_advanced(FORCE SHEAFSYSTEM_LIB_DIR)   
+   if(SSPG_LINUX)
 
-   configure_file(${SSPG_CMAKE_MODULE_PATH}/set_env_vars.csh.cmake.in ${CMAKE_BINARY_DIR}/set_env_vars.csh)
-   configure_file(${SSPG_CMAKE_MODULE_PATH}/set_env_vars.sh.cmake.in ${CMAKE_BINARY_DIR}/set_env_vars.sh)
-   
+      set(SSPG_SHEAFSYSTEM_LIB_DIR ${SSPG_SHEAFSYSTEM_ROOT}/${CMAKE_BUILD_TYPE}/lib
+         CACHE STRING "Path to SheafSystem library directory" FORCE)
+      mark_as_advanced(FORCE SSPG_SHEAFSYSTEM_LIB_DIR)   
+
+      configure_file(${SSPG_CMAKE_MODULE_PATH}/set_env_vars.csh.cmake.in ${CMAKE_BINARY_DIR}/set_env_vars.csh)
+      configure_file(${SSPG_CMAKE_MODULE_PATH}/set_env_vars.sh.cmake.in ${CMAKE_BINARY_DIR}/set_env_vars.sh)
+
+   endif()
+      
+
 endfunction(SSPG_configure_set_env_var_scripts)

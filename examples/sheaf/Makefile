@@ -16,7 +16,7 @@
 #
 
 #
-# Path to C++ compiler; set this to whreever your compiler is.
+# Path to C++ compiler; set this to wherever your compiler is.
 #
 CXX = 
 
