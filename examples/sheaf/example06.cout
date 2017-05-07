@@ -1,15 +1,15 @@
-SheafSystemProgrammersGuide Example6:
+SheafSystemProgrammersGuide Example06:
 
 
-#### BEGIN NAMESPACE Example6 ###################
+#### BEGIN NAMESPACE Example06 ###################
 
 
-#### BEGIN POSET Example6 ###################
+#### BEGIN POSET Example06 ###################
 
 GENERAL
 -------
 
-poset: 'Example6' 	host: '<void>' 	index: 2147483647 	version: -2
+poset: 'Example06' 	host: '<void>' 	index: 2147483647 	version: -2
 
 
 ROW GRAPH
@@ -42,9 +42,9 @@ id spaces
  primary:
          1                    __hub_term_0       128         0       128
  secondary:
-         2           member_poset_id_space         3         0         3        true
+         2           member_poset_id_space         3         0         3       false
        128        __explicit_0_lower_cover         0
-       129        __explicit_1_lower_cover         2         2         4       false
+       129        __explicit_1_lower_cover         2         0         2       false
        130        __explicit_2_lower_cover         1         0         1       false
        131        __explicit_3_lower_cover         1         0         1       false
        132        __explicit_4_lower_cover         1         0         1       false
@@ -63,8 +63,8 @@ equivalence classes
 (   0,    1):    (   0,    1)    (   1,    1)    ( 260,    0)    ( 261,    0)
 (   0,    2):    (   0,    2)    (   1,    2)    (   2,    0)    ( 133,    0)    ( 256,    0)
 (   0,    3):    (   0,    3)    (   1,    3)    (   2,    1)    ( 133,    1)    ( 256,    1)
-(   0,    4):    (   0,    4)    (   1,    4)    (   2,    2)    ( 129,    2)    ( 256,    2)
-(   0,    5):    (   0,    5)    (   1,    5)    ( 129,    3)    ( 258,    0)    ( 259,    0)
+(   0,    4):    (   0,    4)    (   1,    4)    (   2,    2)    ( 129,    0)    ( 256,    2)
+(   0,    5):    (   0,    5)    (   1,    5)    ( 129,    1)    ( 258,    0)    ( 259,    0)
 
 
 
@@ -155,7 +155,7 @@ equivalence classes
 
 
 
-#### END POSET Example6 ###################
+#### END POSET Example06 ###################
 
 
 
@@ -164,7 +164,7 @@ equivalence classes
 GENERAL
 -------
 
-poset: 'primitives_schema' 	host: 'Example6' 	index: 2 	version: -2
+poset: 'primitives_schema' 	host: 'Example06' 	index: 2 	version: -2
 
 
 ROW GRAPH
@@ -320,7 +320,7 @@ equivalence classes
 GENERAL
 -------
 
-poset: 'namespace_poset_schema' 	host: 'Example6' 	index: 3 	version: -2
+poset: 'namespace_poset_schema' 	host: 'Example06' 	index: 3 	version: -2
 
 
 ROW GRAPH
@@ -510,7 +510,7 @@ equivalence classes
 GENERAL
 -------
 
-poset: 'primitives' 	host: 'Example6' 	index: 4 	version: -2
+poset: 'primitives' 	host: 'Example06' 	index: 4 	version: -2
 
 
 ROW GRAPH
@@ -755,6 +755,6 @@ equivalence classes
 
 #### END POSET primitives ###################
 
-#### END NAMESPACE Example6 ###################
+#### END NAMESPACE Example06 ###################
 
 

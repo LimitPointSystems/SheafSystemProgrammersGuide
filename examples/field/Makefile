@@ -32,6 +32,8 @@ CXX_FLAGS = -std=c++11 -m64 -Wno-deprecated -Wno-abi
 SHEAF_LIB_DIR = $(SHEAF_INSTALL_DIR)/Debug_contracts/lib
 SHEAF_INC_DIR = $(SHEAF_INSTALL_DIR)/include
 
+bin: example32
+
 example30.hdf: ../fiber_bundle/example30.hdf
 	cp ../fiber_bundle/example30.hdf .
 
@@ -45,5 +47,5 @@ clean:
 clean-cout:
 	rm *.cout
 
-update-cout: example32
+update-cout: bin
 	./example32 > example32.cout
