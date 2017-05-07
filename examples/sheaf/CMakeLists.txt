@@ -25,13 +25,13 @@ set(CLUSTER ${CMAKE_CURRENT_BINARY_DIR})
 # Source for example executables.
 #
 set(EXAMPLE_SRCS
-    example1.cc
-    example2.cc
-    example3.cc
-    example4.cc
-    example5.cc
-    example6.cc
-    example9.cc
+    example01.cc
+    example02.cc
+    example03.cc
+    example04.cc
+    example05.cc
+    example06.cc
+    example09.cc
     example10.cc
     example11.cc
     example12.cc
@@ -42,5 +42,5 @@ set(EXAMPLE_SRCS
     exampleA2.cc
     )
 
-SSPG_collect_example_sources(SheafSystemProgrammersGuide "${EXAMPLE_SRCS}")
+SSPG_collect_example_sources(sheaf "${EXAMPLE_SRCS}")
 

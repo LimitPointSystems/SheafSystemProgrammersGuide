@@ -26,5 +26,5 @@ set(EXAMPLE_SRCS
     example31.cc
     )
 
-SSPG_collect_example_sources(SheafSystemProgrammersGuide "${EXAMPLE_SRCS}")
+SSPG_collect_example_sources(fiber_bundle "${EXAMPLE_SRCS}")
 

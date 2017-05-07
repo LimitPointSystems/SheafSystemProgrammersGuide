@@ -39,7 +39,7 @@ int main( int argc, char* argv[])
   // Populate the namespace from the file we wrote in example9.
   // Retrieves the simple_poset example.
 
-  storage_agent lsa_read("example9.hdf", sheaf_file::READ_ONLY);
+  storage_agent lsa_read("example09.hdf", sheaf_file::READ_ONLY);
   lsa_read.read_entire(lns);
 
   // Get a reference to the poset "simple_poset".

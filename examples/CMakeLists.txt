@@ -91,22 +91,24 @@ include(${SSPG_CMAKE_MODULE_PATH}/component_functions.cmake)
 #
 # Initialize variables
 #
-SSPG_set_component_variables(SheafSystemProgrammersGuide)
+#SSPG_set_component_variables(SheafSystemProgrammersGuide)
 
 #
 # Define the clusters for this component.
 #
-set(clusters sheaf fiber_bundle field)
+#set(clusters sheaf fiber_bundle field)
 
 #
 # Add clusters to the (single component) system
 #
-SSPG_add_clusters("${clusters}")
+#SSPG_add_clusters("${clusters}")
+
+SSPG_add_components()
 
 #
 # Add all the example targets.
 #
-SSPG_add_component_example_targets(SheafSystemProgrammersGuide)
+#SSPG_add_component_example_targets(SheafSystemProgrammersGuide)
 
 #
 # Add all the system level targets.

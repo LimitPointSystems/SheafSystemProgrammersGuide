@@ -117,7 +117,7 @@ function(SSPG_add_component_example_targets xcomponent_name)
 
          # Insert the unit tests into the VS folder "unit_tests"
 
-         set_target_properties(${t_file} PROPERTIES FOLDER "Example Targets")
+         set_target_properties(${t_file} PROPERTIES FOLDER "${${LCOMP_NAME_UC}_FOLDER}")
 
          # Set up the debugger environment for this target.
          # Apparently CMake or Visual Studio automatically appends the build type.

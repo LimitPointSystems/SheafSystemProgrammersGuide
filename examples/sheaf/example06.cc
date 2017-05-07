@@ -15,8 +15,8 @@
 // limitations under the License.
 //
 
-/// @example Example6
-/// SheafSystem Programmer's Guide Example 5. Write a namespace to a stream. 
+/// @example Example06
+/// SheafSystem Programmer's Guide Example 6. Write a namespace to a stream. 
 
 #include "SheafSystem/sheaves_namespace.h"
 #include "SheafSystem/std_iostream.h"
@@ -26,11 +26,11 @@ using namespace std;
 
 int main( int argc, char* argv[])
 {  
-  cout << "SheafSystemProgrammersGuide Example6:" << endl;
+  cout << "SheafSystemProgrammersGuide Example06:" << endl;
 
   // Create a namespace.
 
-  sheaves_namespace lns("Example6");
+  sheaves_namespace lns("Example06");
 
   // Write the namespace to cout.
 

@@ -34,6 +34,20 @@ function(SSPG_set_system_variable_defaults)
    set(ALL_COMP_CHECK_TARGETS CACHE STRING "Aggregate list of all check targets" FORCE)
    mark_as_advanced(FORCE ALL_COMP_CHECK_TARGETS)
 
+   # Prefixes to force projects to appear in desred order in solution explorer
+   
+   set(SHEAF_FOLDER "1. Sheaf Interface Examples" CACHE STRING
+      "Folder name for sheaf interface examples" FORCE)
+   mark_as_advanced(FORCE SHEAF_FOLDER)
+   
+   set(FIBER_BUNDLE_FOLDER "2. Fiber Bundle Interface Examples" CACHE STRING
+      "Folder name for sheaf interface examples" FORCE)
+   mark_as_advanced(FORCE FIBER_BUNDLE_FOLDER)
+   
+   set(FIELD_FOLDER "3. Field Interface Examples" CACHE STRING
+      "Folder name for sheaf interface examples" FORCE)
+   mark_as_advanced(FORCE FIELD_FOLDER)
+
 endfunction(SSPG_set_system_variable_defaults)
 
 
@@ -612,7 +626,9 @@ function(SSPG_add_components)
    set(lcomponents sheaf fiber_bundle field)
 
    foreach(comp ${lcomponents})
+      SSPG_set_component_variables(${comp})
       add_subdirectory(${comp})
+      SSPG_add_component_example_targets(${comp})
    endforeach()
 
 endfunction(SSPG_add_components)

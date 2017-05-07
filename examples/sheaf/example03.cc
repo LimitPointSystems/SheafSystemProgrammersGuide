@@ -15,7 +15,7 @@
 // limitations under the License.
 //
 
-/// @example Example3
+/// @example Example03
 /// SheafSystem Programmer's Guide Example 3. Iterates over the member hub id space. 
 
 #include "SheafSystem/hub_index_space_handle.h"
@@ -28,7 +28,7 @@ using namespace std;
 
 int main( int argc, char* argv[])
 {  
-  cout << "SheafSystemProgrammersGuide Example3:" << endl;
+  cout << "SheafSystemProgrammersGuide Example03:" << endl;
 
   // Create a standard sheaves namespace.
 

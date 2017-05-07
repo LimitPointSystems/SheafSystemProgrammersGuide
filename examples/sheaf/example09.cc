@@ -28,11 +28,11 @@ using namespace std;
 
 int main( int argc, char* argv[])
 {  
-  cout << "SheafSystemProgrammersGuide Example9:" << endl;
+  cout << "SheafSystemProgrammersGuide Example09:" << endl;
 
   // Create a namespace.
 
-  sheaves_namespace lns("Example9");
+  sheaves_namespace lns("Example09");
 
   // Create a path for the poset.
 
@@ -66,7 +66,7 @@ int main( int argc, char* argv[])
 
   // Write the namespace to a sheaf file.
 
-  storage_agent lsa("example9.hdf");
+  storage_agent lsa("example09.hdf");
   lsa.write_entire(lns);
 
   // Delete the poset by path. 

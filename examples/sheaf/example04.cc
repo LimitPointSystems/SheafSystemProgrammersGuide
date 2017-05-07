@@ -15,7 +15,7 @@
 // limitations under the License.
 //
 
-/// @example Example4
+/// @example Example04
 /// SheafSystem Programmer's Guide Example 4. Iterates over the member poset id space. 
 
 #include "SheafSystem/index_space_handle.h"
@@ -28,9 +28,9 @@ using namespace std;
 
 int main( int argc, char* argv[])
 {  
-  cout << "SheafSystemProgrammersGuide Example4:" << endl;
+  cout << "SheafSystemProgrammersGuide Example04:" << endl;
 
-  sheaves_namespace lns("Example4");
+  sheaves_namespace lns("Example04");
   
   // Get a handle for the member poset id space;
   // has one member for each poset in the namespace.

@@ -15,30 +15,25 @@
 // limitations under the License.
 //
 
-/// @example Example5
-/// SheafSystem Programmer's Guide Example 5. Write a namespace to a sheaf file. 
+/// @example Example02: Design By Contract
+/// SheafSystem Programmer's Guide Example 2. Design By Contract 
 
 #include "SheafSystem/sheaves_namespace.h"
-#include "SheafSystem/std_iostream.h"
-#include "SheafSystem/storage_agent.h"
 
 using namespace sheaf;
 using namespace std;
 
 int main( int argc, char* argv[])
-{  
-  cout << "SheafSystemProgrammersGuide Example5:" << endl;
+{
+  cout << "SheafSystemProgrammersGuide Example02:" << endl;
 
-  // Create a namespace.
+  // Attempt to create a standard sheaves namespace
+  // with an empty name. This violates the preconditions
+  // of the constructor and will throw an exception and abort.
 
-  sheaves_namespace lns("Example5");
+  sheaves_namespace lns("");
 
-  // Write the namespace to a sheaf file.
-
-  storage_agent lsa("example5.hdf");
-  lsa.write_entire(lns);
-  
-  // Exit:
+  // Done.
 
   return 0;
 }

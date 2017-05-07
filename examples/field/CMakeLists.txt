@@ -28,5 +28,5 @@ set(EXAMPLE_SRCS
    example32.cc
     )
 
-SSPG_collect_example_sources(SheafSystemProgrammersGuide "${EXAMPLE_SRCS}")
+SSPG_collect_example_sources(field "${EXAMPLE_SRCS}")
 

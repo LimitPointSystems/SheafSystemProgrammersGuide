@@ -15,25 +15,26 @@
 // limitations under the License.
 //
 
-/// @example Example2: Design By Contract
-/// SheafSystem Programmer's Guide Example 2. Design By Contract 
+/// @example Example01: Hello, sheaf
+/// SheafSystem Programmer's Guide Example 1. Creates a sheaf namespace. 
 
 #include "SheafSystem/sheaves_namespace.h"
+#include "SheafSystem/std_iostream.h"
 
 using namespace sheaf;
 using namespace std;
 
 int main( int argc, char* argv[])
-{
-  cout << "SheafSystemProgrammersGuide Example2:" << endl;
+{  
+  // Create a standard sheaves namespace.
 
-  // Attempt to create a standard sheaves namespace
-  // with an empty name. This violates the preconditions
-  // of the constructor and will throw an exception and abort.
+  sheaves_namespace lns("Hello-sheaf");
 
-  sheaves_namespace lns("");
-
-  // Done.
+  // Write its name to cout.
+  
+  cout << lns.name() << endl;
+  
+  // Exit:
 
   return 0;
 }
