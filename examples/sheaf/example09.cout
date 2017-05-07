@@ -1,4 +1,4 @@
-SheafSystemProgrammersGuide Example9:
+SheafSystemProgrammersGuide Example09:
 poset id: 6
 
 
@@ -7,7 +7,7 @@ poset id: 6
 GENERAL
 -------
 
-poset: 'simple_poset' 	host: 'Example9' 	index: 6 	version: -2
+poset: 'simple_poset' 	host: 'Example09' 	index: 6 	version: -2
 
 
 ROW GRAPH

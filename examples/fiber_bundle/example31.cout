@@ -20,7 +20,7 @@ Members and Covering Relation
 index:     0    bottom  dof_map:  2147483647    upper_cover: 133 134 135 136 137		lower_cover:
 index:     1    top     dof_map:  2147483647    upper_cover:			lower_cover: 128
 index:     2    patch0  dof_map:  2147483647    upper_cover: 128			lower_cover: 129 130
-index:     3    patch1  dof_map:  2147483647    upper_cover: 128			lower_cover: 131 132
+index:     3    patch1  dof_map:  2147483647    upper_cover: 128			lower_cover: 132 131
 index:   128    block   dof_map:           0    upper_cover: 1			lower_cover: 2 3
 index:   129            dof_map:           1    upper_cover: 2			lower_cover: 133 134
 index:   130            dof_map:           1    upper_cover: 2			lower_cover: 134 135
@@ -58,11 +58,11 @@ id spaces
         11        __128__vertices_id_space         5         0         5       false
         12            __block_vertices_128         2         0         2       false
         13  __128__block_vertices_id_space         2         0         2       false
-        14      __explicit_128_lower_cover         2         4         6       false
+        14      __explicit_128_lower_cover         2         0         2       false
         15      __explicit_129_upper_cover         1         0         1       false
         16      __explicit_130_upper_cover         1         0         1       false
-        17      __explicit_131_upper_cover         1         0         1       false
-        18      __explicit_132_upper_cover         1         0         1       false
+        17      __explicit_132_upper_cover         1         0         1       false
+        18      __explicit_131_upper_cover         1         0         1       false
        128        __explicit_0_lower_cover         0
        129        __explicit_1_lower_cover         1         0         1       false
        130        __explicit_2_lower_cover         2         0         2       false
@@ -97,13 +97,13 @@ equivalence classes
 
 (   0,    0):    (   0,    0)    (   6,    0)    (   7,    2)    ( 389,    0)    ( 390,    0)    ( 391,    0)    ( 392,    0)    ( 393,    0)
 (   0,    1):    (   0,    1)    (   6,    1)    (   7,    3)    ( 394,    0)
-(   0,    2):    (   0,    2)    (   6,    2)    (  14,    4)    (  15,    0)    (  16,    0)
-(   0,    3):    (   0,    3)    (   6,    3)    (  14,    5)    (  17,    0)    (  18,    0)
+(   0,    2):    (   0,    2)    (   6,    2)    (  14,    0)    (  15,    0)    (  16,    0)
+(   0,    3):    (   0,    3)    (   6,    3)    (  14,    1)    (  17,    0)    (  18,    0)
 (   0,  128):    (   0,  128)    (   1,    0)    (   7,    4)    (   9,    0)    ( 129,    0)    ( 258,    0)    ( 259,    0)    ( 395,    0)    ( 396,    0)    ( 397,    0)    ( 398,    0)
 (   0,  129):    (   0,  129)    (   4,    0)    (   5,    0)    (   9,    1)    (  10,    0)    ( 130,    0)    ( 384,    0)    ( 399,    0)    ( 400,    0)
 (   0,  130):    (   0,  130)    (   4,    1)    (   5,    1)    (   9,    2)    (  10,    1)    ( 130,    1)    ( 384,    1)    ( 400,    1)    ( 401,    0)
-(   0,  131):    (   0,  131)    (   4,    2)    (   5,    2)    (   9,    3)    (  10,    2)    ( 131,    0)    ( 384,    2)    ( 401,    1)    ( 402,    0)
-(   0,  132):    (   0,  132)    (   4,    3)    (   5,    3)    (   9,    4)    (  10,    3)    ( 131,    1)    ( 384,    3)    ( 402,    1)    ( 403,    0)
+(   0,  131):    (   0,  131)    (   4,    2)    (   5,    2)    (   9,    3)    (  10,    2)    ( 131,    1)    ( 384,    2)    ( 401,    1)    ( 402,    0)
+(   0,  132):    (   0,  132)    (   4,    3)    (   5,    3)    (   9,    4)    (  10,    3)    ( 131,    0)    ( 384,    3)    ( 402,    1)    ( 403,    0)
 (   0,  133):    (   0,  133)    (   2,    0)    (   3,    0)    (   5,    4)    (   9,    5)    (  11,    0)    (  12,    0)    (  13,    0)    ( 256,    0)    ( 385,    0)
 (   0,  134):    (   0,  134)    (   3,    1)    (   5,    5)    (   9,    6)    (  11,    1)    ( 256,    1)    ( 385,    1)    ( 386,    0)
 (   0,  135):    (   0,  135)    (   3,    2)    (   5,    6)    (   9,    7)    (  11,    2)    ( 256,    2)    ( 386,    1)    ( 387,    0)

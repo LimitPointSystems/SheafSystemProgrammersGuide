@@ -1,0 +1,10 @@
+SheafSystemProgrammersGuide Example02:
+
+== CONTRACT VIOLATION ==========================================================================
+
+'poset_path::is_valid_name(xname)' in function new_state in file namespace_poset.cc at line 1750
+
+================================================================================================
+
+terminate called after throwing an instance of 'std::logic_error'
+  what():  'poset_path::is_valid_name(xname)' in function new_state in file namespace_poset.cc at line 1750

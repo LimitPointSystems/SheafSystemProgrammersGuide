@@ -1,4 +1,3 @@
-
 #
 # Copyright (c) 2013 Limit Point Systems, Inc. 
 #
@@ -14,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 #
 # Source this script to set needed environment variables
 # for SheafSystem development.
@@ -53,23 +53,25 @@ if ! test -e $revert_file ; then
       else
          echo PYTHONPATH is not set in your environment. No backup will be created.
       fi
+
 fi
 
-	echo setting LD_LIBRARY_PATH in this terminal.
-    if test "x$LD_LIBRARY_PATH" != x ; then
-		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:@GNU_LIBPATH@:@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SHEAVES_LIB_OUTPUT_DIR@:@HDF5_LIBRARY_DIRS@:@VTK_LIB_DIR@:@TETGEN_LIB_DIR@:
-	else
-		export LD_LIBRARY_PATH=@GNU_LIBPATH@:@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SHEAVES_LIB_OUTPUT_DIR@:@HDF5_LIBRARY_DIRS@:@VTK_LIB_DIR@:@TETGEN_LIB_DIR@:
-	fi
-	
-	echo setting CLASSPATH in this terminal
-	export CLASSPATH=.:@SHEAVES_LIB_OUTPUT_DIR@/SheafScope.jar:@SHEAVES_LIB_OUTPUT_DIR@/solvers_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/tools_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/fields_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/geometry_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/fiber_bundles_java_binding.jar:@SHEAVES_LIB_OUTPUT_DIR@/sheaves_java_binding.jar:@VTK_LIB_DIR@/java/vtk.jar:@JMF_LIB_DIR@/jmf.jar 
+echo setting LD_LIBRARY_PATH in this terminal.
 
-	echo setting PATH in this terminal.
-	export PATH=@JDK_BIN_DIR@:$PATH 
+if test "x$LD_LIBRARY_PATH" != x ; then
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SSPG_SHEAFSYSTEM_LIB_DIR@:@VTK_LIB_DIR@:@SSPG_CXX_IMPLICIT_LINK_DIRECTORIES@:
+else
+   export LD_LIBRARY_PATH=@CMAKE_BINARY_DIR@/${CMAKE_BUILD_TYPE}/lib:@SSPG_SHEAFSYSTEM_LIB_DIR@:@VTK_LIB_DIR@:@SSPG_CXX_IMPLICIT_LINK_DIRECTORIES@:
+fi
 
-	echo setting PYTHONPATH in this terminal
-	export PYTHONPATH=.:@CMAKE_BINARY_DIR@/lib
-	
-	echo setting PROF_DIR in this terminal.
-	export PROF_DIR=@COVERAGE_DIR@
+echo setting CLASSPATH in this terminal
+export CLASSPATH=.:@SSPG_SHEAFSYSTEM_LIB_DIR@/SheafScope.jar:@SSPG_SHEAFSYSTEM_LIB_DIR@/solvers_java_binding.jar:@SSPG_SHEAFSYSTEM_LIB_DIR@/tools_java_binding.jar:@SSPG_SHEAFSYSTEM_LIB_DIR@/fields_java_binding.jar:@SSPG_SHEAFSYSTEM_LIB_DIR@/geometry_java_binding.jar:@SSPG_SHEAFSYSTEM_LIB_DIR@/fiber_bundles_java_binding.jar:@SSPG_SHEAFSYSTEM_LIB_DIR@/sheaves_java_binding.jar:@VTK_LIB_DIR@/vtk.jar:@JMF_JAR@ 
+
+echo setting PATH in this terminal.
+export PATH=@JDK_BIN_DIR@:$PATH 
+
+echo setting PYTHONPATH in this terminal
+export PYTHONPATH=.:@CMAKE_BINARY_DIR@/lib
+
+echo setting PROF_DIR in this terminal.
+export PROF_DIR=@COVERAGE_DIR@

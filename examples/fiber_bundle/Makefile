@@ -33,6 +33,9 @@ CXX_FLAGS = -std=c++11 -m64 -Wno-deprecated -Wno-abi
 SHEAF_LIB_DIR = $(SHEAF_INSTALL_DIR)/Debug_contracts/lib
 SHEAF_INC_DIR = $(SHEAF_INSTALL_DIR)/include
 
+bin: example21 example22 example23 example24 example25 example26 \
+             example28 example29 example30 example31 
+
 example21: example21.cc
 	$(CXX) $(CXX_FLAGS) -g -o example21 -I$(SHEAF_INC_DIR) -L$(SHEAF_LIB_DIR) example21.cc -lfiber_bundles_debug -lsheaves_debug	
 
@@ -78,8 +81,7 @@ clean:
 clean-cout:
 	rm *.cout
 
-update-cout: example21 example22 example23 example24 example25 example26 \
-             example28 example29 example30 example31 
+update-cout: bin
 
 	./example21 > example21.cout
 	./example22 > example22.cout

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_contracts|x64'">
+    <!-- Trial and error shows: 
+         1) PATH must follow on the same line as <LocalDebuggerEnvironment>
+         2) appending "%PATH% is unnecessary.
+    -->
+    <LocalDebuggerEnvironment>PATH=@SSPG_DEBUGGER_PATH1@\Debug_contracts;@SSPG_DEBUGGER_PATH2@\Debug_contracts;</LocalDebuggerEnvironment>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo_no_contracts|x64'">
+    <!-- Trial and error shows: 
+         1) PATH must follow on the same line as <LocalDebuggerEnvironment>
+         2) appending "%PATH% is unnecessary.
+    -->
+    <LocalDebuggerEnvironment>PATH=@SSPG_DEBUGGER_PATH1@\RelWithDebInfo_no_contracts;@SSPG_DEBUGGER_PATH2@\RelWithDebInfo_no_contracts;</LocalDebuggerEnvironment>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+</Project>

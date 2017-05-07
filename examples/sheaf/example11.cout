@@ -14,7 +14,7 @@ v0 dim= 0 v1 dim= 0 s0 dim= 1
 GENERAL
 -------
 
-poset: 'simple_poset' 	host: 'Example9' 	index: 6 	version: -2
+poset: 'simple_poset' 	host: 'Example09' 	index: 6 	version: -2
 
 
 ROW GRAPH
@@ -48,7 +48,7 @@ id spaces
  primary:
          1                    __hub_term_0       128         0       128
  secondary:
-         2                  __example9.hdf         2         2         4       false
+         2                 __example09.hdf         2         2         4       false
        128        __explicit_0_lower_cover         0
        129        __explicit_1_lower_cover         1         0         1       false
        130        __explicit_2_lower_cover         1         0         1       false
@@ -104,7 +104,7 @@ id spaces
  primary:
          1                    __hub_term_0       128         0       128
  secondary:
-         2                  __example9.hdf         3         0         3       false
+         2                 __example09.hdf         3         0         3       false
 
 equivalence classes
 -------------------
@@ -155,7 +155,7 @@ id spaces
  primary:
          2                    __hub_term_0       128         0       128
  secondary:
-         1                  __example9.hdf         0
+         1                 __example09.hdf         0
 
 equivalence classes
 -------------------

@@ -6,5 +6,12 @@ ExampleA1A
 access request depth 2
 access request depth 1
 access request depth 0
+
+== CONTRACT VIOLATION ===============================================================
+
+'state_is_read_accessible()' in function name in file namespace_poset.cc at line 1934
+
+=====================================================================================
+
 terminate called after throwing an instance of 'std::logic_error'
-  what():  'state_is_read_accessible()' in file namespace_poset.cc at line 2106
+  what():  'state_is_read_accessible()' in function name in file namespace_poset.cc at line 1934
